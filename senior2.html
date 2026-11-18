@@ -1,0 +1,3426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>高二化学 · 动画精讲</title>
+<style>
+﻿*{box-sizing:border-box}
+:root{
+  --ink:#22314a; --muted:#7c8aa3; --line:#e8e2d6; --paper:#f5f1e8;
+  --teal:#0e8a7b; --teal-dark:#0a6b60; --card:#ffffff;
+  --shadow:0 18px 50px rgba(60,50,30,.08);
+}
+html,body{margin:0}
+body{
+  background:
+    radial-gradient(900px 420px at 50% -160px,#fffaf0 0%,rgba(255,250,240,0) 65%),
+    var(--paper);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit}
+.app{max-width:920px;margin:0 auto;padding:20px 14px 40px}
+.hidden{display:none!important}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+.kicker{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.7px;color:var(--teal);
+  background:#e8f7f3;border-radius:999px;padding:5px 10px}
+.pill{font-size:10px;font-weight:800;color:var(--teal);background:#e8f7f3;border-radius:999px;padding:7px 11px;white-space:nowrap}
+h1{font-size:23px;font-weight:900;letter-spacing:-.4px;margin:10px 0 6px;line-height:1.32}
+.sub{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* ===== 首页 ===== */
+.hero{background:linear-gradient(155deg,#ffffff 0%,#f7fbfa 60%,#f3f7fb 100%);border-radius:26px}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.stats div{background:#f8fafc;border:1px solid #e8eef5;border-radius:14px;padding:10px 8px;text-align:center}
+.stats b{display:block;font-size:20px;font-weight:900;color:var(--teal-dark)}
+.stats span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.units{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.unit{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(60,50,30,.04)}
+.unit-head{width:100%;display:flex;align-items:center;gap:10px;padding:14px 16px;background:none;border:0;cursor:pointer;text-align:left}
+.unit-title{font-weight:800;font-size:14px;flex:1}
+.unit-meta{font-size:10px;color:var(--muted);white-space:nowrap}
+.chev{color:var(--muted);font-size:14px;transition:transform .2s}
+.unit.closed .chev{transform:rotate(-90deg)}
+.unit.closed .unit-body{display:none}
+.point-row{width:100%;display:flex;align-items:center;gap:12px;padding:12px 16px;border:0;border-top:1px solid #f1f4f9;background:#fff;cursor:pointer;text-align:left}
+.point-row:hover{background:#f8fbfa}
+.pnum{width:30px;height:30px;flex:none;border-radius:10px;background:#f1f5f9;color:#64748b;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.point-row.done .pnum{background:#e7f7f2;color:var(--teal-dark)}
+.pinfo{flex:1;min-width:0}
+.pinfo b{display:block;font-size:13.5px;font-weight:800;line-height:1.4}
+.pinfo em{display:block;font-style:normal;font-size:10.5px;color:var(--muted);margin-top:3px}
+.badge{flex:none;font-size:10px;font-weight:800;color:#64748b;background:#f1f5f9;border-radius:999px;padding:5px 9px}
+.badge.done{color:var(--teal-dark);background:#e7f7f2}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;padding:0 4px}
+.foot span{font-size:10px;color:var(--muted)}
+#reset{border:1px solid #e5e7ef;background:#fff;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700;color:#64748b;cursor:pointer}
+#downloadAll{border:1px solid #c9ece4;background:#e7f7f2;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:800;color:var(--teal-dark);cursor:pointer}
+#downloadAll:disabled{opacity:.65;cursor:default}
+
+/* ===== 课程页 ===== */
+.lesson-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 10px}
+.top-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.portal{font-size:10.5px;font-weight:800;color:var(--teal-dark);text-decoration:none;background:#f8fafc;border:1px solid #e5e7ef;border-radius:999px;padding:7px 11px;white-space:nowrap}
+.portal:hover{background:#e7f7f2;border-color:#c9ece4}
+#back{border:1px solid #e5e7ef;background:#fff;border-radius:999px;padding:8px 14px;font-size:11.5px;font-weight:800;color:#475569;cursor:pointer}
+.crumb{font-size:10.5px;color:var(--muted);text-align:right;line-height:1.4}
+.lesson .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.lesson .sub{margin-top:2px}
+#learnedTag.learned{background:#e7f7f2;color:var(--teal-dark)}
+.steps{display:flex;gap:7px;overflow:auto;padding:2px 1px 12px;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.step{border:1px solid #e5e7ef;background:#f8f9fc;color:#6b7488;font-size:10.5px;font-weight:800;padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:.16s}
+.step.on{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 8px 18px -10px rgba(14,138,123,.9)}
+.stage-wrap{border-radius:20px;overflow:hidden;border:1px solid #dce9f5;background:#f5faff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);position:relative}
+.scene{display:none}
+.scene.on{display:block;animation:sceneIn .4s ease}
+.scene svg{display:block;width:100%;height:auto}
+.scene text{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+@keyframes sceneIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.caption{background:#f7f9fc;border:1px solid #e6edf6;border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.75;color:#3a4a63;margin:12px 0 10px;min-height:52px;display:block}
+.caption b{color:var(--teal-dark)}
+.equation{display:none;background:#eefaf7;border:1px solid #c9ece4;border-radius:13px;padding:9px 12px;font-size:12.5px;line-height:1.7;color:var(--teal-dark);font-weight:700;margin-bottom:10px;text-align:center}
+.equation.show{display:block}
+.equation span{display:block;font-size:10px;font-weight:600;color:#6b8f89;margin-top:2px}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.readout{background:#fbfcfe;border:1px solid #e8edf5;border-radius:12px;padding:9px 8px;text-align:center}
+.readout span{display:block;font-size:9px;color:var(--muted);letter-spacing:.4px}
+.readout b{display:block;font-size:14px;font-weight:900;margin-top:3px;color:#25324a;line-height:1.35}
+.controls{display:flex;gap:8px}
+.play{flex:1;border:0;border-radius:14px;padding:12px;font-size:14px;font-weight:900;color:#fff;background:linear-gradient(135deg,#18a892,#0e8a7b);box-shadow:0 12px 26px -12px rgba(14,138,123,.9);cursor:pointer}
+.play:active{transform:scale(.985)}
+.play:disabled{opacity:.7;cursor:default}
+.sound{border:1px solid #e5e7ef;background:#fff;color:#5d6679;font-size:10.5px;font-weight:800;padding:0 13px;border-radius:14px;cursor:pointer}
+.pause{border:1px solid #d7e2f2;background:#f8fafc;color:#475569;font-size:10.5px;font-weight:800;padding:0 12px;border-radius:14px;cursor:pointer}
+.pause:active{transform:scale(.98)}
+button[hidden]{display:none!important}
+.audio-progress{height:4px;background:#e8eef5;border-radius:999px;margin-top:10px;overflow:hidden}
+.audio-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#18a892,#0e8a7b);border-radius:999px}
+.note{font-size:10px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6}
+.stage-hint{display:none;font-size:10px;color:var(--muted);text-align:center;margin:6px 0 -4px}
+
+/* ===== 题目 ===== */
+.q-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:24px 4px 10px}
+.q-head h2{font-size:16px;margin:0;font-weight:900}
+#qProgress{font-size:11px;color:var(--muted);font-weight:700}
+#questions{display:flex;flex-direction:column;gap:12px}
+.q{padding:16px}
+.q-top{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:8px}
+.q-idx{font-size:11px;font-weight:900;color:var(--teal-dark);letter-spacing:.5px}
+.angle{font-size:10px;font-weight:800;color:#7c3aed;background:#f3e8ff;border-radius:999px;padding:4px 8px}
+.source{font-size:10px;color:var(--muted);background:#f8fafc;border:1px solid #eef2f7;border-radius:999px;padding:4px 8px}
+.stem{font-size:14px;line-height:1.7;margin:6px 0 12px;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;padding:10px 12px;border:1px solid #e3e9f2;background:#fbfcfe;border-radius:12px;cursor:pointer;line-height:1.55;font-size:13px;transition:.16s}
+.opt:hover{border-color:#b9d8d2;background:#f6fbfa}
+.opt .letter{width:21px;height:21px;border-radius:50%;background:#eef2f7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex:none;margin-top:1px;color:#64748b}
+.opt.correct{border-color:#86efac;background:#f0fdf4}
+.opt.correct .letter{background:#16a34a;color:#fff}
+.opt.wrong{border-color:#fca5a5;background:#fef2f2}
+.opt.wrong .letter{background:#dc2626;color:#fff}
+.opt:disabled{cursor:default;opacity:1}
+.q-feedback{margin-top:12px;border-top:1px dashed #e5e7ef;padding-top:11px;animation:sceneIn .3s ease}
+.verdict{font-size:13px;font-weight:900;margin-bottom:8px}
+.verdict.ok{color:#0f766e}
+.verdict.no{color:#b91c1c}
+.notes p{font-size:12.5px;line-height:1.65;margin:4px 0;color:#5b6b82;padding-left:9px;border-left:3px solid #e5e7ef}
+.notes p.ok{color:#0f766e;border-color:#86efac;font-weight:700}
+.explain{background:#f7f9fc;border:1px solid #eef2f7;border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.7;color:#3a4a63;margin-top:9px}
+.explain b{color:var(--teal-dark)}
+.q-actions{margin-top:9px}
+.speak{border:1px solid #d7e2f2;background:#fff;border-radius:999px;padding:7px 13px;font-size:11.5px;font-weight:800;color:#3a4a63;cursor:pointer}
+.speak:hover{border-color:#b9d8d2;color:var(--teal-dark)}
+.lesson-nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.lesson-nav button{border:1px solid #e5e7ef;background:#fff;border-radius:999px;padding:10px 16px;font-size:11.5px;font-weight:800;color:#475569;cursor:pointer}
+.error-bar{position:fixed;left:10px;right:10px;bottom:10px;background:#fef2f2;border:1px solid #fca5a5;color:#b91c1c;border-radius:12px;padding:8px 12px;font-size:11px;z-index:99;display:none}
+.error-bar.show{display:block}
+
+/* ===== 通用动画 ===== */
+@keyframes flicker{0%,100%{transform:scaleY(1) translateY(0);opacity:.95}50%{transform:scaleY(1.06) translateY(-1px);opacity:1}}
+@keyframes bubbleRise{0%{transform:translateY(6px) scale(.7);opacity:0}20%{opacity:1}100%{transform:translateY(-54px) scale(1.05);opacity:0}}
+@keyframes smokeUp{0%{transform:translateY(10px) scale(.7);opacity:0}25%{opacity:.9}100%{transform:translateY(-46px) scale(1.25);opacity:0}}
+@keyframes dashFlow{to{stroke-dashoffset:-60}}
+@keyframes popIn{0%{transform:scale(.7);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.14);opacity:.55}}
+@keyframes sparkFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(14px,-18px) scale(.3);opacity:0}}
+@keyframes gasGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes j11drip{0%{transform:translateY(-8px);opacity:0}20%{opacity:1}100%{transform:translateY(24px);opacity:0}}
+@keyframes j19settle{0%{transform:translateY(-18px);opacity:0}60%{opacity:1}100%{transform:translateY(34px);opacity:1}}
+
+/* ===== j1-1 变化与性质 ===== */
+[data-scene="j1-1"] .j11-waxLiquid{opacity:0;transition:opacity .9s ease}
+[data-scene="j1-1"] .j11-waxSolid{opacity:1;transition:opacity .8s ease}
+[data-scene="j1-1"] .j11-lampFlame{opacity:0;transition:opacity .45s}
+[data-scene="j1-1"] .j11-candleFlame{opacity:0;transition:opacity .45s}
+[data-scene="j1-1"] .j11-drop{opacity:0;transition:opacity .4s}
+[data-scene="j1-1"] .j11-lime,[data-scene="j1-1"] .j11-limeTop{transition:fill 1.2s ease}
+[data-scene="j1-1"] .j11-limeMilk{opacity:0;transition:opacity .8s}
+[data-scene="j1-1"] .j11-tagPhys,[data-scene="j1-1"] .j11-tagChem{opacity:0;transition:opacity .4s}
+[data-scene="j1-1"] .j11-summary{opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s}
+[data-scene="j1-1"].s1 .j11-lampFlame{opacity:1;animation:flicker 1.3s ease-in-out infinite}
+[data-scene="j1-1"].s1 .j11-waxSolid,[data-scene="j1-1"].s2 .j11-waxSolid,[data-scene="j1-1"].s3 .j11-waxSolid{opacity:0}
+[data-scene="j1-1"].s1 .j11-waxLiquid,[data-scene="j1-1"].s2 .j11-waxLiquid,[data-scene="j1-1"].s3 .j11-waxLiquid{opacity:1}
+[data-scene="j1-1"].s1 .j11-tagPhys{opacity:1}
+[data-scene="j1-1"].s2 .j11-candleFlame,[data-scene="j1-1"].s3 .j11-candleFlame{opacity:1;animation:flicker 1.1s ease-in-out infinite}
+[data-scene="j1-1"].s2 .j11-drop,[data-scene="j1-1"].s3 .j11-drop{opacity:1}
+[data-scene="j1-1"].s2 .j11-drop ellipse,[data-scene="j1-1"].s3 .j11-drop ellipse{animation:j11drip 2.1s ease-in infinite}
+[data-scene="j1-1"].s2 .j11-drop ellipse:nth-child(2),[data-scene="j1-1"].s3 .j11-drop ellipse:nth-child(2){animation-delay:.5s}
+[data-scene="j1-1"].s2 .j11-drop ellipse:nth-child(3),[data-scene="j1-1"].s3 .j11-drop ellipse:nth-child(3){animation-delay:1s}
+[data-scene="j1-1"].s2 .j11-drop ellipse:nth-child(4),[data-scene="j1-1"].s3 .j11-drop ellipse:nth-child(4){animation-delay:1.5s}
+[data-scene="j1-1"].s2 .j11-lime,[data-scene="j1-1"].s3 .j11-lime{fill:#eef2f6}
+[data-scene="j1-1"].s2 .j11-limeTop,[data-scene="j1-1"].s3 .j11-limeTop{fill:#e2e8f0}
+[data-scene="j1-1"].s2 .j11-limeMilk,[data-scene="j1-1"].s3 .j11-limeMilk{opacity:1}
+[data-scene="j1-1"].s2 .j11-tagChem{opacity:1}
+[data-scene="j1-1"].s2 .j11-gas{animation:dashFlow 1.6s linear infinite}
+[data-scene="j1-1"].s3 .j11-summary{opacity:1;transform:none}
+[data-scene="j1-1"].s3 .j11-candleFlame{opacity:.25;animation:none}
+[data-scene="j1-1"].s3 .j11-lampFlame{opacity:0}
+
+/* ===== j1-2 基本操作 ===== */
+[data-scene="j1-2"] .j12-glow{opacity:0;transition:opacity .4s}
+[data-scene="j1-2"] .j12-st1,[data-scene="j1-2"] .j12-st2,[data-scene="j1-2"] .j12-st3{transition:opacity .45s}
+[data-scene="j1-2"].s1 .j12-st2,[data-scene="j1-2"].s1 .j12-st3{opacity:.5}
+[data-scene="j1-2"].s2 .j12-st1,[data-scene="j1-2"].s2 .j12-st3{opacity:.5}
+[data-scene="j1-2"].s3 .j12-st1,[data-scene="j1-2"].s3 .j12-st2{opacity:.5}
+[data-scene="j1-2"].s1 .j12-st1 .j12-glow,[data-scene="j1-2"].s2 .j12-st2 .j12-glow,[data-scene="j1-2"].s3 .j12-st3 .j12-glow{opacity:1}
+[data-scene="j1-2"] .j12-flame{opacity:0;transition:opacity .4s}
+[data-scene="j1-2"] .j12-steam{opacity:0;transition:opacity .5s}
+[data-scene="j1-2"] .j12-fallingPowder{opacity:0}
+[data-scene="j1-2"] .j12-drop{opacity:0}
+[data-scene="j1-2"] .j12-zoom{opacity:0;transform:scale(.82);transform-box:fill-box;transform-origin:center;transition:opacity .4s,transform .4s}
+[data-scene="j1-2"].s1 .j12-fallingPowder{opacity:1;animation:j11drip 1.8s ease-in infinite}
+[data-scene="j1-2"].s1 .j12-drop{opacity:1;animation:j11drip 1.6s ease-in infinite}
+[data-scene="j1-2"].s2 .j12-flame{opacity:1;animation:flicker 1.2s ease-in-out infinite}
+[data-scene="j1-2"].s2 .j12-steam{opacity:1}
+[data-scene="j1-2"].s3 .j12-zoom{opacity:1;transform:none}
+[data-scene="j1-2"].s1 .j12-st1{opacity:1}
+[data-scene="j1-2"].s2 .j12-st2{opacity:1}
+[data-scene="j1-2"].s3 .j12-st3{opacity:1}
+
+/* ===== j1-3 空气 ===== */
+[data-scene="j1-3"] .j13-smoke{opacity:0}
+[data-scene="j1-3"] .j13-flame{opacity:0;transition:opacity .4s}
+[data-scene="j1-3"] .j13-water{opacity:0;transform:scaleY(.04);transform-box:fill-box;transform-origin:bottom;transition:transform 1.5s cubic-bezier(.2,.8,.2,1),opacity .4s}
+[data-scene="j1-3"] .j13-waterTop{opacity:0;transition:opacity .6s}
+[data-scene="j1-3"] .j13-fifth{opacity:0;transition:opacity .5s}
+[data-scene="j1-3"] .j13-beakerWater{transition:transform 1.4s ease;transform-box:fill-box;transform-origin:bottom}
+[data-scene="j1-3"] .j13-panel{opacity:1}
+[data-scene="j1-3"] .j13-placeholder{opacity:1;transition:opacity .4s}
+[data-scene="j1-3"].s3 .j13-placeholder{opacity:0}
+[data-scene="j1-3"] .j13-donut{opacity:0;transform:scale(.9);transform-box:fill-box;transform-origin:center;transition:opacity .5s,transform .5s}
+[data-scene="j1-3"] .j13-leg,[data-scene="j1-3"] .j13-stamp{opacity:0;transition:opacity .45s}
+[data-scene="j1-3"] .j13-clamp rect:nth-child(2){transition:transform .5s;transform-box:fill-box;transform-origin:right center}
+[data-scene="j1-3"].s1 .j13-flame{opacity:1;animation:flicker 1.1s ease-in-out infinite}
+[data-scene="j1-3"].s1 .j13-smoke{opacity:1}
+[data-scene="j1-3"].s1 .j13-smoke circle{animation:smokeUp 2.4s ease-out infinite}
+[data-scene="j1-3"].s1 .j13-smoke circle:nth-child(2){animation-delay:.5s}
+[data-scene="j1-3"].s1 .j13-smoke circle:nth-child(3){animation-delay:1s}
+[data-scene="j1-3"].s1 .j13-smoke circle:nth-child(4){animation-delay:1.5s}
+[data-scene="j1-3"].s2 .j13-water,[data-scene="j1-3"].s3 .j13-water{opacity:.85;transform:scaleY(1)}
+[data-scene="j1-3"].s2 .j13-waterTop,[data-scene="j1-3"].s3 .j13-waterTop{opacity:1}
+[data-scene="j1-3"].s2 .j13-fifth,[data-scene="j1-3"].s3 .j13-fifth{opacity:1}
+[data-scene="j1-3"].s2 .j13-beakerWater,[data-scene="j1-3"].s3 .j13-beakerWater{transform:scaleY(.9)}
+[data-scene="j1-3"].s2 .j13-clamp rect:nth-child(2),[data-scene="j1-3"].s3 .j13-clamp rect:nth-child(2){transform:rotate(-22deg)}
+[data-scene="j1-3"].s3 .j13-donut{opacity:1;transform:none}
+[data-scene="j1-3"].s3 .j13-leg{opacity:1}
+[data-scene="j1-3"].s3 .j13-leg:nth-child(5){transition-delay:.12s}
+[data-scene="j1-3"].s3 .j13-leg:nth-child(6){transition-delay:.24s}
+[data-scene="j1-3"].s3 .j13-leg:nth-child(7){transition-delay:.36s}
+[data-scene="j1-3"].s3 .j13-leg:nth-child(8){transition-delay:.48s}
+[data-scene="j1-3"].s3 .j13-leg:nth-child(9){transition-delay:.6s}
+[data-scene="j1-3"].s3 .j13-stamp{opacity:1;transition-delay:.55s}
+
+/* ===== j1-4 氧气 ===== */
+[data-scene="j1-4"] .j14-b1,[data-scene="j1-4"] .j14-b2,[data-scene="j1-4"] .j14-b3{transition:opacity .5s,transform .5s;transform-box:fill-box;transform-origin:center}
+[data-scene="j1-4"] .j14-glow{opacity:0;transition:opacity .4s}
+[data-scene="j1-4"] .j14-splint,[data-scene="j1-4"] .j14-sulfurFlame,[data-scene="j1-4"] .j14-sparks{opacity:0}
+[data-scene="j1-4"] .j14-lab1,[data-scene="j1-4"] .j14-lab2,[data-scene="j1-4"] .j14-lab3{opacity:0;transition:opacity .4s}
+[data-scene="j1-4"].s1 .j14-lab1,[data-scene="j1-4"].s2 .j14-lab2,[data-scene="j1-4"].s3 .j14-lab3{opacity:1}
+[data-scene="j1-4"] .j14-black{opacity:.3;transition:opacity .6s}
+[data-scene="j1-4"].s1 .j14-b2,[data-scene="j1-4"].s1 .j14-b3{opacity:.5}
+[data-scene="j1-4"].s2 .j14-b1,[data-scene="j1-4"].s2 .j14-b3{opacity:.5}
+[data-scene="j1-4"].s3 .j14-b1,[data-scene="j1-4"].s3 .j14-b2{opacity:.5}
+[data-scene="j1-4"].s1 .j14-b1 .j14-glow,[data-scene="j1-4"].s2 .j14-b2 .j14-glow,[data-scene="j1-4"].s3 .j14-b3 .j14-glow{opacity:1}
+[data-scene="j1-4"].s1 .j14-b1,[data-scene="j1-4"].s2 .j14-b2,[data-scene="j1-4"].s3 .j14-b3{transform:translateY(-3px)}
+[data-scene="j1-4"].s1 .j14-splint{opacity:1;animation:flicker 1s ease-in-out infinite}
+[data-scene="j1-4"].s2 .j14-sulfurFlame{opacity:1;animation:flicker 1.15s ease-in-out infinite}
+[data-scene="j1-4"].s3 .j14-sparks{opacity:1}
+[data-scene="j1-4"].s3 .j14-sparks circle{animation:sparkFly 1.3s ease-out infinite}
+[data-scene="j1-4"].s3 .j14-sparks circle:nth-child(2){animation-delay:.2s}
+[data-scene="j1-4"].s3 .j14-sparks circle:nth-child(3){animation-delay:.45s}
+[data-scene="j1-4"].s3 .j14-sparks circle:nth-child(4){animation-delay:.65s}
+[data-scene="j1-4"].s3 .j14-sparks circle:nth-child(5){animation-delay:.85s}
+[data-scene="j1-4"].s3 .j14-sparks circle:nth-child(6){animation-delay:1.05s}
+[data-scene="j1-4"].s3 .j14-black{opacity:1}
+
+/* ===== j1-5 制取氧气 ===== */
+[data-scene="j1-5"] .j15-hands,[data-scene="j1-5"] .j15-chip,[data-scene="j1-5"] .j15-upright{opacity:0;transition:opacity .4s}
+[data-scene="j1-5"] .j15-flame{opacity:0;transition:opacity .4s}
+[data-scene="j1-5"] .j15-bubbles{opacity:0}
+[data-scene="j1-5"] .j15-leakBubbles{opacity:0}
+[data-scene="j1-5"] .j15-gas,[data-scene="j1-5"] .j15-waterLine,[data-scene="j1-5"] .j15-bubbleStatic{opacity:0;transition:opacity .5s}
+[data-scene="j1-5"] .j15-bottleWater{transition:transform 2.2s cubic-bezier(.2,.8,.2,1);transform-box:fill-box;transform-origin:bottom}
+[data-scene="j1-5"] .j15-bottleTop{transition:transform 2.2s cubic-bezier(.2,.8,.2,1)}
+[data-scene="j1-5"] .j15-o2{opacity:0;transition:opacity .6s}
+[data-scene="j1-5"].s1 .j15-hands,[data-scene="j1-5"].s1 .j15-chip1{opacity:1}
+[data-scene="j1-5"].s1 .j15-leakBubbles{opacity:1}
+[data-scene="j1-5"].s1 .j15-leakBubbles circle{animation:bubbleRise 1.5s ease-out infinite}
+[data-scene="j1-5"].s1 .j15-leakBubbles circle:nth-child(2){animation-delay:.4s}
+[data-scene="j1-5"].s1 .j15-leakBubbles circle:nth-child(3){animation-delay:.8s}
+[data-scene="j1-5"].s2 .j15-flame{opacity:1;animation:flicker 1.2s ease-in-out infinite}
+[data-scene="j1-5"].s2 .j15-chip2{opacity:1}
+[data-scene="j1-5"].s2 .j15-bubbles,[data-scene="j1-5"].s3 .j15-bubbles{opacity:1}
+[data-scene="j1-5"].s2 .j15-bubbles circle,[data-scene="j1-5"].s3 .j15-bubbles circle{animation:bubbleRise 2s ease-out infinite}
+[data-scene="j1-5"].s2 .j15-bubbles circle:nth-child(2),[data-scene="j1-5"].s3 .j15-bubbles circle:nth-child(2){animation-delay:.3s}
+[data-scene="j1-5"].s2 .j15-bubbles circle:nth-child(3),[data-scene="j1-5"].s3 .j15-bubbles circle:nth-child(3){animation-delay:.6s}
+[data-scene="j1-5"].s2 .j15-bubbles circle:nth-child(4),[data-scene="j1-5"].s3 .j15-bubbles circle:nth-child(4){animation-delay:.9s}
+[data-scene="j1-5"].s2 .j15-bubbles circle:nth-child(5),[data-scene="j1-5"].s3 .j15-bubbles circle:nth-child(5){animation-delay:1.2s}
+[data-scene="j1-5"].s2 .j15-bubbles circle:nth-child(6),[data-scene="j1-5"].s3 .j15-bubbles circle:nth-child(6){animation-delay:1.5s}
+[data-scene="j1-5"].s2 .j15-bottleWater,[data-scene="j1-5"].s3 .j15-bottleWater{transform:scaleY(.38)}
+[data-scene="j1-5"].s2 .j15-bottleTop,[data-scene="j1-5"].s3 .j15-bottleTop{transform:translateY(92px)}
+[data-scene="j1-5"].s2 .j15-o2,[data-scene="j1-5"].s3 .j15-o2{opacity:1}
+[data-scene="j1-5"].s2 .j15-gas,[data-scene="j1-5"].s2 .j15-waterLine,[data-scene="j1-5"].s2 .j15-bubbleStatic,
+[data-scene="j1-5"].s3 .j15-gas,[data-scene="j1-5"].s3 .j15-waterLine,[data-scene="j1-5"].s3 .j15-bubbleStatic{opacity:1}
+[data-scene="j1-5"].s3 .j15-chip3{opacity:1}
+[data-scene="j1-5"].s3 .j15-upright{opacity:1}
+
+/* ===== j1-6 分子和原子 ===== */
+[data-scene="j1-6"] .j16-z1,[data-scene="j1-6"] .j16-z2,[data-scene="j1-6"] .j16-z3{transition:opacity .45s}
+[data-scene="j1-6"] .j16-glow{opacity:0;transition:opacity .4s}
+[data-scene="j1-6"] .j16-water{transition:fill 1.6s ease}
+[data-scene="j1-6"] .j16-bloom{opacity:0;transform-box:fill-box;transform-origin:center}
+[data-scene="j1-6"] .j16-pinkDrop{opacity:0}
+[data-scene="j1-6"] .j16-note1,[data-scene="j1-6"] .j16-note2,[data-scene="j1-6"] .j16-note3{opacity:0;transition:opacity .5s}
+[data-scene="j1-6"] .j16-cotton{transition:fill 1s ease}
+[data-scene="j1-6"] .j16-nh3{opacity:0}
+[data-scene="j1-6"] .j16-mix{opacity:.25;transition:opacity .5s}
+[data-scene="j1-6"].s1 .j16-z2,[data-scene="j1-6"].s1 .j16-z3{opacity:.5}
+[data-scene="j1-6"].s2 .j16-z1,[data-scene="j1-6"].s2 .j16-z3{opacity:.5}
+[data-scene="j1-6"].s3 .j16-z1,[data-scene="j1-6"].s3 .j16-z2{opacity:.5}
+[data-scene="j1-6"].s1 .j16-z1 .j16-glow,[data-scene="j1-6"].s2 .j16-z2 .j16-glow,[data-scene="j1-6"].s3 .j16-z3 .j16-glow{opacity:1}
+[data-scene="j1-6"].s1 .j16-water{fill:#fbcfe8}
+[data-scene="j1-6"].s1 .j16-pinkDrop{opacity:1;animation:j11drip 1.8s ease-in infinite}
+[data-scene="j1-6"].s1 .j16-bloom{opacity:.8;animation:j16bloom 2.6s ease-out infinite}
+[data-scene="j1-6"].s1 .j16-bloom2{animation-delay:.8s}
+[data-scene="j1-6"].s1 .j16-note1{opacity:1;transition-delay:.8s}
+[data-scene="j1-6"].s2 .j16-cotton{fill:#f472b6}
+[data-scene="j1-6"].s2 .j16-nh3{opacity:1}
+[data-scene="j1-6"].s2 .j16-nh3 circle{animation:j16move 2.4s ease-in infinite}
+[data-scene="j1-6"].s2 .j16-nh3 circle:nth-child(2){animation-delay:.5s}
+[data-scene="j1-6"].s2 .j16-nh3 circle:nth-child(3){animation-delay:1s}
+[data-scene="j1-6"].s2 .j16-nh3 circle:nth-child(4){animation-delay:1.5s}
+[data-scene="j1-6"].s2 .j16-note2{opacity:1;transition-delay:.6s}
+[data-scene="j1-6"].s3 .j16-mix{opacity:1}
+[data-scene="j1-6"].s3 .j16-note3{opacity:1;transition-delay:.5s}
+@keyframes j16bloom{0%{transform:scale(.6);opacity:.75}100%{transform:scale(3.4);opacity:0}}
+@keyframes j16move{0%{transform:translate(0,0);opacity:0}20%{opacity:1}100%{transform:translate(58px,-24px);opacity:0}}
+
+/* ===== j1-7 原子结构 ===== */
+[data-scene="j1-7"] .j17-alpha{opacity:.25;transition:opacity .4s}
+[data-scene="j1-7"] .j17-nucleus{transition:transform .5s;transform-box:fill-box;transform-origin:center}
+[data-scene="j1-7"] .j17-naNums,[data-scene="j1-7"] .j17-clNums{opacity:.35;transition:opacity .4s}
+[data-scene="j1-7"] .j17-naIon,[data-scene="j1-7"] .j17-clIon,[data-scene="j1-7"] .j17-transfer,[data-scene="j1-7"] .j17-ionBg{opacity:0;transition:opacity .5s}
+[data-scene="j1-7"].s1 .j17-alpha{opacity:1}
+[data-scene="j1-7"].s1 .j17-alpha path{animation:dashFlow 2.2s linear infinite}
+[data-scene="j1-7"].s1 .j17-nucleus{animation:j17pulse 1.6s ease-in-out infinite}
+[data-scene="j1-7"].s2 .j17-naNums,[data-scene="j1-7"].s2 .j17-clNums,[data-scene="j1-7"].s3 .j17-naNums,[data-scene="j1-7"].s3 .j17-clNums{opacity:1}
+[data-scene="j1-7"].s2 .j17-naNums text,[data-scene="j1-7"].s2 .j17-clNums text{animation:popIn .45s ease both}
+[data-scene="j1-7"].s2 .j17-naNums text:nth-of-type(2),[data-scene="j1-7"].s2 .j17-clNums text:nth-of-type(2){animation-delay:.15s}
+[data-scene="j1-7"].s2 .j17-naNums text:nth-of-type(3),[data-scene="j1-7"].s2 .j17-clNums text:nth-of-type(3){animation-delay:.3s}
+[data-scene="j1-7"].s3 .j17-naIon,[data-scene="j1-7"].s3 .j17-clIon,[data-scene="j1-7"].s3 .j17-transfer,[data-scene="j1-7"].s3 .j17-ionBg{opacity:1}
+[data-scene="j1-7"].s3 .j17-eDot{animation:j17e 1.8s ease-in-out infinite}
+@keyframes j17pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes j17e{0%{transform:translate(0,0);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translate(92px,0);opacity:0}}
+
+/* ===== j1-8 元素 ===== */
+[data-scene="j1-8"] .j18-mols,[data-scene="j1-8"] .j18-symbols,[data-scene="j1-8"] .j18-cell{transition:opacity .4s}
+[data-scene="j1-8"] .j18-oRing{transform-box:fill-box;transform-origin:center;animation:ringPulse 2s ease-in-out infinite}
+[data-scene="j1-8"].s2 .j18-oRing,[data-scene="j1-8"].s3 .j18-oRing{animation:none;opacity:.25}
+[data-scene="j1-8"] .j18-sym1,[data-scene="j1-8"] .j18-sym2,[data-scene="j1-8"] .j18-sym3{opacity:.45;transition:opacity .4s}
+[data-scene="j1-8"] .j18-callouts{opacity:0;transition:opacity .5s}
+[data-scene="j1-8"].s1 .j18-symbols,[data-scene="j1-8"].s1 .j18-cell{opacity:.45}
+[data-scene="j1-8"].s2 .j18-mols,[data-scene="j1-8"].s2 .j18-cell{opacity:.45}
+[data-scene="j1-8"].s2 .j18-sym1,[data-scene="j1-8"].s2 .j18-sym2,[data-scene="j1-8"].s2 .j18-sym3{opacity:1}
+[data-scene="j1-8"].s2 .j18-sym1{animation:popIn .4s ease both}
+[data-scene="j1-8"].s2 .j18-sym2{animation:popIn .4s .25s ease both}
+[data-scene="j1-8"].s2 .j18-sym3{animation:popIn .4s .5s ease both}
+[data-scene="j1-8"].s3 .j18-mols,[data-scene="j1-8"].s3 .j18-symbols{opacity:.55}
+[data-scene="j1-8"].s3 .j18-callouts{opacity:1}
+[data-scene="j1-8"].s3 .j18-callouts rect{animation:popIn .35s ease both}
+[data-scene="j1-8"].s3 .j18-callouts rect:nth-of-type(2){animation-delay:.12s}
+[data-scene="j1-8"].s3 .j18-callouts rect:nth-of-type(3){animation-delay:.24s}
+[data-scene="j1-8"].s3 .j18-callouts rect:nth-of-type(4){animation-delay:.36s}
+[data-scene="j1-8"].s3 .j18-rule{animation:popIn .45s .4s ease both}
+
+/* ===== j1-9 水的净化 ===== */
+[data-scene="j1-9"] .j19-z1,[data-scene="j1-9"] .j19-z2,[data-scene="j1-9"] .j19-z3{transition:opacity .45s}
+[data-scene="j1-9"] .j19-glow{opacity:0;transition:opacity .4s}
+[data-scene="j1-9"] .j19-muddy{transition:fill-opacity .8s}
+[data-scene="j1-9"] .j19-mud circle{transition:transform 1.2s ease,opacity .6s}
+[data-scene="j1-9"] .j19-alumFall,[data-scene="j1-9"] .j19-drops,[data-scene="j1-9"] .j19-distillDrops{opacity:0}
+[data-scene="j1-9"] .j19-flame{opacity:0;transition:opacity .4s}
+[data-scene="j1-9"] .j19-save{opacity:0;transition:opacity .5s}
+[data-scene="j1-9"].s1 .j19-z2,[data-scene="j1-9"].s1 .j19-z3{opacity:.5}
+[data-scene="j1-9"].s2 .j19-z1,[data-scene="j1-9"].s2 .j19-z3{opacity:.5}
+[data-scene="j1-9"].s3 .j19-z1,[data-scene="j1-9"].s3 .j19-z2{opacity:.5}
+[data-scene="j1-9"].s1 .j19-z1 .j19-glow,[data-scene="j1-9"].s2 .j19-z2 .j19-glow,[data-scene="j1-9"].s3 .j19-z3 .j19-glow{opacity:1}
+[data-scene="j1-9"].s1 .j19-muddy{fill-opacity:.18}
+[data-scene="j1-9"].s1 .j19-mud circle{transform:translateY(22px);opacity:.5}
+[data-scene="j1-9"].s1 .j19-alumFall{opacity:1}
+[data-scene="j1-9"].s1 .j19-alumFall circle{animation:j11drip 1.6s ease-in infinite}
+[data-scene="j1-9"].s1 .j19-alumFall circle:nth-child(2){animation-delay:.5s}
+[data-scene="j1-9"].s1 .j19-alumFall circle:nth-child(3){animation-delay:1s}
+[data-scene="j1-9"].s2 .j19-drops{opacity:1}
+[data-scene="j1-9"].s2 .j19-drops ellipse{animation:j11drip 1.4s ease-in infinite}
+[data-scene="j1-9"].s2 .j19-drops ellipse:nth-child(2){animation-delay:.5s}
+[data-scene="j1-9"].s3 .j19-flame{opacity:1;animation:flicker 1.2s ease-in-out infinite}
+[data-scene="j1-9"].s3 .j19-distillDrops{opacity:1}
+[data-scene="j1-9"].s3 .j19-distillDrops ellipse{animation:j11drip 1.3s ease-in infinite}
+[data-scene="j1-9"].s3 .j19-distillDrops ellipse:nth-child(2){animation-delay:.5s}
+[data-scene="j1-9"].s3 .j19-save{opacity:1}
+
+/* ===== j1-10 水的组成 ===== */
+[data-scene="j1-10"] .j110-gasL,[data-scene="j1-10"] .j110-gasR{transform:scaleY(0);transform-box:fill-box;transform-origin:top}
+[data-scene="j1-10"] .j110-test{opacity:0;transition:opacity .5s}
+[data-scene="j1-10"] .j110-p1,[data-scene="j1-10"] .j110-p2{opacity:0;transition:opacity .4s}
+[data-scene="j1-10"] .j110-summary{opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+[data-scene="j1-10"] .j110-bubblesL circle,[data-scene="j1-10"] .j110-bubblesR circle{animation:bubbleRise 2.2s ease-out infinite}
+[data-scene="j1-10"] .j110-bubblesL circle:nth-child(2){animation-delay:.4s}
+[data-scene="j1-10"] .j110-bubblesL circle:nth-child(3){animation-delay:.8s}
+[data-scene="j1-10"] .j110-bubblesL circle:nth-child(4){animation-delay:1.2s}
+[data-scene="j1-10"] .j110-bubblesL circle:nth-child(5){animation-delay:1.6s}
+[data-scene="j1-10"] .j110-bubblesR circle:nth-child(2){animation-delay:.5s}
+[data-scene="j1-10"] .j110-bubblesR circle:nth-child(3){animation-delay:1s}
+[data-scene="j1-10"] .j110-bubblesR circle:nth-child(4){animation-delay:1.4s}
+[data-scene="j1-10"] .j110-bubblesR circle:nth-child(5){animation-delay:1.8s}
+[data-scene="j1-10"].s1 .j110-gasL{animation:gasGrow 2.6s .2s cubic-bezier(.2,.8,.2,1) both}
+[data-scene="j1-10"].s1 .j110-gasR{animation:gasGrow 2.6s 1.5s cubic-bezier(.2,.8,.2,1) both}
+[data-scene="j1-10"].s2 .j110-gasL,[data-scene="j1-10"].s2 .j110-gasR,[data-scene="j1-10"].s3 .j110-gasL,[data-scene="j1-10"].s3 .j110-gasR{transform:scaleY(1)}
+[data-scene="j1-10"].s1 .j110-p1,[data-scene="j1-10"].s2 .j110-p2{opacity:1}
+[data-scene="j1-10"].s2 .j110-test{opacity:1}
+[data-scene="j1-10"].s3 .j110-summary{opacity:1;transform:none}
+[data-scene="j1-10"].s3 .j110-panel{opacity:.15}
+
+/* ===== j1-11 化学式与化合价 ===== */
+[data-scene="j1-11"] .j111-z1,[data-scene="j1-11"] .j111-z2,[data-scene="j1-11"] .j111-z3{transition:opacity .45s}
+[data-scene="j1-11"] .j111-glow{opacity:0;transition:opacity .4s}
+[data-scene="j1-11"] .j111-arrow{opacity:.2;stroke-dashoffset:0;transition:opacity .4s}
+[data-scene="j1-11"] .j111-formula{transition:transform .4s;transform-box:fill-box;transform-origin:center}
+[data-scene="j1-11"].s1 .j111-z2,[data-scene="j1-11"].s1 .j111-z3{opacity:.55}
+[data-scene="j1-11"].s2 .j111-z1,[data-scene="j1-11"].s2 .j111-z3{opacity:.55}
+[data-scene="j1-11"].s3 .j111-z1,[data-scene="j1-11"].s3 .j111-z2{opacity:.55}
+[data-scene="j1-11"].s1 .j111-z1 .j111-glow,[data-scene="j1-11"].s2 .j111-z2 .j111-glow,[data-scene="j1-11"].s3 .j111-z3 .j111-glow{opacity:1}
+[data-scene="j1-11"].s2 .j111-arrow{opacity:1;animation:dashFlow 1.4s linear infinite}
+[data-scene="j1-11"].s2 .j111-formula{animation:popIn .5s .3s ease both}
+
+/* ===== 手机端 ===== */
+@media(max-width:560px){
+  .app{padding:12px 10px 28px}
+  .card{padding:13px;border-radius:20px}
+  h1{font-size:19px}
+  .caption{font-size:12px;padding:10px 11px;line-height:1.7}
+  .readouts{gap:6px}
+  .readout{padding:8px 5px}
+  .readout b{font-size:12px}
+  .readout span{font-size:8px}
+  .stage-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .scene svg{min-width:600px}
+  .stage-hint{display:block}
+  .q{padding:13px}
+  .stem{font-size:13px}
+  .opt{font-size:12.5px;padding:9px 10px}
+  .notes p,.explain{font-size:12px}
+  .lesson-top{flex-wrap:wrap}
+  .top-right{gap:6px}
+  .portal{padding:6px 9px;font-size:9.5px}
+  .crumb{text-align:left}
+  .lesson-nav button{padding:9px 12px;font-size:11px}
+  .sound{padding:0 10px}
+  .pause{padding:0 9px}
+  .foot{flex-wrap:wrap}
+  #downloadAll{padding:7px 11px;font-size:10px}
+}
+
+
+
+/* ===================== 高二 选择性必修1/2 g2-1 ~ g2-8 ===================== */
+
+/* g2-1 化学反应的热效应 */
+[data-scene="g2-1"] .g21-z1,[data-scene="g2-1"] .g21-z2,[data-scene="g2-1"] .g21-z3{transition:opacity .45s}
+[data-scene="g2-1"] .g21-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-1"].s1 .g21-z2,[data-scene="g2-1"].s1 .g21-z3{opacity:.45}
+[data-scene="g2-1"].s2 .g21-z1,[data-scene="g2-1"].s2 .g21-z3{opacity:.45}
+[data-scene="g2-1"].s3 .g21-z1,[data-scene="g2-1"].s3 .g21-z2{opacity:.45}
+[data-scene="g2-1"].s1 .g21-z1 .g21-glow,[data-scene="g2-1"].s2 .g21-z2 .g21-glow,[data-scene="g2-1"].s3 .g21-z3 .g21-glow{opacity:1}
+[data-scene="g2-1"].s1 .g21-curve{animation:g21flow 1.4s linear infinite}
+[data-scene="g2-1"].s2 .g21-mercury{animation:g21bob 1.6s ease-in-out infinite}
+[data-scene="g2-1"].s3 .g21-arrow{animation:g21pulse 1.5s ease-in-out infinite}
+@keyframes g21flow{to{stroke-dashoffset:-24}}
+@keyframes g21bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@keyframes g21pulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+/* g2-2 化学反应速率 */
+[data-scene="g2-2"] .g22-z1,[data-scene="g2-2"] .g22-z2,[data-scene="g2-2"] .g22-z3{transition:opacity .45s}
+[data-scene="g2-2"] .g22-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-2"].s1 .g22-z2,[data-scene="g2-2"].s1 .g22-z3{opacity:.45}
+[data-scene="g2-2"].s2 .g22-z1,[data-scene="g2-2"].s2 .g22-z3{opacity:.45}
+[data-scene="g2-2"].s3 .g22-z1,[data-scene="g2-2"].s3 .g22-z2{opacity:.45}
+[data-scene="g2-2"].s1 .g22-z1 .g22-glow,[data-scene="g2-2"].s2 .g22-z2 .g22-glow,[data-scene="g2-2"].s3 .g22-z3 .g22-glow{opacity:1}
+[data-scene="g2-2"].s1 .g22-line1{animation:g22draw 1.6s ease-in-out infinite}
+[data-scene="g2-2"].s2 .g22-bubbles circle{animation:g22rise 1.7s ease-out infinite}
+[data-scene="g2-2"].s2 .g22-bubbles circle:nth-child(2){animation-delay:.3s}
+[data-scene="g2-2"].s2 .g22-bubbles circle:nth-child(3){animation-delay:.6s}
+[data-scene="g2-2"].s2 .g22-bubbles circle:nth-child(4){animation-delay:.9s}
+[data-scene="g2-2"].s2 .g22-bubbles circle:nth-child(5){animation-delay:1.2s}
+[data-scene="g2-2"].s2 .g22-gas{animation:g22gas 2.4s ease-in-out infinite}
+[data-scene="g2-2"].s3 .g22-collide{animation:g22pulse 1.2s ease-in-out infinite}
+@keyframes g22draw{0%{stroke-dasharray:0 600}60%{stroke-dasharray:600 600}100%{stroke-dasharray:600 600}}
+@keyframes g22rise{0%{transform:translateY(0);opacity:.85}100%{transform:translateY(-20px);opacity:0}}
+@keyframes g22gas{0%,100%{opacity:.55}50%{opacity:.95}}
+@keyframes g22pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* g2-3 化学平衡 */
+[data-scene="g2-3"] .g23-z1,[data-scene="g2-3"] .g23-z2,[data-scene="g2-3"] .g23-z3{transition:opacity .45s}
+[data-scene="g2-3"] .g23-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-3"].s1 .g23-z2,[data-scene="g2-3"].s1 .g23-z3{opacity:.45}
+[data-scene="g2-3"].s2 .g23-z1,[data-scene="g2-3"].s2 .g23-z3{opacity:.45}
+[data-scene="g2-3"].s3 .g23-z1,[data-scene="g2-3"].s3 .g23-z2{opacity:.45}
+[data-scene="g2-3"].s1 .g23-z1 .g23-glow,[data-scene="g2-3"].s2 .g23-z2 .g23-glow,[data-scene="g2-3"].s3 .g23-z3 .g23-glow{opacity:1}
+[data-scene="g2-3"].s1 .g23-rev{animation:g23dash 1.3s linear infinite}
+[data-scene="g2-3"].s2 .g23-arrowL,[data-scene="g2-3"].s2 .g23-arrowR{animation:g23pulse 1.4s ease-in-out infinite}
+@keyframes g23dash{to{stroke-dashoffset:-24}}
+@keyframes g23pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* g2-4 水溶液中的离子平衡 */
+[data-scene="g2-4"] .g24-z1,[data-scene="g2-4"] .g24-z2,[data-scene="g2-4"] .g24-z3{transition:opacity .45s}
+[data-scene="g2-4"] .g24-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-4"].s1 .g24-z2,[data-scene="g2-4"].s1 .g24-z3{opacity:.45}
+[data-scene="g2-4"].s2 .g24-z1,[data-scene="g2-4"].s2 .g24-z3{opacity:.45}
+[data-scene="g2-4"].s3 .g24-z1,[data-scene="g2-4"].s3 .g24-z2{opacity:.45}
+[data-scene="g2-4"].s1 .g24-z1 .g24-glow,[data-scene="g2-4"].s2 .g24-z2 .g24-glow,[data-scene="g2-4"].s3 .g24-z3 .g24-glow{opacity:1}
+[data-scene="g2-4"].s3 .g24-ion1{animation:g24float 2.2s ease-in-out infinite}
+[data-scene="g2-4"].s3 .g24-ion2{animation:g24float 2.2s ease-in-out infinite .6s}
+@keyframes g24float{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-8px);opacity:1}}
+
+/* g2-5 原电池与电解池 */
+[data-scene="g2-5"] .g25-z1,[data-scene="g2-5"] .g25-z2,[data-scene="g2-5"] .g25-z3{transition:opacity .45s}
+[data-scene="g2-5"] .g25-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-5"].s1 .g25-z2,[data-scene="g2-5"].s1 .g25-z3{opacity:.45}
+[data-scene="g2-5"].s2 .g25-z1,[data-scene="g2-5"].s2 .g25-z3{opacity:.45}
+[data-scene="g2-5"].s3 .g25-z1,[data-scene="g2-5"].s3 .g25-z2{opacity:.45}
+[data-scene="g2-5"].s1 .g25-z1 .g25-glow,[data-scene="g2-5"].s2 .g25-z2 .g25-glow,[data-scene="g2-5"].s3 .g25-z3 .g25-glow{opacity:1}
+[data-scene="g2-5"].s2 .g25-h2{animation:g25gas 2.4s ease-in-out infinite}
+[data-scene="g2-5"].s2 .g25-cl2{animation:g25gas 2.4s ease-in-out infinite .9s}
+@keyframes g25gas{0%,100%{opacity:.5}50%{opacity:.95}}
+
+/* g2-6 原子结构与性质 */
+[data-scene="g2-6"] .g26-z1,[data-scene="g2-6"] .g26-z2,[data-scene="g2-6"] .g26-z3{transition:opacity .45s}
+[data-scene="g2-6"] .g26-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-6"].s1 .g26-z2,[data-scene="g2-6"].s1 .g26-z3{opacity:.45}
+[data-scene="g2-6"].s2 .g26-z1,[data-scene="g2-6"].s2 .g26-z3{opacity:.45}
+[data-scene="g2-6"].s3 .g26-z1,[data-scene="g2-6"].s3 .g26-z2{opacity:.45}
+[data-scene="g2-6"].s1 .g26-z1 .g26-glow,[data-scene="g2-6"].s2 .g26-z2 .g26-glow,[data-scene="g2-6"].s3 .g26-z3 .g26-glow{opacity:1}
+[data-scene="g2-6"].s3 .g26-r1,[data-scene="g2-6"].s3 .g26-r2{animation:g26flow 1.5s linear infinite}
+@keyframes g26flow{0%,100%{opacity:.45}50%{opacity:1}}
+
+/* g2-7 分子结构与性质 */
+[data-scene="g2-7"] .g27-z1,[data-scene="g2-7"] .g27-z2,[data-scene="g2-7"] .g27-z3{transition:opacity .45s}
+[data-scene="g2-7"] .g27-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-7"].s1 .g27-z2,[data-scene="g2-7"].s1 .g27-z3{opacity:.45}
+[data-scene="g2-7"].s2 .g27-z1,[data-scene="g2-7"].s2 .g27-z3{opacity:.45}
+[data-scene="g2-7"].s3 .g27-z1,[data-scene="g2-7"].s3 .g27-z2{opacity:.45}
+[data-scene="g2-7"].s1 .g27-z1 .g27-glow,[data-scene="g2-7"].s2 .g27-z2 .g27-glow,[data-scene="g2-7"].s3 .g27-z3 .g27-glow{opacity:1}
+[data-scene="g2-7"].s1 .g27-sp3,[data-scene="g2-7"].s1 .g27-sp2,[data-scene="g2-7"].s1 .g27-sp{transform-box:fill-box;transform-origin:center;animation:g27turn 3s ease-in-out infinite}
+[data-scene="g2-7"].s3 .g27-dipL,[data-scene="g2-7"].s3 .g27-dipR,[data-scene="g2-7"].s3 .g27-dipO{animation:g27pulse 1.4s ease-in-out infinite}
+@keyframes g27turn{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes g27pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* g2-8 晶体结构与性质 */
+[data-scene="g2-8"] .g28-z1,[data-scene="g2-8"] .g28-z2,[data-scene="g2-8"] .g28-z3{transition:opacity .45s}
+[data-scene="g2-8"] .g28-glow{opacity:0;transition:opacity .4s}
+[data-scene="g2-8"].s1 .g28-z2,[data-scene="g2-8"].s1 .g28-z3{opacity:.45}
+[data-scene="g2-8"].s2 .g28-z1,[data-scene="g2-8"].s2 .g28-z3{opacity:.45}
+[data-scene="g2-8"].s3 .g28-z1,[data-scene="g2-8"].s3 .g28-z2{opacity:.45}
+[data-scene="g2-8"].s1 .g28-z1 .g28-glow,[data-scene="g2-8"].s2 .g28-z2 .g28-glow,[data-scene="g2-8"].s3 .g28-z3 .g28-glow{opacity:1}
+[data-scene="g2-8"].s3 .g28-bar1,[data-scene="g2-8"].s3 .g28-bar2,[data-scene="g2-8"].s3 .g28-bar3,[data-scene="g2-8"].s3 .g28-bar4{transform-box:fill-box;transform-origin:bottom;animation:g28grow .8s ease both}
+[data-scene="g2-8"].s3 .g28-bar2{animation-delay:.12s}
+[data-scene="g2-8"].s3 .g28-bar3{animation-delay:.24s}
+[data-scene="g2-8"].s3 .g28-bar4{animation-delay:.36s}
+@keyframes g28grow{from{transform:scaleY(.2)}to{transform:scaleY(1)}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <section id="home" class="view">
+    <div class="card hero">
+      <div class="hero-top">
+        <span class="kicker">高二化学 · 选择性必修1 / 2</span>
+        <span class="pill">3 步动画 · 语音同步</span>
+      </div>
+      <h1 id="homeTitle">8 个知识点，每个 3 步看懂</h1>
+      <p class="sub" id="homeSub">8 个单元 · 24 段动画 · 40 道高考真题改编 · 每题逐项解析</p>
+      <div class="stats">
+        <div><b id="statLearned">0</b><span>已学知识点</span></div>
+        <div><b id="statAnswered">0</b><span>已答题目</span></div>
+        <div><b id="statWrong">0</b><span>错题</span></div>
+      </div>
+    </div>
+    <div class="units" id="units"></div>
+    <div class="foot">
+      <button id="downloadAll" type="button">下载本学段语音</button>
+      <button id="reset" type="button">重置学习记录</button>
+      <span>进度保存在本机浏览器 · <a class="portal" href="index.html">返回总目录</a></span>
+    </div>
+  </section>
+
+  <section id="lesson" class="view hidden">
+    <div class="lesson-top">
+      <button id="back" type="button">← 返回目录</button>
+      <div class="top-right">
+        <a class="portal" href="index.html">⌂ 总目录</a>
+        <span class="crumb" id="crumb"></span>
+      </div>
+    </div>
+
+    <div class="card lesson">
+      <div class="head">
+        <div>
+          <span class="kicker" id="lessonKicker">初中化学</span>
+          <h1 id="lessonTitle"></h1>
+          <div class="sub" id="lessonSub"></div>
+        </div>
+        <span class="pill" id="learnedTag">3 步动画</span>
+      </div>
+
+      <div class="steps" id="stepChips"></div>
+
+      <div class="stage-wrap" id="stageBox">
+        <svg id="globalDefs" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+          <defs>
+            <linearGradient id="gBg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f7fbff"/><stop offset="1" stop-color="#e8f2fd"/>
+            </linearGradient>
+            <linearGradient id="gBench" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#eef2f8"/><stop offset="1" stop-color="#dfe7f2"/>
+            </linearGradient>
+            <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffffff" stop-opacity=".78"/>
+              <stop offset=".45" stop-color="#dcebf9" stop-opacity=".38"/>
+              <stop offset="1" stop-color="#b8d4ee" stop-opacity=".5"/>
+            </linearGradient>
+            <linearGradient id="gSteel" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#c9d5e5"/><stop offset=".5" stop-color="#9aabc2"/><stop offset="1" stop-color="#c9d5e5"/>
+            </linearGradient>
+            <pattern id="dotsPat" width="26" height="26" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.2" fill="#b9cde4" opacity=".32"/>
+            </pattern>
+            <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#40506a" flood-opacity=".16"/>
+            </filter>
+          </defs>
+        </svg>
+        <div class="scene" data-scene="g2-1" id="scene-g2-1">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="化学反应的热效应：焓变、量热装置与盖斯定律">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">能量守恒：焓变、量热与盖斯定律</text>
+
+  <g class="g21-z1">
+    <rect class="g21-glow" x="24" y="80" width="272" height="410" rx="22" fill="#0e8a7b" fill-opacity=".08" stroke="#0e8a7b" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#0f766e" text-anchor="middle">能量变化图</text>
+    <line x1="62" y1="128" x2="62" y2="448" stroke="#64748b" stroke-width="2"/>
+    <line x1="62" y1="448" x2="278" y2="448" stroke="#64748b" stroke-width="2"/>
+    <text x="64" y="122" font-size="10" fill="#64748b">能量</text>
+    <text x="278" y="462" font-size="10" fill="#64748b" text-anchor="end">反应进程</text>
+    <line x1="66" y1="196" x2="132" y2="196" stroke="#2563eb" stroke-width="4"/>
+    <line x1="196" y1="330" x2="264" y2="330" stroke="#0e8a7b" stroke-width="4"/>
+    <text x="68" y="186" font-size="11" font-weight="700" fill="#2563eb">反应物</text>
+    <text x="268" y="352" font-size="11" font-weight="700" fill="#0f766e" text-anchor="end">生成物</text>
+    <path class="g21-curve" d="M70 196 C96 196 104 138 136 138 C170 138 178 330 212 330 L264 330" fill="none" stroke="#b45309" stroke-width="3" stroke-dasharray="7 5"/>
+    <line x1="136" y1="138" x2="136" y2="196" stroke="#b45309" stroke-width="1.6" stroke-dasharray="4 4"/>
+    <text x="142" y="166" font-size="10" font-weight="700" fill="#b45309">活化能</text>
+    <line x1="250" y1="196" x2="250" y2="330" stroke="#dc2626" stroke-width="2"/>
+    <path d="M250 330 L245 321 H255 Z" fill="#dc2626"/>
+    <text x="256" y="268" font-size="11" font-weight="800" fill="#dc2626">ΔH&lt;0</text>
+    <text x="160" y="392" font-size="12" font-weight="800" fill="#0f766e" text-anchor="middle">生成物能量低 → 放热反应</text>
+    <text x="160" y="414" font-size="11" fill="#64748b" text-anchor="middle">ΔH = 生成物总能量 − 反应物总能量</text>
+    <text x="160" y="440" font-size="10" fill="#64748b" text-anchor="middle">断键吸能，成键放能</text>
+    <text x="160" y="474" font-size="10" font-weight="700" fill="#0f766e" text-anchor="middle">放热 ΔH&lt;0；吸热 ΔH&gt;0</text>
+  </g>
+
+  <g class="g21-z2">
+    <rect class="g21-glow" x="312" y="80" width="276" height="410" rx="22" fill="#2563eb" fill-opacity=".08" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">中和热测定装置</text>
+    <rect x="352" y="196" width="196" height="204" rx="12" fill="url(#gBench)" stroke="#94a3b8" stroke-width="3"/>
+    <rect x="368" y="212" width="164" height="174" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="376" y="262" width="148" height="116" rx="5" fill="#bfdbfe" opacity=".85"/>
+    <path d="M384 262 Q392 254 400 262 T416 262 T432 262 T448 262 T464 262 T480 262 T496 262 T512 262" fill="none" stroke="#60a5fa" stroke-width="2"/>
+    <text x="450" y="416" font-size="11" fill="#1d4ed8" text-anchor="middle">内筒 + 隔热层</text>
+    <rect x="426" y="146" width="8" height="122" rx="4" fill="#64748b"/>
+    <circle class="g21-mercury" cx="430" cy="246" r="7" fill="#dc2626"/>
+    <rect x="406" y="136" width="48" height="14" rx="7" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="464" y="180" font-size="10" font-weight="700" fill="#475569">温度计</text>
+    <path d="M522 178 V286 Q522 300 508 300" fill="none" stroke="#64748b" stroke-width="4"/>
+    <path d="M508 300 H470 M470 288 V312" fill="none" stroke="#64748b" stroke-width="4"/>
+    <text x="536" y="230" font-size="10" font-weight="700" fill="#475569">环形搅拌棒</text>
+    <text x="450" y="452" font-size="11" font-weight="700" fill="#1d4ed8" text-anchor="middle">一次迅速混合，读取最高温度</text>
+    <text x="450" y="474" font-size="10" fill="#64748b" text-anchor="middle">减少热量散失，误差更小</text>
+  </g>
+
+  <g class="g21-z3">
+    <rect class="g21-glow" x="604" y="80" width="272" height="410" rx="22" fill="#b45309" fill-opacity=".08" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#b45309" text-anchor="middle">盖斯定律：路径无关</text>
+    <circle cx="652" cy="188" r="26" fill="#ffffff" stroke="#b45309" stroke-width="2.5"/>
+    <text x="652" y="194" font-size="14" font-weight="800" fill="#b45309" text-anchor="middle">A</text>
+    <circle cx="828" cy="188" r="26" fill="#ffffff" stroke="#0e8a7b" stroke-width="2.5"/>
+    <text x="828" y="194" font-size="14" font-weight="800" fill="#0f766e" text-anchor="middle">B</text>
+    <circle cx="740" cy="360" r="26" fill="#ffffff" stroke="#7c3aed" stroke-width="2.5"/>
+    <text x="740" y="366" font-size="14" font-weight="800" fill="#7c3aed" text-anchor="middle">C</text>
+    <path class="g21-arrow" d="M678 188 H796" stroke="#0e8a7b" stroke-width="3" fill="none"/>
+    <path d="M796 188 L786 182 V194 Z" fill="#0e8a7b"/>
+    <text x="737" y="176" font-size="11" font-weight="800" fill="#0f766e" text-anchor="middle">ΔH₁ 直接</text>
+    <path class="g21-arrow" d="M664 212 L722 340" stroke="#b45309" stroke-width="3" fill="none"/>
+    <path d="M722 340 L714 330 L726 328 Z" fill="#b45309"/>
+    <text x="664" y="292" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">ΔH₂</text>
+    <path class="g21-arrow" d="M760 342 L816 212" stroke="#7c3aed" stroke-width="3" fill="none"/>
+    <path d="M816 212 L807 218 L818 224 Z" fill="#7c3aed"/>
+    <text x="806" y="292" font-size="11" font-weight="800" fill="#7c3aed" text-anchor="middle">ΔH₃</text>
+    <text x="740" y="404" font-size="11" font-weight="700" fill="#475569" text-anchor="middle">ΔH₁ = ΔH₂ + ΔH₃</text>
+    <rect x="622" y="422" width="236" height="48" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="442" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">反应热只与始态、终态有关</text>
+    <text x="740" y="460" font-size="10" fill="#64748b" text-anchor="middle">与反应路径无关</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-2" id="scene-g2-2">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="化学反应速率：浓度时间曲线、气体发生装置与有效碰撞">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">速率 = 浓度变化 ÷ 时间：从曲线到碰撞</text>
+
+  <g class="g22-z1">
+    <rect class="g22-glow" x="24" y="80" width="272" height="410" rx="22" fill="#2563eb" fill-opacity=".08" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">浓度—时间曲线</text>
+    <line x1="62" y1="132" x2="62" y2="404" stroke="#64748b" stroke-width="2"/>
+    <line x1="62" y1="404" x2="278" y2="404" stroke="#64748b" stroke-width="2"/>
+    <text x="64" y="126" font-size="10" fill="#64748b">c / (mol·L⁻¹)</text>
+    <text x="278" y="420" font-size="10" fill="#64748b" text-anchor="end">t</text>
+    <path class="g22-line1" d="M70 168 C112 168 134 300 170 356 C196 394 230 398 268 398" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <path d="M70 240 C120 240 150 330 195 368 C226 392 248 396 268 398" fill="none" stroke="#0e8a7b" stroke-width="3" stroke-dasharray="7 5"/>
+    <text x="212" y="382" font-size="11" font-weight="800" fill="#2563eb">反应物</text>
+    <text x="222" y="340" font-size="11" font-weight="800" fill="#0f766e">生成物</text>
+    <line x1="70" y1="168" x2="146" y2="168" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+    <line x1="146" y1="168" x2="146" y2="320" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+    <text x="108" y="160" font-size="10" fill="#64748b" text-anchor="middle">Δc</text>
+    <text x="152" y="300" font-size="10" fill="#64748b">Δt</text>
+    <line x1="78" y1="352" x2="132" y2="300" stroke="#dc2626" stroke-width="2"/>
+    <text x="88" y="372" font-size="10" font-weight="700" fill="#dc2626">切线斜率</text>
+    <text x="160" y="446" font-size="12" font-weight="800" fill="#1d4ed8" text-anchor="middle">v = Δc / Δt</text>
+    <text x="160" y="470" font-size="10" fill="#64748b" text-anchor="middle">曲线越陡，速率越大</text>
+  </g>
+
+  <g class="g22-z2">
+    <rect class="g22-glow" x="312" y="80" width="276" height="410" rx="22" fill="#0e8a7b" fill-opacity=".08" stroke="#0e8a7b" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#0f766e" text-anchor="middle">气体发生与收集</text>
+    <path d="M392 360 H508 L494 442 H406 Z" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2.5"/>
+    <rect x="416" y="378" width="68" height="52" rx="6" fill="#dbeafe" opacity=".9"/>
+    <g class="g22-bubbles" fill="#60a5fa" opacity=".9">
+      <circle cx="430" cy="414" r="4"/><circle cx="448" cy="426" r="3"/><circle cx="462" cy="410" r="3.5"/>
+      <circle cx="476" cy="424" r="2.6"/><circle cx="440" cy="402" r="2.6"/>
+    </g>
+    <text x="450" y="466" font-size="10" font-weight="700" fill="#0369a1" text-anchor="middle">锌粒 + 稀硫酸</text>
+    <rect x="438" y="322" width="24" height="38" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M450 322 V196" stroke="#94a3b8" stroke-width="6"/>
+    <path d="M450 196 H528 V176" fill="none" stroke="#94a3b8" stroke-width="6"/>
+    <rect x="514" y="152" width="30" height="26" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="518" y="156" width="22" height="18" fill="#fef9c3"/>
+    <text x="536" y="148" font-size="10" font-weight="700" fill="#475569">秒表</text>
+    <rect x="474" y="184" width="48" height="120" rx="22" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2"/>
+    <rect class="g22-gas" x="478" y="240" width="40" height="60" fill="#fde68a" opacity=".8"/>
+    <text x="498" y="324" font-size="10" fill="#64748b" text-anchor="middle">排水集气</text>
+    <text x="450" y="490" font-size="10" fill="#64748b" text-anchor="middle">相同时间内收集的气体越多，速率越大</text>
+    <text x="450" y="146" font-size="10" font-weight="700" fill="#0f766e" text-anchor="middle">Zn + H₂SO₄ → ZnSO₄ + H₂↑</text>
+  </g>
+
+  <g class="g22-z3">
+    <rect class="g22-glow" x="604" y="80" width="272" height="410" rx="22" fill="#7c3aed" fill-opacity=".08" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#7c3aed" text-anchor="middle">有效碰撞模型</text>
+    <path d="M628 386 H696" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M696 386 L688 380 V392 Z" fill="#94a3b8"/>
+    <text x="662" y="404" font-size="10" fill="#64748b" text-anchor="middle">反应进程</text>
+    <path class="g22-hill" d="M628 330 C654 330 662 250 696 250 C730 250 736 366 762 366" fill="none" stroke="#7c3aed" stroke-width="3"/>
+    <line x1="628" y1="330" x2="656" y2="330" stroke="#2563eb" stroke-width="3"/>
+    <line x1="762" y1="366" x2="836" y2="366" stroke="#0e8a7b" stroke-width="3"/>
+    <line x1="696" y1="250" x2="696" y2="330" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="4 4"/>
+    <text x="700" y="282" font-size="10" font-weight="700" fill="#dc2626">Ea</text>
+    <text x="626" y="318" font-size="10" font-weight="700" fill="#2563eb">反应物</text>
+    <text x="838" y="358" font-size="10" font-weight="700" fill="#0f766e" text-anchor="end">生成物</text>
+    <circle cx="638" cy="196" r="13" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="686" cy="222" r="13" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+    <path class="g22-collide" d="M654 204 L670 214" stroke="#dc2626" stroke-width="2.5"/>
+    <text x="662" y="170" font-size="10" font-weight="700" fill="#7c3aed" text-anchor="middle">能量足够 + 取向合适</text>
+    <rect x="622" y="424" width="236" height="46" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="443" font-size="11" font-weight="800" fill="#7c3aed" text-anchor="middle">有效碰撞频率 ↑ → 反应速率 ↑</text>
+    <text x="740" y="461" font-size="10" fill="#64748b" text-anchor="middle">升温、加催化剂都能增加活化分子</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-3" id="scene-g2-3">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="化学平衡：正逆速率曲线、平衡移动与平衡常数">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">平衡不是停止：正逆速率相等，浓度不再改变</text>
+
+  <g class="g23-z1">
+    <rect class="g23-glow" x="24" y="80" width="272" height="410" rx="22" fill="#7c3aed" fill-opacity=".08" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#7c3aed" text-anchor="middle">正逆速率—时间图</text>
+    <line x1="62" y1="132" x2="62" y2="404" stroke="#64748b" stroke-width="2"/>
+    <line x1="62" y1="404" x2="278" y2="404" stroke="#64748b" stroke-width="2"/>
+    <text x="64" y="126" font-size="10" fill="#64748b">v</text>
+    <text x="278" y="420" font-size="10" fill="#64748b" text-anchor="end">t</text>
+    <path d="M70 180 C96 250 118 300 150 318 C186 338 220 340 268 340" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <path class="g23-rev" d="M70 388 C100 350 122 326 150 318 C186 306 220 340 268 340" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="7 5"/>
+    <text x="196" y="322" font-size="11" font-weight="800" fill="#2563eb">v正</text>
+    <text x="196" y="366" font-size="11" font-weight="800" fill="#dc2626">v逆</text>
+    <line x1="150" y1="318" x2="150" y2="404" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <text x="152" y="396" font-size="10" fill="#64748b">平衡</text>
+    <circle cx="150" cy="340" r="4.5" fill="#7c3aed"/>
+    <text x="160" y="446" font-size="12" font-weight="800" fill="#7c3aed" text-anchor="middle">v正 = v逆 ≠ 0</text>
+    <text x="160" y="470" font-size="10" fill="#64748b" text-anchor="middle">动态平衡：反应仍在进行</text>
+  </g>
+
+  <g class="g23-z2">
+    <rect class="g23-glow" x="312" y="80" width="276" height="410" rx="22" fill="#0e8a7b" fill-opacity=".08" stroke="#0e8a7b" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#0f766e" text-anchor="middle">改变条件，平衡往哪移？</text>
+    <rect x="330" y="134" width="240" height="56" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="450" y="158" font-size="14" font-weight="800" fill="#334155" text-anchor="middle">N₂ + 3H₂ ⇌ 2NH₃</text>
+    <text x="450" y="178" font-size="10" fill="#64748b" text-anchor="middle">正反应放热，气体分子数减少</text>
+    <rect x="330" y="206" width="112" height="118" rx="12" fill="#fef2f2" stroke="#fca5a5" stroke-width="2"/>
+    <text x="386" y="232" font-size="12" font-weight="800" fill="#b91c1c" text-anchor="middle">升温</text>
+    <path class="g23-arrowL" d="M408 252 H356" stroke="#dc2626" stroke-width="3"/>
+    <path d="M356 252 L366 246 V258 Z" fill="#dc2626"/>
+    <text x="386" y="282" font-size="10" fill="#b91c1c" text-anchor="middle">向吸热方向</text>
+    <text x="386" y="302" font-size="10" fill="#64748b" text-anchor="middle">逆向移动</text>
+    <rect x="458" y="206" width="112" height="118" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+    <text x="514" y="232" font-size="12" font-weight="800" fill="#1d4ed8" text-anchor="middle">加压</text>
+    <path class="g23-arrowR" d="M494 252 H546" stroke="#2563eb" stroke-width="3"/>
+    <path d="M546 252 L536 246 V258 Z" fill="#2563eb"/>
+    <text x="514" y="282" font-size="10" fill="#1d4ed8" text-anchor="middle">向气体少方向</text>
+    <text x="514" y="302" font-size="10" fill="#64748b" text-anchor="middle">正向移动</text>
+    <rect x="330" y="338" width="240" height="54" rx="12" fill="#f5f3ff" stroke="#d8b4fe" stroke-width="2"/>
+    <text x="450" y="360" font-size="11" font-weight="800" fill="#6d28d9" text-anchor="middle">分离 NH₃ → 生成物浓度降低</text>
+    <text x="450" y="379" font-size="10" fill="#64748b" text-anchor="middle">平衡正向移动，提高产率</text>
+    <text x="450" y="424" font-size="11" font-weight="700" fill="#0f766e" text-anchor="middle">勒夏特列原理：向减弱改变的方向移动</text>
+    <text x="450" y="450" font-size="10" fill="#64748b" text-anchor="middle">催化剂只加快速率，不移动平衡</text>
+  </g>
+
+  <g class="g23-z3">
+    <rect class="g23-glow" x="604" y="80" width="272" height="410" rx="22" fill="#b45309" fill-opacity=".08" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#b45309" text-anchor="middle">平衡常数只随温度变</text>
+    <rect x="622" y="136" width="236" height="86" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="160" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">K 的表达式</text>
+    <text x="740" y="188" font-size="13" font-weight="800" fill="#334155" text-anchor="middle">K = c²(NH₃) / [c(N₂)·c³(H₂)]</text>
+    <text x="740" y="208" font-size="10" fill="#64748b" text-anchor="middle">幂次 = 化学计量数</text>
+    <path d="M700 238 V292" stroke="#dc2626" stroke-width="3"/>
+    <circle cx="700" cy="304" r="14" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+    <rect x="692" y="318" width="16" height="56" rx="8" fill="#fecaca" stroke="#dc2626" stroke-width="2"/>
+    <path d="M700 374 V394" stroke="#dc2626" stroke-width="3"/>
+    <line x1="684" y1="252" x2="716" y2="252" stroke="#dc2626" stroke-width="2"/>
+    <line x1="684" y1="278" x2="716" y2="278" stroke="#dc2626" stroke-width="2"/>
+    <text x="726" y="262" font-size="10" font-weight="700" fill="#b91c1c">升温</text>
+    <text x="726" y="288" font-size="10" font-weight="700" fill="#b91c1c">K 改变</text>
+    <rect x="622" y="404" width="236" height="56" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="2"/>
+    <text x="740" y="426" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">K 越大，正反应进行得越完全</text>
+    <text x="740" y="445" font-size="10" fill="#64748b" text-anchor="middle">与浓度、压强无关，只与温度有关</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-4" id="scene-g2-4">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="水溶液中的离子平衡：pH 标尺、滴定曲线与沉淀溶解平衡">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">电离、水解、沉淀：三类离子平衡</text>
+
+  <g class="g24-z1">
+    <rect class="g24-glow" x="24" y="80" width="272" height="410" rx="22" fill="#0e7490" fill-opacity=".08" stroke="#0e7490" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#0e7490" text-anchor="middle">pH 标尺与酸碱强弱</text>
+    <rect x="48" y="150" width="224" height="30" rx="8" fill="#fee2e2"/>
+    <rect x="48" y="150" width="112" height="30" rx="8" fill="#fecaca"/>
+    <rect x="160" y="150" width="56" height="30" fill="#bbf7d0"/>
+    <rect x="216" y="150" width="56" height="30" rx="8" fill="#bfdbfe"/>
+    <text x="66" y="170" font-size="10" font-weight="800" fill="#991b1b">0</text>
+    <text x="120" y="170" font-size="10" font-weight="800" fill="#991b1b">4</text>
+    <text x="184" y="170" font-size="10" font-weight="800" fill="#166534">7</text>
+    <text x="244" y="170" font-size="10" font-weight="800" fill="#1e40af">10</text>
+    <text x="270" y="170" font-size="10" font-weight="800" fill="#1e40af">14</text>
+    <text x="160" y="200" font-size="10" fill="#64748b" text-anchor="middle">酸性 ← 中性 → 碱性</text>
+    <line x1="160" y1="210" x2="160" y2="424" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="180" y="228" font-size="10" fill="#64748b">pH = −lg c(H⁺)</text>
+    <rect x="48" y="246" width="102" height="76" rx="10" fill="#ffffff" stroke="#fca5a5" stroke-width="2"/>
+    <text x="99" y="268" font-size="11" font-weight="800" fill="#b91c1c" text-anchor="middle">盐酸</text>
+    <text x="99" y="288" font-size="10" fill="#64748b" text-anchor="middle">强酸完全电离</text>
+    <text x="99" y="308" font-size="10" fill="#64748b" text-anchor="middle">pH 小</text>
+    <rect x="170" y="246" width="102" height="76" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+    <text x="221" y="268" font-size="11" font-weight="800" fill="#1d4ed8" text-anchor="middle">醋酸</text>
+    <text x="221" y="288" font-size="10" fill="#64748b" text-anchor="middle">弱酸部分电离</text>
+    <text x="221" y="308" font-size="10" fill="#64748b" text-anchor="middle">存在电离平衡</text>
+    <rect x="48" y="346" width="102" height="76" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="2"/>
+    <text x="99" y="368" font-size="11" font-weight="800" fill="#15803d" text-anchor="middle">CH₃COONa</text>
+    <text x="99" y="388" font-size="10" fill="#64748b" text-anchor="middle">弱酸根水解</text>
+    <text x="99" y="408" font-size="10" fill="#64748b" text-anchor="middle">溶液显碱性</text>
+    <rect x="170" y="346" width="102" height="76" rx="10" fill="#ffffff" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="221" y="368" font-size="11" font-weight="800" fill="#6d28d9" text-anchor="middle">NH₄Cl</text>
+    <text x="221" y="388" font-size="10" fill="#64748b" text-anchor="middle">弱碱阳离子水解</text>
+    <text x="221" y="408" font-size="10" fill="#64748b" text-anchor="middle">溶液显酸性</text>
+    <text x="160" y="456" font-size="10" font-weight="700" fill="#0e7490" text-anchor="middle">越弱越水解，谁强显谁性</text>
+  </g>
+
+  <g class="g24-z2">
+    <rect class="g24-glow" x="312" y="80" width="276" height="410" rx="22" fill="#2563eb" fill-opacity=".08" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">酸碱滴定曲线</text>
+    <line x1="342" y1="146" x2="342" y2="398" stroke="#64748b" stroke-width="2"/>
+    <line x1="342" y1="398" x2="566" y2="398" stroke="#64748b" stroke-width="2"/>
+    <text x="344" y="140" font-size="10" fill="#64748b">pH</text>
+    <text x="566" y="414" font-size="10" fill="#64748b" text-anchor="end">V(NaOH)</text>
+    <path d="M348 380 C380 378 404 372 424 352 C444 332 452 240 468 200 C484 160 512 152 558 150" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <line x1="450" y1="200" x2="450" y2="398" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="450" cy="200" r="6" fill="#dc2626"/>
+    <text x="456" y="192" font-size="10" font-weight="800" fill="#dc2626">突跃</text>
+    <line x1="342" y1="270" x2="558" y2="270" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+    <text x="348" y="264" font-size="10" fill="#64748b">pH=7</text>
+    <rect x="330" y="424" width="240" height="50" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="450" y="444" font-size="11" font-weight="800" fill="#1d4ed8" text-anchor="middle">滴定终点：指示剂变色，半分钟不褪</text>
+    <text x="450" y="462" font-size="10" fill="#64748b" text-anchor="middle">读数读到 0.01 mL，视线平视凹液面</text>
+  </g>
+
+  <g class="g24-z3">
+    <rect class="g24-glow" x="604" y="80" width="272" height="410" rx="22" fill="#7c3aed" fill-opacity=".08" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#7c3aed" text-anchor="middle">沉淀溶解平衡</text>
+    <path d="M658 190 H822 L806 360 H674 Z" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2.5"/>
+    <rect x="676" y="318" width="128" height="40" rx="5" fill="#e2e8f0"/>
+    <g fill="#64748b">
+      <circle cx="696" cy="338" r="6"/><circle cx="716" cy="346" r="5"/><circle cx="738" cy="334" r="6"/>
+      <circle cx="758" cy="348" r="5"/><circle cx="780" cy="338" r="6"/>
+    </g>
+    <text x="740" y="386" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">AgCl(s)</text>
+    <circle class="g24-ion1" cx="700" cy="250" r="4" fill="#7c3aed"/>
+    <circle class="g24-ion2" cx="772" cy="228" r="4" fill="#0e7490"/>
+    <path d="M706 268 Q716 292 706 312" stroke="#7c3aed" stroke-width="2" fill="none"/>
+    <path d="M766 272 Q758 294 768 312" stroke="#0e7490" stroke-width="2" fill="none"/>
+    <text x="740" y="214" font-size="11" font-weight="800" fill="#7c3aed" text-anchor="middle">AgCl(s) ⇌ Ag⁺ + Cl⁻</text>
+    <rect x="624" y="410" width="232" height="64" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="430" font-size="11" font-weight="800" fill="#7c3aed" text-anchor="middle">Q 与 Ksp 比较</text>
+    <text x="740" y="448" font-size="10" fill="#64748b" text-anchor="middle">Q &gt; Ksp 生成沉淀；Q &lt; Ksp 沉淀溶解</text>
+    <text x="740" y="464" font-size="10" fill="#64748b" text-anchor="middle">Ksp 只与温度有关</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-5" id="scene-g2-5">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原电池与电解池：丹尼尔电池、电解食盐水和电极判断">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">电子走外电路，离子走内电路</text>
+
+  <g class="g25-z1">
+    <rect class="g25-glow" x="24" y="80" width="272" height="410" rx="22" fill="#b45309" fill-opacity=".08" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#b45309" text-anchor="middle">原电池：化学能 → 电能</text>
+    <path d="M62 240 H148 L140 390 H70 Z" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2.5"/>
+    <path d="M174 240 H260 L252 390 H182 Z" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2.5"/>
+    <rect x="66" y="304" width="76" height="82" fill="#bfdbfe" opacity=".8"/>
+    <rect x="178" y="304" width="76" height="82" fill="#bae6fd" opacity=".8"/>
+    <rect x="96" y="228" width="18" height="130" rx="3" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+    <rect x="206" y="228" width="18" height="130" rx="3" fill="#c2410c" stroke="#9a3412" stroke-width="2"/>
+    <text x="105" y="222" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">Zn</text>
+    <text x="215" y="222" font-size="11" font-weight="800" fill="#9a3412" text-anchor="middle">Cu</text>
+    <path d="M114 232 H160 V206 H196" fill="none" stroke="#334155" stroke-width="3"/>
+    <path d="M104 200 H160" stroke="#dc2626" stroke-width="2.5"/>
+    <path d="M160 200 L152 195 V205 Z" fill="#dc2626"/>
+    <text x="132" y="190" font-size="10" font-weight="700" fill="#dc2626" text-anchor="middle">e⁻</text>
+    <path d="M148 270 H174" stroke="#64748b" stroke-width="7" stroke-dasharray="2 4"/>
+    <text x="161" y="260" font-size="9" fill="#475569" text-anchor="middle">盐桥</text>
+    <text x="104" y="414" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">负极 氧化</text>
+    <text x="216" y="414" font-size="10" font-weight="700" fill="#9a3412" text-anchor="middle">正极 还原</text>
+    <text x="160" y="444" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">阳离子 → 正极；阴离子 → 负极</text>
+    <text x="160" y="466" font-size="10" fill="#64748b" text-anchor="middle">自发氧化还原，电子经导线</text>
+  </g>
+
+  <g class="g25-z2">
+    <rect class="g25-glow" x="312" y="80" width="276" height="410" rx="22" fill="#2563eb" fill-opacity=".08" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">电解池：电能 → 化学能</text>
+    <rect x="352" y="250" width="196" height="150" rx="8" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2.5"/>
+    <rect x="358" y="300" width="184" height="96" fill="#dbeafe" opacity=".8"/>
+    <rect x="382" y="206" width="16" height="150" rx="3" fill="#475569"/>
+    <rect x="502" y="206" width="16" height="150" rx="3" fill="#475569"/>
+    <text x="390" y="198" font-size="10" font-weight="800" fill="#1d4ed8" text-anchor="middle">阳极</text>
+    <text x="510" y="198" font-size="10" font-weight="800" fill="#b91c1c" text-anchor="middle">阴极</text>
+    <path d="M390 194 V152 H450" fill="none" stroke="#334155" stroke-width="2.5"/>
+    <path d="M510 194 V152 H450" fill="none" stroke="#334155" stroke-width="2.5"/>
+    <rect x="432" y="134" width="36" height="36" rx="5" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="450" y="158" font-size="13" font-weight="800" fill="#334155" text-anchor="middle">+</text>
+    <text x="416" y="128" font-size="10" fill="#64748b" text-anchor="middle">电源</text>
+    <rect x="474" y="230" width="34" height="70" rx="15" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2"/>
+    <rect class="g25-h2" x="478" y="262" width="26" height="34" fill="#fef08a" opacity=".85"/>
+    <text x="520" y="268" font-size="10" font-weight="700" fill="#b91c1c">H₂</text>
+    <rect x="364" y="230" width="34" height="70" rx="15" fill="url(#gGlass)" stroke="#a9c7e5" stroke-width="2"/>
+    <rect class="g25-cl2" x="368" y="240" width="26" height="56" fill="#d9f99d" opacity=".85"/>
+    <text x="352" y="268" font-size="10" font-weight="700" fill="#4d7c0f">Cl₂</text>
+    <text x="450" y="424" font-size="11" font-weight="800" fill="#1d4ed8" text-anchor="middle">阳极：2Cl⁻ − 2e⁻ → Cl₂↑</text>
+    <text x="450" y="446" font-size="11" font-weight="800" fill="#b91c1c" text-anchor="middle">阴极：2H⁺ + 2e⁻ → H₂↑</text>
+    <text x="450" y="470" font-size="10" fill="#64748b" text-anchor="middle">阴极区同时生成 NaOH</text>
+  </g>
+
+  <g class="g25-z3">
+    <rect class="g25-glow" x="604" y="80" width="272" height="410" rx="22" fill="#0e8a7b" fill-opacity=".08" stroke="#0e8a7b" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#0f766e" text-anchor="middle">三步判断电极</text>
+    <rect x="628" y="138" width="224" height="58" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="162" font-size="12" font-weight="800" fill="#334155" text-anchor="middle">① 有没有外接电源？</text>
+    <text x="740" y="182" font-size="10" fill="#64748b" text-anchor="middle">有 → 电解池；没有 → 原电池</text>
+    <path d="M740 196 V222" stroke="#0e8a7b" stroke-width="2"/>
+    <path d="M740 222 L734 212 H746 Z" fill="#0e8a7b"/>
+    <rect x="628" y="230" width="224" height="58" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="254" font-size="12" font-weight="800" fill="#334155" text-anchor="middle">② 电子从哪一极流出？</text>
+    <text x="740" y="274" font-size="10" fill="#64748b" text-anchor="middle">流出 → 氧化反应</text>
+    <path d="M740 288 V314" stroke="#0e8a7b" stroke-width="2"/>
+    <path d="M740 314 L734 304 H746 Z" fill="#0e8a7b"/>
+    <rect x="628" y="322" width="224" height="58" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="346" font-size="12" font-weight="800" fill="#334155" text-anchor="middle">③ 谁得电子、谁失电子？</text>
+    <text x="740" y="366" font-size="10" fill="#64748b" text-anchor="middle">失 → 负极 / 阳极；得 → 正极 / 阴极</text>
+    <rect x="628" y="400" width="224" height="64" rx="12" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+    <text x="740" y="422" font-size="11" font-weight="800" fill="#0f766e" text-anchor="middle">阳离子向正极（阴极）移动</text>
+    <text x="740" y="442" font-size="10" fill="#64748b" text-anchor="middle">阴离子向负极（阳极）移动</text>
+    <text x="740" y="458" font-size="10" fill="#64748b" text-anchor="middle">内电路靠离子导电</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-6" id="scene-g2-6">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原子结构与性质：能级填充、电子排布式与周期律">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">电子按能量排队：能级、排布式与周期律</text>
+
+  <g class="g26-z1">
+    <rect class="g26-glow" x="24" y="80" width="272" height="410" rx="22" fill="#4f46e5" fill-opacity=".08" stroke="#4f46e5" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#4f46e5" text-anchor="middle">能级填充顺序</text>
+    <line x1="48" y1="134" x2="48" y2="436" stroke="#64748b" stroke-width="2"/>
+    <text x="52" y="128" font-size="10" fill="#64748b">能量 ↑</text>
+    <line x1="66" y1="410" x2="116" y2="410" stroke="#0e8a7b" stroke-width="4"/>
+    <text x="122" y="414" font-size="11" font-weight="800" fill="#0f766e">1s</text>
+    <line x1="66" y1="368" x2="136" y2="368" stroke="#0e8a7b" stroke-width="4"/>
+    <text x="142" y="372" font-size="11" font-weight="800" fill="#0f766e">2s</text>
+    <line x1="66" y1="326" x2="196" y2="326" stroke="#2563eb" stroke-width="4"/>
+    <text x="202" y="330" font-size="11" font-weight="800" fill="#1d4ed8">2p</text>
+    <line x1="66" y1="284" x2="156" y2="284" stroke="#0e8a7b" stroke-width="4"/>
+    <text x="162" y="288" font-size="11" font-weight="800" fill="#0f766e">3s</text>
+    <line x1="66" y1="242" x2="216" y2="242" stroke="#2563eb" stroke-width="4"/>
+    <text x="222" y="246" font-size="11" font-weight="800" fill="#1d4ed8">3p</text>
+    <line x1="66" y1="200" x2="176" y2="200" stroke="#b45309" stroke-width="4"/>
+    <text x="182" y="204" font-size="11" font-weight="800" fill="#b45309">4s</text>
+    <line x1="66" y1="158" x2="256" y2="158" stroke="#7c3aed" stroke-width="4"/>
+    <text x="226" y="176" font-size="11" font-weight="800" fill="#7c3aed">3d</text>
+    <path d="M74 436 C82 404 84 388 92 374" stroke="#f87171" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+    <text x="96" y="392" font-size="9" fill="#b91c1c">4s 先于 3d</text>
+    <text x="160" y="454" font-size="11" font-weight="700" fill="#4f46e5" text-anchor="middle">能量最低原理：由低到高填</text>
+    <text x="160" y="476" font-size="10" fill="#64748b" text-anchor="middle">同一能级先分占轨道，自旋平行</text>
+  </g>
+
+  <g class="g26-z2">
+    <rect class="g26-glow" x="312" y="80" width="276" height="410" rx="22" fill="#0e8a7b" fill-opacity=".08" stroke="#0e8a7b" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#0f766e" text-anchor="middle">铁的电子排布式</text>
+    <text x="450" y="146" font-size="13" font-weight="800" fill="#334155" text-anchor="middle">1s²2s²2p⁶3s²3p⁶3d⁶4s²</text>
+    <text x="450" y="168" font-size="10" fill="#64748b" text-anchor="middle">26 个电子，按能层能级依次填入</text>
+    <g stroke="#0f766e" stroke-width="1.6" fill="#f0fdfa">
+      <rect x="338" y="196" width="40" height="26"/><rect x="384" y="196" width="40" height="26"/>
+      <rect x="430" y="196" width="40" height="26"/><rect x="476" y="196" width="40" height="26"/>
+      <rect x="522" y="196" width="40" height="26"/>
+    </g>
+    <text x="338" y="190" font-size="9" font-weight="700" fill="#0f766e">3d</text>
+    <g fill="#0f766e" font-size="12" font-weight="700" text-anchor="middle">
+      <text x="358" y="217" font-size="10">↑↓</text>
+      <text x="404" y="217">↑</text>
+      <text x="450" y="217">↑</text>
+      <text x="496" y="217">↑</text>
+      <text x="542" y="217">↑</text>
+    </g>
+    <g stroke="#b45309" stroke-width="1.6" fill="#fffbeb">
+      <rect x="446" y="250" width="40" height="26"/>
+    </g>
+    <text x="466" y="246" font-size="9" font-weight="700" fill="#b45309" text-anchor="middle">4s</text>
+    <text x="466" y="272" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">↑↓</text>
+    <rect x="338" y="296" width="224" height="58" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="450" y="318" font-size="11" font-weight="800" fill="#0f766e" text-anchor="middle">价电子：3d⁶4s²</text>
+    <text x="450" y="338" font-size="10" fill="#64748b" text-anchor="middle">过渡元素的性质与 d 电子有关</text>
+    <text x="450" y="386" font-size="12" font-weight="800" fill="#0f766e" text-anchor="middle">Fe³⁺：3d⁵</text>
+    <text x="450" y="410" font-size="10" fill="#64748b" text-anchor="middle">先失 4s 电子，再失 3d 电子</text>
+    <text x="450" y="452" font-size="10" font-weight="700" fill="#0f766e" text-anchor="middle">5 个 d 电子分占 5 个轨道 → 5 个未成对</text>
+  </g>
+
+  <g class="g26-z3">
+    <rect class="g26-glow" x="604" y="80" width="272" height="410" rx="22" fill="#b45309" fill-opacity=".08" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#b45309" text-anchor="middle">周期律三条主线</text>
+    <g stroke="#cbd5e1" stroke-width="1.2" fill="#ffffff">
+      <rect x="624" y="138" width="34" height="30"/><rect x="660" y="138" width="34" height="30"/><rect x="696" y="138" width="34" height="30"/>
+      <rect x="732" y="138" width="34" height="30"/><rect x="768" y="138" width="34" height="30"/><rect x="804" y="138" width="34" height="30"/>
+      <rect x="624" y="170" width="34" height="30"/><rect x="660" y="170" width="34" height="30"/><rect x="696" y="170" width="34" height="30"/>
+      <rect x="732" y="170" width="34" height="30"/><rect x="768" y="170" width="34" height="30"/><rect x="804" y="170" width="34" height="30"/>
+    </g>
+    <text x="676" y="158" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">Li</text>
+    <text x="746" y="158" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">Be</text>
+    <text x="816" y="158" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">B</text>
+    <text x="676" y="190" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">Na</text>
+    <text x="746" y="190" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">Mg</text>
+    <text x="816" y="190" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">Al</text>
+    <path class="g26-r1" d="M632 216 H806" stroke="#dc2626" stroke-width="2.5"/>
+    <path d="M806 216 L796 210 V222 Z" fill="#dc2626"/>
+    <text x="719" y="232" font-size="10" font-weight="800" fill="#b91c1c" text-anchor="middle">同周期：原子半径减小</text>
+    <path class="g26-r2" d="M660 252 H660 780" stroke="#2563eb" stroke-width="2.5"/>
+    <path d="M780 252 L770 246 V258 Z" fill="#2563eb"/>
+    <text x="719" y="268" font-size="10" font-weight="800" fill="#1d4ed8" text-anchor="middle">同周期：电负性增大</text>
+    <path d="M700 286 V356" stroke="#0e8a7b" stroke-width="2.5"/>
+    <path d="M700 356 L694 346 H706 Z" fill="#0e8a7b"/>
+    <text x="712" y="330" font-size="10" font-weight="800" fill="#0f766e">同主族：金属性增强</text>
+    <rect x="624" y="374" width="232" height="72" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="394" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">第一电离能总体增大</text>
+    <text x="740" y="414" font-size="10" fill="#64748b" text-anchor="middle">同周期有反常：N &gt; O、Mg &gt; Al</text>
+    <text x="740" y="434" font-size="10" fill="#64748b" text-anchor="middle">半充满、全充满结构更稳定</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-7" id="scene-g2-7">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="分子结构与性质：杂化轨道、空间构型与分子极性">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">杂化定形状，形状定极性</text>
+
+  <g class="g27-z1">
+    <rect class="g27-glow" x="24" y="80" width="272" height="410" rx="22" fill="#0f766e" fill-opacity=".08" stroke="#0f766e" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#0f766e" text-anchor="middle">三种杂化方式</text>
+    <g class="g27-sp3">
+      <circle cx="94" cy="180" r="9" fill="#0f766e"/>
+      <circle cx="94" cy="142" r="7" fill="#5eead4"/><circle cx="94" cy="218" r="7" fill="#5eead4"/>
+      <circle cx="56" cy="180" r="7" fill="#5eead4"/><circle cx="132" cy="180" r="7" fill="#5eead4"/>
+      <path d="M94 180 L94 152 M94 180 L94 208 M94 180 L66 180 M94 180 L122 180" stroke="#0f766e" stroke-width="2"/>
+    </g>
+    <text x="94" y="252" font-size="12" font-weight="800" fill="#0f766e" text-anchor="middle">sp³ 四面体</text>
+    <text x="94" y="270" font-size="10" fill="#64748b" text-anchor="middle">4 个轨道</text>
+    <g class="g27-sp2">
+      <circle cx="226" cy="186" r="9" fill="#0f766e"/>
+      <circle cx="226" cy="150" r="7" fill="#5eead4"/><circle cx="190" cy="204" r="7" fill="#5eead4"/><circle cx="262" cy="204" r="7" fill="#5eead4"/>
+      <path d="M226 186 L226 158 M226 186 L198 200 M226 186 L254 200" stroke="#0f766e" stroke-width="2"/>
+    </g>
+    <text x="226" y="252" font-size="12" font-weight="800" fill="#0f766e" text-anchor="middle">sp² 平面三角</text>
+    <text x="226" y="270" font-size="10" fill="#64748b" text-anchor="middle">3 个轨道</text>
+    <g class="g27-sp">
+      <circle cx="160" cy="336" r="9" fill="#0f766e"/>
+      <circle cx="116" cy="336" r="7" fill="#5eead4"/><circle cx="204" cy="336" r="7" fill="#5eead4"/>
+      <path d="M160 336 H122 M160 336 H198" stroke="#0f766e" stroke-width="2"/>
+    </g>
+    <text x="160" y="378" font-size="12" font-weight="800" fill="#0f766e" text-anchor="middle">sp 直线形</text>
+    <text x="160" y="396" font-size="10" fill="#64748b" text-anchor="middle">2 个轨道</text>
+    <rect x="44" y="410" width="232" height="52" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="160" y="432" font-size="11" font-weight="800" fill="#0f766e" text-anchor="middle">杂化轨道数 = 价层电子对数</text>
+    <text x="160" y="450" font-size="10" fill="#64748b" text-anchor="middle">轨道数决定空间取向</text>
+  </g>
+
+  <g class="g27-z2">
+    <rect class="g27-glow" x="312" y="80" width="276" height="410" rx="22" fill="#2563eb" fill-opacity=".08" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#1d4ed8" text-anchor="middle">VSEPR：电子对尽量远离</text>
+    <g class="g27-ch4">
+      <circle cx="386" cy="196" r="10" fill="#1d4ed8"/>
+      <circle cx="386" cy="156" r="6" fill="#93c5fd"/><circle cx="352" cy="216" r="6" fill="#93c5fd"/>
+      <circle cx="420" cy="216" r="6" fill="#93c5fd"/><circle cx="386" cy="236" r="6" fill="#93c5fd"/>
+      <path d="M386 196 V164 M386 196 L360 212 M386 196 L412 212 M386 196 V228" stroke="#1d4ed8" stroke-width="2"/>
+    </g>
+    <text x="386" y="266" font-size="11" font-weight="800" fill="#1d4ed8" text-anchor="middle">CH₄ 正四面体</text>
+    <text x="386" y="284" font-size="10" fill="#64748b" text-anchor="middle">109°28′</text>
+    <g class="g27-nh3">
+      <circle cx="512" cy="196" r="10" fill="#1d4ed8"/>
+      <circle cx="512" cy="154" r="6" fill="#93c5fd"/><circle cx="478" cy="218" r="6" fill="#93c5fd"/>
+      <circle cx="546" cy="218" r="6" fill="#93c5fd"/>
+      <circle cx="512" cy="238" r="7" fill="#c4b5fd"/>
+      <path d="M512 196 V162 M512 196 L486 214 M512 196 L538 214" stroke="#1d4ed8" stroke-width="2"/>
+    </g>
+    <text x="512" y="266" font-size="11" font-weight="800" fill="#1d4ed8" text-anchor="middle">NH₃ 三角锥</text>
+    <text x="512" y="284" font-size="10" fill="#64748b" text-anchor="middle">107°</text>
+    <g class="g27-h2o">
+      <circle cx="450" cy="354" r="10" fill="#1d4ed8"/>
+      <circle cx="416" cy="326" r="6" fill="#93c5fd"/><circle cx="484" cy="326" r="6" fill="#93c5fd"/>
+      <circle cx="450" cy="386" r="7" fill="#c4b5fd"/><circle cx="450" cy="410" r="7" fill="#c4b5fd"/>
+      <path d="M450 354 L424 332 M450 354 L476 332" stroke="#1d4ed8" stroke-width="2"/>
+    </g>
+    <text x="450" y="438" font-size="11" font-weight="800" fill="#1d4ed8" text-anchor="middle">H₂O V 形</text>
+    <text x="450" y="456" font-size="10" fill="#64748b" text-anchor="middle">104.5°</text>
+    <text x="450" y="480" font-size="10" font-weight="700" fill="#1d4ed8" text-anchor="middle">孤电子对越多，键角越小</text>
+  </g>
+
+  <g class="g27-z3">
+    <rect class="g27-glow" x="604" y="80" width="272" height="410" rx="22" fill="#b45309" fill-opacity=".08" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#b45309" text-anchor="middle">对称抵消 → 非极性</text>
+    <circle cx="684" cy="180" r="12" fill="#334155"/>
+    <text x="684" y="185" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">C</text>
+    <circle cx="640" cy="180" r="13" fill="#dc2626"/>
+    <text x="640" y="185" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">O</text>
+    <circle cx="728" cy="180" r="13" fill="#dc2626"/>
+    <text x="728" y="185" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">O</text>
+    <path d="M652 180 H672 M696 180 H716" stroke="#334155" stroke-width="2" stroke-dasharray="5 4"/>
+    <path class="g27-dipL" d="M662 200 H628" stroke="#b45309" stroke-width="3"/>
+    <path d="M628 200 L638 194 V206 Z" fill="#b45309"/>
+    <path class="g27-dipR" d="M706 200 H740" stroke="#b45309" stroke-width="3"/>
+    <path d="M740 200 L730 194 V206 Z" fill="#b45309"/>
+    <text x="684" y="228" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">CO₂ 直线形：极性抵消</text>
+    <text x="684" y="248" font-size="10" fill="#64748b" text-anchor="middle">非极性分子</text>
+    <circle cx="790" cy="300" r="12" fill="#334155"/>
+    <text x="790" y="305" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">O</text>
+    <circle cx="766" cy="268" r="10" fill="#93c5fd"/>
+    <text x="766" y="272" font-size="9" font-weight="800" fill="#334155" text-anchor="middle">H</text>
+    <circle cx="814" cy="268" r="10" fill="#93c5fd"/>
+    <text x="814" y="272" font-size="9" font-weight="800" fill="#334155" text-anchor="middle">H</text>
+    <path d="M790 300 L772 278 M790 300 L808 278" stroke="#334155" stroke-width="2"/>
+    <path class="g27-dipO" d="M790 312 V344" stroke="#b45309" stroke-width="3"/>
+    <path d="M790 344 L784 334 H796 Z" fill="#b45309"/>
+    <text x="790" y="366" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">H₂O：不重合</text>
+    <text x="790" y="384" font-size="10" fill="#64748b" text-anchor="middle">极性分子</text>
+    <rect x="622" y="404" width="236" height="58" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="426" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">键有极性 ≠ 分子有极性</text>
+    <text x="740" y="446" font-size="10" fill="#64748b" text-anchor="middle">还要看空间构型是否对称</text>
+  </g>
+</svg>
+</div>
+<div class="scene" data-scene="g2-8" id="scene-g2-8">
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="晶体结构与性质：NaCl 晶胞、四类晶体与熔点比较">
+  <rect width="900" height="620" fill="url(#gBg)"/>
+  <rect width="900" height="620" fill="url(#dotsPat)"/>
+  <rect y="510" width="900" height="110" fill="url(#gBench)"/>
+  <line x1="0" y1="510" x2="900" y2="510" stroke="#cfd9e8" stroke-width="2"/>
+  <rect x="0" y="506" width="900" height="7" fill="url(#gSteel)" opacity=".55"/>
+  <text x="450" y="56" font-size="18" font-weight="800" fill="#334155" text-anchor="middle">晶胞均摊：顶点 1/8，面心 1/2，体心 1</text>
+
+  <g class="g28-z1">
+    <rect class="g28-glow" x="24" y="80" width="272" height="410" rx="22" fill="#475569" fill-opacity=".08" stroke="#475569" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="160" y="112" font-size="15" font-weight="800" fill="#334155" text-anchor="middle">NaCl 晶胞</text>
+    <g stroke="#64748b" stroke-width="1.6" fill="none" opacity=".8">
+      <path d="M92 210 L228 210 L268 170 L268 330 L228 370 L92 370 Z"/>
+      <path d="M92 210 L132 170 L268 170 M92 370 L132 330 L268 330 M132 170 L132 330"/>
+      <path d="M228 210 L228 370"/>
+    </g>
+    <g fill="#0e7490">
+      <circle cx="92" cy="210" r="7"/><circle cx="228" cy="210" r="7"/><circle cx="92" cy="370" r="7"/>
+      <circle cx="228" cy="370" r="7"/><circle cx="160" cy="290" r="7"/><circle cx="268" cy="170" r="7"/>
+      <circle cx="268" cy="330" r="7"/><circle cx="132" cy="170" r="7"/><circle cx="132" cy="330" r="7"/>
+    </g>
+    <g fill="#b45309">
+      <circle cx="160" cy="210" r="7"/><circle cx="160" cy="370" r="7"/><circle cx="92" cy="290" r="7"/>
+      <circle cx="228" cy="290" r="7"/><circle cx="160" cy="170" r="7"/><circle cx="160" cy="330" r="7"/>
+    </g>
+    <text x="74" y="200" font-size="10" font-weight="800" fill="#0e7490">Na⁺</text>
+    <text x="236" y="200" font-size="10" font-weight="800" fill="#b45309">Cl⁻</text>
+    <text x="160" y="404" font-size="11" font-weight="800" fill="#334155" text-anchor="middle">Na⁺：8×1/8 + 6×1/2 = 4</text>
+    <text x="160" y="426" font-size="10" fill="#64748b" text-anchor="middle">Cl⁻：12×1/4 + 1 = 4</text>
+    <text x="160" y="450" font-size="10" fill="#64748b" text-anchor="middle">配位数：每个离子周围 6 个异种离子</text>
+    <text x="160" y="472" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">均摊法：顶点 1/8、棱 1/4、面心 1/2</text>
+  </g>
+
+  <g class="g28-z2">
+    <rect class="g28-glow" x="312" y="80" width="276" height="410" rx="22" fill="#0e7490" fill-opacity=".08" stroke="#0e7490" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="450" y="112" font-size="15" font-weight="800" fill="#0e7490" text-anchor="middle">四类晶体，四种作用力</text>
+    <rect x="326" y="134" width="120" height="150" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+    <text x="386" y="156" font-size="12" font-weight="800" fill="#1d4ed8" text-anchor="middle">离子晶体</text>
+    <text x="386" y="174" font-size="10" fill="#64748b" text-anchor="middle">离子键</text>
+    <g fill="#2563eb"><circle cx="356" cy="204" r="6"/><circle cx="386" cy="204" r="6"/><circle cx="416" cy="204" r="6"/></g>
+    <g fill="#dc2626"><circle cx="371" cy="228" r="6"/><circle cx="401" cy="228" r="6"/></g>
+    <text x="386" y="258" font-size="10" fill="#64748b" text-anchor="middle">熔沸点较高</text>
+    <text x="386" y="274" font-size="10" fill="#64748b" text-anchor="middle">熔融导电</text>
+    <rect x="456" y="134" width="120" height="150" rx="12" fill="#ffffff" stroke="#fcd34d" stroke-width="2"/>
+    <text x="516" y="156" font-size="12" font-weight="800" fill="#b45309" text-anchor="middle">分子晶体</text>
+    <text x="516" y="174" font-size="10" fill="#64748b" text-anchor="middle">分子间作用力</text>
+    <g fill="#f59e0b"><circle cx="486" cy="204" r="8"/><circle cx="516" cy="220" r="8"/><circle cx="546" cy="204" r="8"/></g>
+    <g stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="3 3"><path d="M494 204 H508 M524 212 L538 208 M524 204 L538 204"/></g>
+    <text x="516" y="258" font-size="10" fill="#64748b" text-anchor="middle">熔沸点较低</text>
+    <text x="516" y="274" font-size="10" fill="#64748b" text-anchor="middle">固态不导电</text>
+    <rect x="326" y="296" width="120" height="150" rx="12" fill="#ffffff" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="386" y="318" font-size="12" font-weight="800" fill="#6d28d9" text-anchor="middle">共价晶体</text>
+    <text x="386" y="336" font-size="10" fill="#64748b" text-anchor="middle">共价键</text>
+    <g stroke="#7c3aed" stroke-width="1.6">
+      <path d="M356 372 L386 352 L416 372 L386 392 Z M386 352 V392 M356 372 H416"/>
+    </g>
+    <g fill="#7c3aed"><circle cx="356" cy="372" r="4"/><circle cx="386" cy="352" r="4"/><circle cx="416" cy="372" r="4"/><circle cx="386" cy="392" r="4"/></g>
+    <text x="386" y="420" font-size="10" fill="#64748b" text-anchor="middle">熔点很高</text>
+    <text x="386" y="436" font-size="10" fill="#64748b" text-anchor="middle">硬度很大</text>
+    <rect x="456" y="296" width="120" height="150" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="516" y="318" font-size="12" font-weight="800" fill="#475569" text-anchor="middle">金属晶体</text>
+    <text x="516" y="336" font-size="10" fill="#64748b" text-anchor="middle">金属键</text>
+    <g fill="#64748b"><circle cx="486" cy="372" r="7"/><circle cx="516" cy="372" r="7"/><circle cx="546" cy="372" r="7"/></g>
+    <g fill="#cbd5e1"><circle cx="496" cy="390" r="3"/><circle cx="526" cy="390" r="3"/><circle cx="511" cy="404" r="3"/></g>
+    <text x="516" y="420" font-size="10" fill="#64748b" text-anchor="middle">有自由电子</text>
+    <text x="516" y="436" font-size="10" fill="#64748b" text-anchor="middle">导电、导热</text>
+  </g>
+
+  <g class="g28-z3">
+    <rect class="g28-glow" x="604" y="80" width="272" height="410" rx="22" fill="#b45309" fill-opacity=".08" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7"/>
+    <text x="740" y="112" font-size="15" font-weight="800" fill="#b45309" text-anchor="middle">熔点排序与例外</text>
+    <line x1="632" y1="404" x2="848" y2="404" stroke="#64748b" stroke-width="2"/>
+    <rect class="g28-bar1" x="644" y="150" width="34" height="254" rx="6" fill="#7c3aed" opacity=".85"/>
+    <rect class="g28-bar2" x="694" y="238" width="34" height="166" rx="6" fill="#2563eb" opacity=".85"/>
+    <rect class="g28-bar3" x="744" y="322" width="34" height="82" rx="6" fill="#0e8a7b" opacity=".85"/>
+    <rect class="g28-bar4" x="794" y="372" width="34" height="32" rx="6" fill="#f59e0b" opacity=".85"/>
+    <text x="661" y="142" font-size="10" font-weight="800" fill="#6d28d9" text-anchor="middle">金刚石</text>
+    <text x="711" y="230" font-size="10" font-weight="800" fill="#1d4ed8" text-anchor="middle">NaCl</text>
+    <text x="761" y="314" font-size="10" font-weight="800" fill="#0f766e" text-anchor="middle">冰</text>
+    <text x="811" y="364" font-size="10" font-weight="800" fill="#b45309" text-anchor="middle">H₂</text>
+    <text x="740" y="424" font-size="10" fill="#64748b" text-anchor="middle">一般：共价 &gt; 离子 &gt; 分子</text>
+    <rect x="622" y="438" width="236" height="48" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="740" y="458" font-size="11" font-weight="800" fill="#b45309" text-anchor="middle">冰的熔点高于 H₂S：存在氢键</text>
+    <text x="740" y="476" font-size="10" fill="#64748b" text-anchor="middle">分子晶体比熔沸点先看氢键</text>
+  </g>
+</svg>
+</div>
+      </div>
+      <div class="stage-hint">左右滑动查看完整实验台</div>
+
+      <div class="caption" id="caption"></div>
+      <div class="equation" id="equation"></div>
+
+      <div class="readouts" id="readouts"></div>
+
+      <div class="controls">
+        <button class="play" id="play" type="button">▶ 播放讲解</button>
+        <button class="pause" id="pause" type="button" hidden>⏸ 暂停</button>
+        <button class="sound" id="sound" type="button">🔊 讲解</button>
+      </div>
+      <div class="audio-progress"><span id="audioBar"></span></div>
+      <div class="note">3 步动画 · 语音按需加载 · 可暂停、重播</div>
+    </div>
+
+    <div class="q-head">
+      <h2>5 道题 · 高考真题改编</h2>
+      <span id="qProgress"></span>
+    </div>
+    <div id="questions"></div>
+
+    <div class="lesson-nav">
+      <button id="prevPoint" type="button">← 上一个知识点</button>
+      <button id="nextPoint" type="button">下一个知识点 →</button>
+    </div>
+  </section>
+</div>
+
+<div class="error-bar" id="errorBar"></div>
+
+<script id="junior-data" type="application/json">[
+ {
+  "id": "g2-1",
+  "unit": "选择性必修1 化学反应原理",
+  "name": "化学反应的热效应",
+  "title": "反应吸热还是放热，能量到底去哪了？",
+  "subtitle": "焓变 · 热化学方程式 · 盖斯定律",
+  "accent": "#0e8a7b",
+  "readoutLabels": [
+   "焓变",
+   "热化学方程式",
+   "盖斯定律"
+  ],
+  "steps": [
+   {
+    "label": "焓变",
+    "caption": "反应热用 ΔH 表示；放热 ΔH&lt;0，吸热 ΔH&gt;0；断键吸能、成键放能，两者之差决定反应放热还是吸热。",
+    "narration": "先看焓变。化学反应都伴随能量变化，反应热用 ΔH 表示，单位是千焦每摩尔。放热反应的 ΔH 小于零，吸热反应的 ΔH 大于零。从化学键看，断裂化学键吸收能量，形成化学键放出能量，二者之差就是反应热。",
+    "reads": [
+     "ΔH<0 放热",
+     "—",
+     "—"
+    ],
+    "eq": "ΔH = 生成物总能量 − 反应物总能量",
+    "eqSub": "放热 ΔH<0，吸热 ΔH>0",
+    "audio": "audio/g2-1/step1.mp3",
+    "dur": 27.43
+   },
+   {
+    "label": "热化学方程式",
+    "caption": "书写热化学方程式要注明物质状态和 ΔH，系数表示物质的量；系数改变 ΔH 成比例，逆反应 ΔH 变号。",
+    "narration": "再看热化学方程式。书写时必须注明物质的聚集状态，因为状态不同，能量不同。ΔH 写在方程式右边，放热为负、吸热为正。方程式系数改变，ΔH 按比例改变；反应逆向进行，ΔH 的符号相反、数值不变。",
+    "reads": [
+     "—",
+     "需注明状态",
+     "—"
+    ],
+    "eq": "H₂(g) + ½O₂(g) → H₂O(l)  ΔH = −285.8 kJ/mol",
+    "eqSub": "系数变，ΔH 成比例变",
+    "audio": "audio/g2-1/step2.mp3",
+    "dur": 27.49
+   },
+   {
+    "label": "盖斯定律",
+    "caption": "反应热只与始态和终态有关，与路径无关；把已知方程式相加减，ΔH 同样相加减，可求难以直接测定的反应热。",
+    "narration": "最后看盖斯定律。一个化学反应无论一步完成还是分几步完成，反应热都相同，只与始态和终态有关，与反应路径无关。利用盖斯定律，可以把已知热化学方程式像代数式一样相加减，ΔH 也相加减，从而求出难以直接测定的反应热。",
+    "reads": [
+     "—",
+     "—",
+     "始态、终态决定"
+    ],
+    "eq": "C(s) + ½O₂(g) → CO(g)  ΔH = −110.5 kJ/mol",
+    "eqSub": "由 C→CO₂ 与 CO→CO₂ 相减得到",
+    "audio": "audio/g2-1/step3.mp3",
+    "dur": 29.49
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-1-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "关于反应热和焓变，下列说法正确的是",
+    "options": [
+     "放热反应 ΔH>0",
+     "反应热与反应路径有关",
+     "吸热反应 ΔH>0",
+     "所有燃烧反应 ΔH>0"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：放热反应 ΔH 小于零。",
+     "B 错：反应热只与始态、终态有关，与路径无关。",
+     "C 对：吸热反应吸收能量，ΔH 大于零。",
+     "D 错：燃烧都是放热反应，ΔH 小于零。"
+    ],
+    "explanation": "ΔH 是焓变，放热 ΔH<0，吸热 ΔH>0。反应热只与始态和终态有关，与路径无关；燃烧都是放热反应，ΔH<0。所以只有 C 正确。对应第 1 步。"
+   },
+   {
+    "id": "g2-1-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "某反应的能量变化图显示生成物总能量低于反应物总能量，该反应是",
+    "options": [
+     "吸热反应",
+     "放热反应",
+     "先吸热后放热",
+     "无法判断"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：吸热反应生成物能量应高于反应物。",
+     "B 对：生成物能量低，多余能量以热的形式放出。",
+     "C 错：一个反应不会先吸热后放热。",
+     "D 错：能量高低已给出，可以判断。"
+    ],
+    "explanation": "生成物总能量低于反应物总能量，说明反应放出能量，是放热反应，ΔH<0。若生成物能量更高，则是吸热反应。由图可直接判断。对应第 1 步。"
+   },
+   {
+    "id": "g2-1-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "中和反应反应热的测定实验中，下列操作正确的是",
+    "options": [
+     "用同一支温度计测完酸后直接插入碱液",
+     "把碱液分多次缓慢倒入酸中",
+     "混合后只读一次温度，不再观察",
+     "碱液一次迅速倒入酸中并用环形玻璃搅拌棒搅拌"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：温度计要洗净擦干，否则影响温度读数。",
+     "B 错：分次缓慢加入会增大热量损失。",
+     "C 错：应读取混合后的最高温度。",
+     "D 对：一次迅速加入并搅拌可减少热量散失。"
+    ],
+    "explanation": "中和热测定要减少热量散失。碱液应一次迅速倒入酸中，用环形玻璃搅拌棒上下搅拌，读取最高温度。温度计每次使用前要洗净擦干，分次加入会增大误差。对应第 1 步。"
+   },
+   {
+    "id": "g2-1-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "已知 H₂(g)+½O₂(g)→H₂O(l) ΔH=−285.8 kJ/mol，则 2 mol H₂ 完全燃烧生成液态水放出的热量为",
+    "options": [
+     "571.6 kJ",
+     "285.8 kJ",
+     "142.9 kJ",
+     "1143.2 kJ"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：2 mol H₂ 放出的热量是 2×285.8 kJ。",
+     "B 错：285.8 kJ 是 1 mol H₂ 放出的热量。",
+     "C 错：142.9 kJ 是 0.5 mol H₂ 的数据。",
+     "D 错：1143.2 kJ 多乘了一倍。"
+    ],
+    "explanation": "热化学方程式中 ΔH 与系数成比例。1 mol H₂ 燃烧放出 285.8 kJ，2 mol H₂ 完全燃烧放出 2×285.8 kJ=571.6 kJ。对应第 2 步。"
+   },
+   {
+    "id": "g2-1-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于反应热，下列说法正确的是",
+    "options": [
+     "需要加热才能发生的反应一定是吸热反应",
+     "放热反应一定能自发进行",
+     "反应热的大小与反应物和生成物的状态有关",
+     "热化学方程式中的 ΔH 与系数无关"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：燃烧需要加热，但属于放热反应。",
+     "B 错：放热反应不一定能自发进行。",
+     "C 对：状态不同，物质具有的能量不同。",
+     "D 错：系数改变，ΔH 按比例改变。"
+    ],
+    "explanation": "需要加热的反应不一定吸热，如燃烧；放热反应也不一定能自发进行。物质状态不同，能量不同，反应热不同。热化学方程式中 ΔH 与系数成正比。对应第 1、2 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-2",
+  "unit": "选择性必修1 化学反应原理",
+  "name": "化学反应速率",
+  "title": "同样一段时间，为什么有的反应快有的慢？",
+  "subtitle": "速率计算 · 影响因素 · 有效碰撞",
+  "accent": "#2563eb",
+  "readoutLabels": [
+   "速率计算",
+   "影响因素",
+   "有效碰撞"
+  ],
+  "steps": [
+   {
+    "label": "速率计算",
+    "caption": "反应速率 v=Δc/Δt，单位 mol/(L·s)；同一反应用不同物质表示时，速率之比等于化学计量数之比。",
+    "narration": "先看速率计算。化学反应速率用单位时间内反应物浓度的减少量或生成物浓度的增加量表示，表达式是 v 等于 Δc 除以 Δt，单位是摩尔每升每秒。同一反应用不同物质表示速率时，其比值等于化学方程式中相应物质的化学计量数之比。",
+    "reads": [
+     "v=Δc/Δt",
+     "—",
+     "—"
+    ],
+    "eq": "v(A) : v(B) = m : n",
+    "eqSub": "aA + bB → cC + dD",
+    "audio": "audio/g2-2/step1.mp3",
+    "dur": 27.99
+   },
+   {
+    "label": "影响因素",
+    "caption": "浓度、压强、温度、催化剂和接触面积都影响反应速率；升温使活化分子百分数增大，催化剂能显著降低活化能。",
+    "narration": "再看影响因素。增大反应物浓度、增大气体压强、升高温度、使用催化剂、增大固体表面积，都能加快反应速率。升高温度使活化分子百分数增大；催化剂能降低反应的活化能，使更多分子成为活化分子，因此催化效果显著。",
+    "reads": [
+     "—",
+     "浓度/温度/催化剂",
+     "—"
+    ],
+    "eq": "升温、加催化剂 → 活化分子增多 → v 增大",
+    "eqSub": "固体和纯液体浓度视为常数",
+    "audio": "audio/g2-2/step2.mp3",
+    "dur": 29.22
+   },
+   {
+    "label": "有效碰撞",
+    "caption": "只有活化分子之间发生取向合适的碰撞才是有效碰撞；单位体积内活化分子越多，有效碰撞频率越高，反应速率越快。",
+    "narration": "最后看有效碰撞。分子间发生反应必须碰撞，但只有能量足够、取向合适的碰撞才是有效碰撞。活化分子具有较高的能量，单位体积内活化分子数越多，有效碰撞频率越高，反应速率越快。这就是浓度、温度影响速率的微观原因。",
+    "reads": [
+     "—",
+     "—",
+     "活化分子 + 合适取向"
+    ],
+    "eq": "有效碰撞 = 活化分子 + 合适取向",
+    "eqSub": "活化能越低，反应越容易进行",
+    "audio": "audio/g2-2/step3.mp3",
+    "dur": 29.35
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-2-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "关于化学反应速率，下列说法正确的是",
+    "options": [
+     "反应速率越大，反应一定进行完全",
+     "同一反应用不同物质表示速率，比值等于计量数之比",
+     "改变固体用量会改变速率表达式中的浓度",
+     "反应速率的单位只有 mol/L"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：速率大只表示快，不表示进行程度。",
+     "B 对：不同物质表示的速率之比等于计量数之比。",
+     "C 错：固体浓度视为常数，不写入速率表达式。",
+     "D 错：速率单位是 mol/(L·s) 或 mol/(L·min)。"
+    ],
+    "explanation": "同一反应中，用不同物质表示的反应速率之比等于化学计量数之比。速率大小与反应是否完全无关；固体浓度视为常数；速率单位含有时间。对应第 1 步。"
+   },
+   {
+    "id": "g2-2-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "向 H₂O₂ 溶液中加入少量 MnO₂，产生气泡的速率明显加快，原因是",
+    "options": [
+     "MnO₂ 与 H₂O₂ 反应放出热量",
+     "MnO₂ 改变了反应的 ΔH",
+     "MnO₂ 增大了 H₂O₂ 的浓度",
+     "MnO₂ 作催化剂，降低了反应活化能"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：放热不是速率加快的主要原因。",
+     "B 错：催化剂不改变反应的焓变。",
+     "C 错：催化剂不改变反应物浓度。",
+     "D 对：MnO₂ 降低活化能，加快分解。"
+    ],
+    "explanation": "MnO₂ 是 H₂O₂ 分解的催化剂，能降低反应活化能，使更多分子成为活化分子，有效碰撞增多，分解速率加快，但不改变 ΔH。对应第 2、3 步。"
+   },
+   {
+    "id": "g2-2-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "用锌粒与稀硫酸反应制氢气，能加快速率且不改变氢气总量的措施是",
+    "options": [
+     "将锌粒换成等质量的锌粉",
+     "加入适量 CuSO₄ 溶液",
+     "用等体积浓硫酸代替稀硫酸",
+     "降低反应温度"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：锌粉表面积大，速率加快，锌总量不变。",
+     "B 错：置换铜会消耗部分锌，氢气总量减少。",
+     "C 错：浓硫酸与锌反应生成 SO₂，不是氢气。",
+     "D 错：降温会使反应速率减慢。"
+    ],
+    "explanation": "增大固体表面积能加快反应速率，且不改变锌的总量，所以把锌粒换成等质量锌粉符合要求。加 CuSO₄ 会消耗锌，浓硫酸不产生氢气，降温减慢反应。对应第 2 步。"
+   },
+   {
+    "id": "g2-2-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "反应 2SO₂(g)+O₂(g)⇌2SO₃(g) 中，2 min 内 SO₂ 浓度由 0.4 mol/L 降到 0.2 mol/L，则 v(SO₂) 为",
+    "options": [
+     "0.05 mol/(L·min)",
+     "0.2 mol/(L·min)",
+     "0.1 mol/(L·min)",
+     "0.4 mol/(L·min)"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：0.05 少算了一半。",
+     "B 错：0.2 是浓度变化量，不是速率。",
+     "C 对：0.2 mol/L÷2 min=0.1 mol/(L·min)。",
+     "D 错：0.4 是起始浓度。"
+    ],
+    "explanation": "v(SO₂)=Δc/Δt=(0.4−0.2) mol/L÷2 min=0.1 mol/(L·min)。注意速率是浓度变化量除以时间，不能直接拿浓度数值。对应第 1 步。"
+   },
+   {
+    "id": "g2-2-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于影响反应速率的因素，下列说法正确的是",
+    "options": [
+     "增大压强一定能加快反应速率",
+     "升高温度能增大活化分子百分数",
+     "催化剂能提高反应的平衡转化率",
+     "增加固体用量能明显加快反应速率"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：只有增大气体压强才可能加快速率。",
+     "B 对：升温使更多分子成为活化分子。",
+     "C 错：催化剂只加快速率，不改变平衡转化率。",
+     "D 错：固体表面积不变时，增加用量影响很小。"
+    ],
+    "explanation": "升高温度使分子能量增大，活化分子百分数增大，有效碰撞增多，速率加快。催化剂不改变平衡；增大压强只对气体有效；固体用量不改变表面积时影响很小。对应第 2、3 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-3",
+  "unit": "选择性必修1 化学反应原理",
+  "name": "化学平衡",
+  "title": "反应“停”下来了吗？其实一直在动",
+  "subtitle": "可逆反应 · 平衡移动 · 平衡常数",
+  "accent": "#7c3aed",
+  "readoutLabels": [
+   "可逆反应",
+   "平衡移动",
+   "平衡常数"
+  ],
+  "steps": [
+   {
+    "label": "可逆反应",
+    "caption": "可逆反应中，正、逆反应同时进行，达到平衡时正、逆反应速率相等但不为零；各物质浓度保持不变，是动态平衡。",
+    "narration": "先看可逆反应。可逆反应在同一条件下既能正向进行，又能逆向进行。当正反应速率等于逆反应速率时，各物质的浓度不再改变，反应达到化学平衡。平衡时反应并没有停止，正逆反应仍在进行，只是速率相等，所以叫动态平衡。",
+    "reads": [
+     "v正=v逆",
+     "—",
+     "—"
+    ],
+    "eq": "N₂ + 3H₂ ⇌ 2NH₃",
+    "eqSub": "平衡标志：v正=v逆，浓度不变",
+    "audio": "audio/g2-3/step1.mp3",
+    "dur": 29.99
+   },
+   {
+    "label": "平衡移动",
+    "caption": "勒夏特列原理：改变一个条件，平衡向减弱这种改变的方向移动；升温向吸热方向，加压向气体分子数减少方向。",
+    "narration": "再看平衡移动。改变浓度、温度或压强，平衡会发生移动。勒夏特列原理指出，平衡向能够减弱这种改变的方向移动。升高温度，平衡向吸热方向移动；增大压强，平衡向气体分子数减少的方向移动；及时分离生成物，平衡正向移动。",
+    "reads": [
+     "—",
+     "勒夏特列原理",
+     "—"
+    ],
+    "eq": "升温 → 向吸热方向移动；加压 → 向气体少的方向移动",
+    "eqSub": "催化剂只改变速率，不移动平衡",
+    "audio": "audio/g2-3/step2.mp3",
+    "dur": 30.8
+   },
+   {
+    "label": "平衡常数",
+    "caption": "K 只与温度有关；生成物浓度幂之积除以反应物浓度幂之积，幂次为计量数，K 越大，正反应通常进行得越完全。",
+    "narration": "最后看平衡常数。一定温度下，平衡常数等于生成物浓度幂之积除以反应物浓度幂之积，各浓度的幂次等于方程式中的化学计量数。平衡常数只与温度有关，与浓度和压强无关。K 越大，说明反应进行得越完全。",
+    "reads": [
+     "—",
+     "—",
+     "K 只与温度有关"
+    ],
+    "eq": "K = c²(NH₃) / [c(N₂)·c³(H₂)]",
+    "eqSub": "K 越大，正反应进行程度越大",
+    "audio": "audio/g2-3/step3.mp3",
+    "dur": 27.14
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-3-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "关于化学平衡，下列说法正确的是",
+    "options": [
+     "平衡时正反应停止",
+     "平衡时各物质浓度相等",
+     "平衡时反应物全部转化",
+     "平衡时 v正=v逆≠0"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：平衡时正、逆反应仍在进行。",
+     "B 错：平衡浓度不一定相等。",
+     "C 错：可逆反应不能进行完全。",
+     "D 对：平衡是动态平衡，正逆速率相等。"
+    ],
+    "explanation": "化学平衡是动态平衡，平衡时正反应速率等于逆反应速率且不为零，各物质浓度保持不变，但反应物不会全部转化，浓度也不一定相等。对应第 1 步。"
+   },
+   {
+    "id": "g2-3-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "对已平衡的 N₂+3H₂⇌2NH₃（正反应放热）升高温度，正、逆速率和平衡移动方向是",
+    "options": [
+     "都增大，平衡不移动",
+     "都增大，平衡逆向移动",
+     "都减小，平衡正向移动",
+     "v正增大、v逆减小，平衡正向移动"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：升温后正逆速率都增大，但平衡会移动。",
+     "B 对：升温正逆速率都增大，逆反应增得更多。",
+     "C 错：升温不会使速率减小。",
+     "D 错：升温时正逆速率都增大。"
+    ],
+    "explanation": "升高温度，正、逆反应速率都增大。由于正反应放热，逆反应吸热，平衡向吸热方向即逆向移动，所以逆反应速率增大得更多。对应第 2 步。"
+   },
+   {
+    "id": "g2-3-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "合成氨工业中，为提高 NH₃ 的平衡产率，可采取的措施是",
+    "options": [
+     "升高温度",
+     "减小压强",
+     "及时分离出 NH₃",
+     "使用催化剂"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：正反应放热，升温使平衡逆向移动。",
+     "B 错：减小压强使平衡向气体增多的方向移动。",
+     "C 对：分离生成物，平衡正向移动。",
+     "D 错：催化剂不改变平衡产率。"
+    ],
+    "explanation": "合成氨正反应气体分子数减少且放热。及时分离 NH₃ 能降低生成物浓度，使平衡正向移动，提高产率。升温、减压都不利，催化剂只缩短达到平衡的时间。对应第 2 步。"
+   },
+   {
+    "id": "g2-3-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "某温度下 H₂(g)+I₂(g)⇌2HI(g) 的平衡常数 K=4，平衡时 c(H₂)=c(I₂)=0.5 mol/L，则 c(HI) 为",
+    "options": [
+     "1.0 mol/L",
+     "0.5 mol/L",
+     "2.0 mol/L",
+     "4.0 mol/L"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：c²(HI)=4×0.5×0.5=1，c(HI)=1.0 mol/L。",
+     "B 错：0.5 mol/L 是 H₂ 的浓度。",
+     "C 错：2.0 mol/L 是把 K 直接开方后又乘错。",
+     "D 错：4.0 mol/L 是 K 的数值。"
+    ],
+    "explanation": "由 K=c²(HI)/[c(H₂)·c(I₂)] 得 c²(HI)=K·c(H₂)·c(I₂)=4×0.5×0.5=1，所以 c(HI)=1.0 mol/L。对应第 3 步。"
+   },
+   {
+    "id": "g2-3-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于化学平衡常数，下列说法正确的是",
+    "options": [
+     "催化剂能提高平衡转化率",
+     "平衡常数随压强增大而增大",
+     "平衡时各物质浓度之比等于计量数之比",
+     "增大反应物浓度，平衡正向移动，但 K 不变"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：催化剂不改变平衡转化率。",
+     "B 错：K 只与温度有关。",
+     "C 错：平衡浓度之比不一定等于计量数之比。",
+     "D 对：浓度改变使平衡移动，但温度不变 K 不变。"
+    ],
+    "explanation": "平衡常数只与温度有关，改变浓度或压强可使平衡移动，但 K 不变。催化剂只加快反应速率。平衡时浓度之比与起始量和转化率有关，不一定等于计量数之比。对应第 2、3 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-4",
+  "unit": "选择性必修1 化学反应原理",
+  "name": "水溶液中的离子平衡",
+  "title": "一杯水里的离子，怎样达到平衡？",
+  "subtitle": "电离平衡 · 水解平衡 · 沉淀溶解平衡",
+  "accent": "#0e7490",
+  "readoutLabels": [
+   "电离平衡",
+   "水解平衡",
+   "沉淀溶解平衡"
+  ],
+  "steps": [
+   {
+    "label": "电离平衡",
+    "caption": "弱电解质在水中只部分电离，存在电离平衡；加水稀释促进电离，但离子浓度不一定增大；电离常数只与温度有关。",
+    "narration": "先看电离平衡。弱酸、弱碱在水中只部分电离，离子与未电离的分子之间建立平衡。加水稀释，电离程度增大，但溶液中离子浓度通常减小。电离常数只与温度有关，温度升高，电离程度一般增大。",
+    "reads": [
+     "弱电解质部分电离",
+     "—",
+     "—"
+    ],
+    "eq": "CH₃COOH ⇌ CH₃COO⁻ + H⁺",
+    "eqSub": "Ka 只与温度有关",
+    "audio": "audio/g2-4/step1.mp3",
+    "dur": 26.03
+   },
+   {
+    "label": "水解平衡",
+    "caption": "盐类水解是弱酸根或弱碱阳离子与水反应生成弱电解质；越弱越水解，谁强显谁性；水解通常吸热，升温促进水解。",
+    "narration": "再看盐的水解。强酸弱碱盐或强碱弱酸盐溶于水，弱离子会与水反应生成弱电解质，使溶液显酸性或碱性。规律是越弱越水解，谁强显谁性，都强显中性。盐类水解吸热，升高温度促进水解；加水稀释也促进水解。",
+    "reads": [
+     "—",
+     "越弱越水解",
+     "—"
+    ],
+    "eq": "CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻",
+    "eqSub": "CH₃COONa 溶液显碱性",
+    "audio": "audio/g2-4/step2.mp3",
+    "dur": 28.67
+   },
+   {
+    "label": "沉淀溶解平衡",
+    "caption": "难溶物也存在溶解平衡；Ksp 只与温度有关，离子积 Q&gt;Ksp 生成沉淀，Q&lt;Ksp 沉淀溶解。",
+    "narration": "最后看沉淀溶解平衡。难溶电解质在水中也存在溶解平衡，溶度积 Ksp 等于溶液中各离子浓度幂之积，只与温度有关。把离子积 Q 与 Ksp 比较，Q 大于 Ksp 时生成沉淀，Q 小于 Ksp 时沉淀溶解，Q 等于 Ksp 时达到平衡。",
+    "reads": [
+     "—",
+     "—",
+     "Q 与 Ksp 比较"
+    ],
+    "eq": "AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)",
+    "eqSub": "Q>Ksp 生成沉淀；Q<Ksp 沉淀溶解",
+    "audio": "audio/g2-4/step3.mp3",
+    "dur": 29.6
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-4-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "关于弱电解质的电离，下列说法正确的是",
+    "options": [
+     "加水稀释促进乙酸电离",
+     "电离平衡时分子不再电离",
+     "升温一定减小电离程度",
+     "电离常数随浓度增大而增大"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：稀释使电离平衡正向移动，电离程度增大。",
+     "B 错：电离平衡是动态平衡，分子仍在电离。",
+     "C 错：弱电解质电离一般吸热，升温促进电离。",
+     "D 错：电离常数只与温度有关。"
+    ],
+    "explanation": "加水稀释，弱电解质电离程度增大，但离子浓度通常减小。电离平衡是动态平衡；升温一般促进电离；电离常数只与温度有关，与浓度无关。对应第 1 步。"
+   },
+   {
+    "id": "g2-4-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "将 CH₃COONa 溶于水，溶液显碱性，原因是",
+    "options": [
+     "Na⁺ 与水反应生成 NaOH",
+     "CH₃COO⁻ 电离出 OH⁻",
+     "CH₃COO⁻ 水解生成 CH₃COOH 和 OH⁻",
+     "水的电离被完全抑制"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：Na⁺ 不水解，也不与水反应。",
+     "B 错：CH₃COO⁻ 不能直接电离出 OH⁻。",
+     "C 对：醋酸根水解生成醋酸和 OH⁻，溶液显碱性。",
+     "D 错：水解促进水的电离，不是完全抑制。"
+    ],
+    "explanation": "CH₃COONa 是强碱弱酸盐，CH₃COO⁻ 发生水解：CH₃COO⁻+H₂O⇌CH₃COOH+OH⁻，使溶液中 OH⁻ 浓度增大，溶液显碱性。对应第 2 步。"
+   },
+   {
+    "id": "g2-4-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "用 pH 试纸测定某溶液的 pH，正确的操作是",
+    "options": [
+     "将试纸直接浸入待测液",
+     "用玻璃棒蘸取待测液点在试纸中部，与标准比色卡对照",
+     "先用蒸馏水润湿试纸再蘸取待测液",
+     "将试纸放在酒精灯上烘干后使用"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：试纸不能浸入待测液，会污染溶液。",
+     "B 对：蘸取后点在试纸中部，半分钟内比色。",
+     "C 错：润湿会稀释待测液，结果不准。",
+     "D 错：试纸不能烘烤，会破坏指示剂。"
+    ],
+    "explanation": "测定 pH 时，用玻璃棒蘸取待测液点在 pH 试纸中部，与标准比色卡对照读数。试纸不能浸入溶液，不能预先润湿，也不能烘烤。对应第 1、2 步。"
+   },
+   {
+    "id": "g2-4-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "25 ℃ 时某溶液中 c(H⁺)=1×10⁻³ mol/L，则该溶液的 pH 为",
+    "options": [
+     "11",
+     "14",
+     "12",
+     "3"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：11 是 pOH 的数值。",
+     "B 错：14 是中性水的 pH 加 pOH。",
+     "C 错：12 不符合 pH 计算。",
+     "D 对：pH=−lg(1×10⁻³)=3。"
+    ],
+    "explanation": "pH 等于氢离子浓度的负对数。c(H⁺)=1×10⁻³ mol/L，pH=−lg(10⁻³)=3。该溶液显酸性。对应第 1 步。"
+   },
+   {
+    "id": "g2-4-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于水溶液中的离子平衡，下列说法正确的是",
+    "options": [
+     "Ksp 只与温度有关",
+     "难溶物的 Ksp 越小，溶解度一定越小",
+     "稀释醋酸溶液，c(H⁺) 增大",
+     "盐类水解是放热反应"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：溶度积只随温度改变。",
+     "B 错：只有同类型难溶物才能直接比较。",
+     "C 错：稀释后 c(H⁺) 减小。",
+     "D 错：盐类水解吸热。"
+    ],
+    "explanation": "Ksp 只与温度有关。不同类型难溶物的 Ksp 不能直接比较溶解度；稀释醋酸会使 c(H⁺) 减小；盐类水解吸热，升温促进水解。对应第 1、2、3 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-5",
+  "unit": "选择性必修1 化学反应原理",
+  "name": "原电池与电解池",
+  "title": "电子从哪来，又到哪里去？",
+  "subtitle": "原电池 · 电解池 · 电极判断",
+  "accent": "#b45309",
+  "readoutLabels": [
+   "原电池",
+   "电解池",
+   "电极判断"
+  ],
+  "steps": [
+   {
+    "label": "原电池",
+    "caption": "原电池把化学能转化为电能；负极材料失电子发生氧化反应，电子经外电路流向正极，溶液中阳离子向正极移动。",
+    "narration": "先看原电池。原电池把化学能转化为电能，本质是自发的氧化还原反应。负极材料失电子，发生氧化反应；正极得到电子，发生还原反应。电子从负极经外电路流向正极，溶液中阳离子向正极移动，阴离子向负极移动。",
+    "reads": [
+     "化学能→电能",
+     "—",
+     "—"
+    ],
+    "eq": "Zn − 2e⁻ → Zn²⁺（负极）",
+    "eqSub": "Cu²⁺ + 2e⁻ → Cu（正极）",
+    "audio": "audio/g2-5/step1.mp3",
+    "dur": 29.14
+   },
+   {
+    "label": "电解池",
+    "caption": "电解池需要外加电源，把电能转化为化学能；阳极接电源正极，发生氧化反应；阴极接电源负极，发生还原反应。",
+    "narration": "再看电解池。电解池把电能转化为化学能，需要外加电源。与电源正极相连的是阳极，阳极发生氧化反应，阴离子向阳极移动；与电源负极相连的是阴极，阴极发生还原反应，阳离子向阴极移动。",
+    "reads": [
+     "—",
+     "电能→化学能",
+     "—"
+    ],
+    "eq": "2Cl⁻ − 2e⁻ → Cl₂↑（阳极）",
+    "eqSub": "2H⁺ + 2e⁻ → H₂↑（阴极）",
+    "audio": "audio/g2-5/step2.mp3",
+    "dur": 25.87
+   },
+   {
+    "label": "电极判断",
+    "caption": "先看有无外接电源：有电源是电解池；再看电子流向，电子流出的一极发生氧化反应，流入的一极发生还原反应。",
+    "narration": "最后看电极判断。首先要判断装置是原电池还是电解池，有外接电源的是电解池，没有的是原电池。再看电子流向，电子流出的一极发生氧化反应，是原电池的负极或电解池的阳极；电子流入的一极发生还原反应。",
+    "reads": [
+     "—",
+     "—",
+     "先看电源，再看电子流向"
+    ],
+    "eq": "失电子 → 氧化 → 负极/阳极",
+    "eqSub": "得电子 → 还原 → 正极/阴极",
+    "audio": "audio/g2-5/step3.mp3",
+    "dur": 27.05
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-5-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "关于原电池，下列说法正确的是",
+    "options": [
+     "正极发生氧化反应",
+     "电子由正极流向负极",
+     "负极失电子，发生氧化反应",
+     "阳离子向负极移动"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：正极得电子，发生还原反应。",
+     "B 错：电子由负极经外电路流向正极。",
+     "C 对：负极失电子，被氧化。",
+     "D 错：溶液中阳离子向正极移动。"
+    ],
+    "explanation": "原电池中负极失电子发生氧化反应，正极得电子发生还原反应。电子经外电路由负极流向正极，溶液中阳离子向正极移动，阴离子向负极移动。对应第 1 步。"
+   },
+   {
+    "id": "g2-5-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "铜锌原电池（稀硫酸）工作时，锌片质量减小、铜片表面产生气泡，则",
+    "options": [
+     "锌是负极，铜是正极",
+     "锌是正极，铜是负极",
+     "铜失电子被氧化",
+     "电子由铜经导线流向锌"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：锌活泼失电子作负极，铜作正极。",
+     "B 错：电极判断反了。",
+     "C 错：铜为正极，氢离子在铜表面得电子。",
+     "D 错：电子由锌流向铜。"
+    ],
+    "explanation": "锌比铜活泼，锌失电子被氧化，作负极；铜作正极，溶液中的 H⁺ 在铜表面得电子生成氢气。电子由锌经导线流向铜。对应第 1、3 步。"
+   },
+   {
+    "id": "g2-5-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "电解饱和食盐水时，阳极产物是",
+    "options": [
+     "H₂",
+     "NaOH",
+     "Na",
+     "Cl₂"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：H₂ 在阴极生成。",
+     "B 错：NaOH 在阴极区生成。",
+     "C 错：钠离子不放电，不能生成钠。",
+     "D 对：阳极上 Cl⁻ 失电子生成 Cl₂。"
+    ],
+    "explanation": "电解饱和食盐水，阳极 Cl⁻ 失电子生成 Cl₂，阴极 H⁺ 得电子生成 H₂，同时阴极区生成 NaOH。阳极产物是氯气。对应第 2 步。"
+   },
+   {
+    "id": "g2-5-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "电解 CuCl₂ 溶液，阴极析出 0.1 mol Cu，外电路转移电子的物质的量为",
+    "options": [
+     "0.1 mol",
+     "0.2 mol",
+     "0.4 mol",
+     "0.05 mol"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：0.1 mol 只算了一个电子。",
+     "B 对：Cu²⁺+2e⁻→Cu，0.1 mol Cu 需 0.2 mol 电子。",
+     "C 错：0.4 mol 多算了一倍。",
+     "D 错：0.05 mol 比例反了。"
+    ],
+    "explanation": "阴极反应为 Cu²⁺+2e⁻→Cu，每生成 1 mol Cu 转移 2 mol 电子。析出 0.1 mol Cu，转移电子 0.2 mol。对应第 2 步。"
+   },
+   {
+    "id": "g2-5-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于原电池和电解池，下列说法正确的是",
+    "options": [
+     "原电池中阴离子向正极移动",
+     "电解池中阳极与电源负极相连",
+     "原电池的负极质量不一定减小",
+     "电解池工作时化学能转化为电能"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：原电池中阴离子向负极移动。",
+     "B 错：电解池阳极接电源正极。",
+     "C 对：如铅蓄电池负极生成 PbSO₄，质量增大。",
+     "D 错：电解池把电能转化为化学能。"
+    ],
+    "explanation": "原电池负极不一定溶解，例如铅蓄电池放电时负极生成硫酸铅，质量增大。原电池中阴离子向负极移动；电解池阳极接电源正极；电解池消耗电能。对应第 1、2、3 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-6",
+  "unit": "选择性必修2 物质结构与性质",
+  "name": "原子结构与性质",
+  "title": "电子住在哪里？能级、轨道与周期性",
+  "subtitle": "能级排布 · 电子排布式 · 周期律",
+  "accent": "#4f46e5",
+  "readoutLabels": [
+   "能级排布",
+   "电子排布式",
+   "周期律"
+  ],
+  "steps": [
+   {
+    "label": "能级排布",
+    "caption": "电子按能量由低到高填充，顺序为：1s 2s 2p 3s 3p 4s 3d；同一能级先占不同轨道且自旋平行。",
+    "narration": "先看能级排布。原子核外电子按能量由低到高的顺序填充，顺序是 1s、2s、2p、3s、3p、4s、3d、4p。同一能级有多个轨道时，电子先单独占据不同轨道，并且自旋方向相同，这叫洪特规则。",
+    "reads": [
+     "1s→2s→2p→3s…",
+     "—",
+     "—"
+    ],
+    "eq": "1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹（K）",
+    "eqSub": "能量最低原理、泡利原理、洪特规则",
+    "audio": "audio/g2-6/step1.mp3",
+    "dur": 28.96
+   },
+   {
+    "label": "电子排布式",
+    "caption": "电子排布式按能层和能级顺序书写；价电子排布主要决定元素性质，主族看最外层，过渡元素还涉及 3d 轨道。",
+    "narration": "再看电子排布式。书写时按能层和能级顺序写出各亚层上的电子数，例如铁是 1s²2s²2p⁶3s²3p⁶3d⁶4s²。价电子是参与化学反应的电子，主族元素的价电子就是最外层电子，过渡元素的价电子还包括次外层 d 电子。",
+    "reads": [
+     "—",
+     "价电子决定性质",
+     "—"
+    ],
+    "eq": "Fe：1s²2s²2p⁶3s²3p⁶3d⁶4s²",
+    "eqSub": "价电子：3d⁶4s²",
+    "audio": "audio/g2-6/step2.mp3",
+    "dur": 30.03
+   },
+   {
+    "label": "周期律",
+    "caption": "同周期从左到右半径减小、电负性增大；同主族自上而下半径增大、金属性增强；第一电离能总体增大但有反常。",
+    "narration": "最后看周期律。同一周期从左到右，原子半径逐渐减小，电负性逐渐增大，非金属性增强。同一主族从上到下，原子半径增大，金属性增强。第一电离能总体随原子序数增大而增大，但第二周期中氮和氧之间出现反常。",
+    "reads": [
+     "—",
+     "—",
+     "半径/电负性/电离能"
+    ],
+    "eq": "同周期：r 减小，电负性增大",
+    "eqSub": "N 的第一电离能大于 O",
+    "audio": "audio/g2-6/step3.mp3",
+    "dur": 28.72
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-6-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "基态氮原子 2p 轨道上的电子排布，符合洪特规则的是",
+    "options": [
+     "2p 轨道成对后再占下一个轨道",
+     "3 个电子分别占据 3 个 2p 轨道且自旋平行",
+     "3 个电子挤在同一轨道",
+     "2 个电子自旋相反占据同一轨道，另一个空着"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：应先单独占据不同轨道。",
+     "B 对：洪特规则要求自旋平行且分占轨道。",
+     "C 错：同一轨道最多容纳 2 个电子且自旋相反。",
+     "D 错：这样排布能量不是最低。"
+    ],
+    "explanation": "氮原子 2p 能级有 3 个轨道，3 个电子按洪特规则分别占据 3 个轨道，且自旋方向相同，体系能量最低。对应第 1 步。"
+   },
+   {
+    "id": "g2-6-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "下列事实与电负性递变规律一致的是",
+    "options": [
+     "同一周期从左到右原子半径增大",
+     "同一主族从上到下非金属性增强",
+     "金属性越强，第一电离能越大",
+     "同一周期从左到右最高价氧化物对应水化物酸性增强"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：同周期从左到右半径减小。",
+     "B 错：同主族从上到下非金属性减弱。",
+     "C 错：金属性越强，第一电离能一般越小。",
+     "D 对：非金属性增强，最高价含氧酸酸性增强。"
+    ],
+    "explanation": "同一周期从左到右，电负性增大，非金属性增强，最高价氧化物对应水化物的酸性增强。原子半径应减小，同主族非金属性应减弱。对应第 3 步。"
+   },
+   {
+    "id": "g2-6-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "用焰色试验鉴别钾元素时，应",
+    "options": [
+     "透过蓝色钴玻璃观察紫色火焰",
+     "直接观察黄色火焰",
+     "用盐酸洗净铂丝后直接观察样品",
+     "用水洗净铂丝后观察"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：蓝色钴玻璃滤去黄光，便于观察钾的紫色。",
+     "B 错：黄色是钠的焰色，会干扰钾。",
+     "C 错：铂丝要洗净并灼烧至无色后再蘸样品。",
+     "D 错：应用盐酸洗涤，不能只用水。"
+    ],
+    "explanation": "钾的焰色为紫色，常被钠的黄色掩盖，需要透过蓝色钴玻璃观察。铂丝先用盐酸洗净，再灼烧至无色，然后蘸取样品灼烧。对应第 3 步。"
+   },
+   {
+    "id": "g2-6-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "基态 Fe³⁺ 的未成对电子数为",
+    "options": [
+     "1",
+     "3",
+     "5",
+     "6"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：1 个未成对电子不符合 3d⁵。",
+     "B 错：3 个未成对电子少算了。",
+     "C 对：Fe³⁺ 为 3d⁵，5 个电子各占一个轨道。",
+     "D 错：6 个是 Fe²⁺ 的 3d 电子数。"
+    ],
+    "explanation": "铁原子的价电子排布为 3d⁶4s²，失去 3 个电子后 Fe³⁺ 为 3d⁵。5 个电子分别占据 5 个 d 轨道，未成对电子数为 5。对应第 2 步。"
+   },
+   {
+    "id": "g2-6-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于原子结构，下列说法正确的是",
+    "options": [
+     "2p 能级的能量低于 2s",
+     "同一能级的不同轨道能量相同",
+     "核外电子排布只遵循能量最低原理",
+     "第一电离能越大，金属性越强"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：同一能层中 p 能级能量高于 s 能级。",
+     "B 对：同一能级的各轨道能量相同。",
+     "C 错：还要遵循泡利原理和洪特规则。",
+     "D 错：第一电离能越大，非金属性一般越强。"
+    ],
+    "explanation": "同一能级的不同轨道能量相同，称为简并轨道。2p 能量高于 2s；电子排布要同时遵循能量最低原理、泡利原理和洪特规则；第一电离能大说明不易失电子。对应第 1、3 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-7",
+  "unit": "选择性必修2 物质结构与性质",
+  "name": "分子结构与性质",
+  "title": "分子为什么有形状？杂化与空间构型",
+  "subtitle": "杂化轨道 · 空间构型 · 分子极性",
+  "accent": "#0f766e",
+  "readoutLabels": [
+   "杂化轨道",
+   "空间构型",
+   "分子极性"
+  ],
+  "steps": [
+   {
+    "label": "杂化轨道",
+    "caption": "sp³ 杂化四个轨道呈四面体，sp² 三个轨道呈平面三角形，sp 两个轨道呈直线；杂化轨道数等于价层电子对数。",
+    "narration": "先看杂化轨道。原子成键时，能量相近的原子轨道可以重新组合成杂化轨道。sp³ 杂化得到四个等同轨道，空间指向四面体四个顶点；sp² 杂化得到三个轨道，呈平面三角形；sp 杂化得到两个轨道，呈直线形。",
+    "reads": [
+     "sp³/sp²/sp",
+     "—",
+     "—"
+    ],
+    "eq": "sp³ → 四面体；sp² → 平面三角；sp → 直线",
+    "eqSub": "杂化轨道数 = 价层电子对数",
+    "audio": "audio/g2-7/step1.mp3",
+    "dur": 28.87
+   },
+   {
+    "label": "空间构型",
+    "caption": "用价层电子对互斥模型判断分子构型：先算价层电子对数，再看孤电子对；孤电子对排斥力大，会明显压缩键角。",
+    "narration": "再看空间构型。用价层电子对互斥模型判断分子空间构型，先计算中心原子的价层电子对数，价层电子对相互排斥，尽可能远离。孤电子对与成键电子对的排斥力大于成键电子对之间的排斥力，所以孤电子对会压缩键角。",
+    "reads": [
+     "—",
+     "VSEPR 模型",
+     "—"
+    ],
+    "eq": "CH₄ 正四面体；NH₃ 三角锥；H₂O V 形",
+    "eqSub": "孤电子对越多，键角越小",
+    "audio": "audio/g2-7/step2.mp3",
+    "dur": 27.63
+   },
+   {
+    "label": "分子极性",
+    "caption": "极性分子正负电中心不重合；键的极性看电负性差，分子整体极性还要看空间构型是否对称，如 CO₂ 非极性。",
+    "narration": "最后看分子极性。共价键是否极性取决于成键原子电负性是否相同，电负性差越大，键的极性越强。分子是否有极性，还要看空间构型是否对称。正负电荷中心重合的是非极性分子，不重合的是极性分子。",
+    "reads": [
+     "—",
+     "—",
+     "正负电中心是否重合"
+    ],
+    "eq": "CO₂ 非极性；H₂O 极性；NH₃ 极性",
+    "eqSub": "键有极性，分子不一定有极性",
+    "audio": "audio/g2-7/step3.mp3",
+    "dur": 26.95
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-7-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "下列分子中，中心原子为 sp³ 杂化的是",
+    "options": [
+     "BF₃",
+     "CO₂",
+     "C₂H₄",
+     "CH₄"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：BF₃ 中硼为 sp² 杂化。",
+     "B 错：CO₂ 中碳为 sp 杂化。",
+     "C 错：乙烯中碳为 sp² 杂化。",
+     "D 对：甲烷中碳为 sp³ 杂化。"
+    ],
+    "explanation": "甲烷中心碳原子形成 4 个 σ 键，价层电子对数为 4，采用 sp³ 杂化，空间构型为正四面体。BF₃、乙烯为 sp²，CO₂ 为 sp。对应第 1 步。"
+   },
+   {
+    "id": "g2-7-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "下列分子中，空间构型为三角锥形的是",
+    "options": [
+     "NH₃",
+     "CH₄",
+     "CO₂",
+     "BF₃"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：NH₃ 中氮有一对孤电子对，呈三角锥形。",
+     "B 错：CH₄ 为正四面体。",
+     "C 错：CO₂ 为直线形。",
+     "D 错：BF₃ 为平面三角形。"
+    ],
+    "explanation": "NH₃ 中心氮原子为 sp³ 杂化，4 个杂化轨道中 3 个成键、1 个容纳孤电子对，空间构型为三角锥形。CH₄ 正四面体，CO₂ 直线，BF₃ 平面三角。对应第 2 步。"
+   },
+   {
+    "id": "g2-7-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "用 VSEPR 模型判断 H₂O 的空间构型为",
+    "options": [
+     "直线形",
+     "平面三角形",
+     "V 形",
+     "正四面体"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：直线形要求价层电子对数为 2。",
+     "B 错：平面三角形是 3 个成键电子对、无孤对。",
+     "C 对：氧有 2 对孤电子对，分子呈 V 形。",
+     "D 错：正四面体是 4 个成键电子对。"
+    ],
+    "explanation": "水分子中氧原子有 2 个成键电子对和 2 对孤电子对，价层电子对数为 4，VSEPR 模型为四面体，但只看原子位置呈 V 形，键角约 104.5°。对应第 2 步。"
+   },
+   {
+    "id": "g2-7-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "下列分子中，属于非极性分子的是",
+    "options": [
+     "H₂O",
+     "CO₂",
+     "NH₃",
+     "HCl"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：水分子为 V 形，正负电中心不重合。",
+     "B 对：CO₂ 为直线形，两个 C=O 键极性抵消。",
+     "C 错：NH₃ 为三角锥形，是极性分子。",
+     "D 错：HCl 是极性分子。"
+    ],
+    "explanation": "CO₂ 为直线形对称结构，两个碳氧双键的极性方向相反、大小相等，正负电荷中心重合，是非极性分子。H₂O、NH₃、HCl 的正负电中心不重合。对应第 3 步。"
+   },
+   {
+    "id": "g2-7-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于分子结构与性质，下列说法正确的是",
+    "options": [
+     "含极性键的分子一定是极性分子",
+     "分子中键角越大，分子越稳定",
+     "杂化轨道只能形成 σ 键，不能容纳孤电子对",
+     "孤电子对对成键电子对的排斥力大于成键电子对之间的排斥力"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：CO₂ 含极性键，但是非极性分子。",
+     "B 错：分子稳定性与键能有关，与键角无必然关系。",
+     "C 错：杂化轨道可以容纳孤电子对，如 NH₃。",
+     "D 对：孤电子对排斥力更大，使键角减小。"
+    ],
+    "explanation": "孤电子对只受一个原子核吸引，电子云更靠近中心原子，排斥力大于成键电子对，使键角减小。含极性键的分子不一定有极性；杂化轨道可容纳孤电子对。对应第 2、3 步。"
+   }
+  ],
+  "grade": "senior"
+ },
+ {
+  "id": "g2-8",
+  "unit": "选择性必修2 物质结构与性质",
+  "name": "晶体结构与性质",
+  "title": "看不见的晶格，决定看得见的性质",
+  "subtitle": "晶胞计算 · 晶体类型 · 性质比较",
+  "accent": "#475569",
+  "readoutLabels": [
+   "晶胞计算",
+   "晶体类型",
+   "性质比较"
+  ],
+  "steps": [
+   {
+    "label": "晶胞计算",
+    "caption": "晶胞是晶体结构的最小重复单元；用均摊法计算粒子数：顶点 1/8、棱 1/4、面心 1/2、体心 1。",
+    "narration": "先看晶胞计算。晶胞是能反映晶体结构特征的最小重复单元。计算晶胞中粒子数目用均摊法：处于顶点的粒子被八个晶胞共用，每个占八分之一；棱上的占四分之一；面心的占二分之一；体心的完全属于该晶胞。",
+    "reads": [
+     "均摊法",
+     "—",
+     "—"
+    ],
+    "eq": "顶点 1/8 · 棱 1/4 · 面心 1/2 · 体心 1",
+    "eqSub": "NaCl 晶胞含 4 个 Na⁺ 和 4 个 Cl⁻",
+    "audio": "audio/g2-8/step1.mp3",
+    "dur": 26.54
+   },
+   {
+    "label": "晶体类型",
+    "caption": "离子晶体由离子键构成，熔沸点较高；分子晶体靠分子间作用力结合，熔沸点较低；共价晶体以共价键形成网状结构，硬度很大。",
+    "narration": "再看晶体类型。离子晶体由阴、阳离子通过离子键结合，熔沸点较高，熔融时导电。分子晶体由分子通过分子间作用力结合，熔沸点较低。共价晶体中原子以共价键形成空间网状结构，熔点很高、硬度很大。金属晶体由金属阳离子和自由电子构成。",
+    "reads": [
+     "—",
+     "离子/分子/共价/金属",
+     "—"
+    ],
+    "eq": "共价晶体：金刚石、晶体硅、SiO₂",
+    "eqSub": "分子晶体熔沸点低，离子晶体较高",
+    "audio": "audio/g2-8/step2.mp3",
+    "dur": 33.05
+   },
+   {
+    "label": "性质比较",
+    "caption": "比较熔沸点：共价晶体&gt;离子晶体&gt;分子晶体；分子晶体看氢键和相对分子质量，离子晶体看电荷和半径。",
+    "narration": "最后看性质比较。不同类型晶体比较熔沸点，一般共价晶体最高，离子晶体次之，分子晶体最低。同是分子晶体，有氢键的熔沸点反常增高；结构相似的分子晶体，相对分子质量越大，熔沸点越高。离子晶体中离子电荷越多、半径越小，晶格能越大。",
+    "reads": [
+     "—",
+     "—",
+     "晶格能/氢键/相对分子质量"
+    ],
+    "eq": "熔点：金刚石 > NaCl > 冰 > H₂",
+    "eqSub": "H₂O 的沸点高于 H₂S：存在氢键",
+    "audio": "audio/g2-8/step3.mp3",
+    "dur": 32.71
+   }
+  ],
+  "questions": [
+   {
+    "id": "g2-8-q1",
+    "source": "高考真题改编",
+    "angle": "概念辨析",
+    "stem": "下列晶体中，属于共价晶体的是",
+    "options": [
+     "金刚石",
+     "干冰",
+     "氯化钠",
+     "铜"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：金刚石由碳原子以共价键形成空间网状结构。",
+     "B 错：干冰是分子晶体。",
+     "C 错：氯化钠是离子晶体。",
+     "D 错：铜是金属晶体。"
+    ],
+    "explanation": "金刚石中每个碳原子与相邻碳原子以共价键结合，形成空间网状结构，属于共价晶体。干冰是分子晶体，氯化钠是离子晶体，铜是金属晶体。对应第 2 步。"
+   },
+   {
+    "id": "g2-8-q2",
+    "source": "高考真题改编",
+    "angle": "现象图像",
+    "stem": "NaCl 晶胞中，每个 Na⁺ 周围距离最近的 Cl⁻ 数目为",
+    "options": [
+     "4",
+     "8",
+     "12",
+     "6"
+    ],
+    "answerIndex": 3,
+    "optionNotes": [
+     "A 错：4 不是最近邻数目。",
+     "B 错：8 是体心到顶点的配位数情形。",
+     "C 错：12 是面心立方最密堆积的配位数。",
+     "D 对：NaCl 中每个 Na⁺ 周围有 6 个最近 Cl⁻。"
+    ],
+    "explanation": "NaCl 晶体中，Na⁺ 与 Cl⁻ 交替排列，每个 Na⁺ 的上、下、左、右、前、后各有 1 个最近 Cl⁻，配位数为 6。每个 Cl⁻ 周围也有 6 个 Na⁺。对应第 1、2 步。"
+   },
+   {
+    "id": "g2-8-q3",
+    "source": "高考真题改编",
+    "angle": "实验装置",
+    "stem": "下列物质熔化时，需要破坏共价键的是",
+    "options": [
+     "冰",
+     "金刚石",
+     "氯化钠",
+     "蔗糖"
+    ],
+    "answerIndex": 1,
+    "optionNotes": [
+     "A 错：冰熔化破坏分子间作用力和氢键。",
+     "B 对：金刚石熔化要破坏碳碳共价键。",
+     "C 错：氯化钠熔化破坏离子键。",
+     "D 错：蔗糖熔化破坏分子间作用力。"
+    ],
+    "explanation": "金刚石是共价晶体，熔化时必须破坏碳原子之间的共价键，所以熔点很高。冰、蔗糖是分子晶体，熔化破坏分子间作用力；氯化钠熔化破坏离子键。对应第 2 步。"
+   },
+   {
+    "id": "g2-8-q4",
+    "source": "高考真题改编",
+    "angle": "计算守恒",
+    "stem": "NaCl 晶胞中，含有的 Na⁺ 数目为",
+    "options": [
+     "8",
+     "2",
+     "4",
+     "6"
+    ],
+    "answerIndex": 2,
+    "optionNotes": [
+     "A 错：8 是顶点数，未均摊。",
+     "B 错：2 少算了一半。",
+     "C 对：8×1/8+6×1/2=4。",
+     "D 错：6 是面心数，未均摊。"
+    ],
+    "explanation": "NaCl 晶胞中 Na⁺ 位于 8 个顶点和 6 个面心，按均摊法：8×1/8+6×1/2=1+3=4。所以一个 NaCl 晶胞含 4 个 Na⁺ 和 4 个 Cl⁻。对应第 1 步。"
+   },
+   {
+    "id": "g2-8-q5",
+    "source": "高考真题改编",
+    "angle": "易错陷阱",
+    "stem": "关于晶体结构与性质，下列说法正确的是",
+    "options": [
+     "分子晶体中一定存在分子间作用力",
+     "离子晶体中一定含有金属元素",
+     "共价晶体中一定含有金属元素",
+     "金属晶体的熔点一定高于离子晶体"
+    ],
+    "answerIndex": 0,
+    "optionNotes": [
+     "A 对：分子晶体靠分子间作用力结合。",
+     "B 错：NH₄Cl 是离子晶体，不含金属元素。",
+     "C 错：金刚石、晶体硅都不含金属元素。",
+     "D 错：汞常温为液体，熔点低于许多离子晶体。"
+    ],
+    "explanation": "分子晶体中分子之间一定存在分子间作用力。离子晶体不一定含金属元素，如 NH₄Cl；共价晶体也不一定含金属元素；金属晶体熔点差别很大，汞的熔点很低。对应第 2、3 步。"
+   }
+  ],
+  "grade": "senior"
+ }
+]</script>
+<script>
+(function(){
+  'use strict';
+
+  var errs = [];
+  document.documentElement.setAttribute('data-js-errors', '0');
+  function noteErr(msg){
+    errs.push(String(msg || 'error'));
+    document.documentElement.setAttribute('data-js-errors', String(errs.length));
+    var bar = document.getElementById('errorBar');
+    if(bar){ bar.textContent = '脚本错误：' + errs[errs.length - 1]; bar.classList.add('show'); }
+  }
+  window.addEventListener('error', function(e){ noteErr(e.message || 'script error'); });
+  window.addEventListener('unhandledrejection', function(e){
+    noteErr((e.reason && e.reason.message) || 'promise rejection');
+  });
+
+  var DATA = [];
+  try{
+    DATA = JSON.parse(document.getElementById('junior-data').textContent);
+  }catch(e){
+    noteErr('课程数据解析失败');
+  }
+
+  var POINT_MAP = {};
+  DATA.forEach(function(p){ POINT_MAP[p.id] = p; });
+
+  var KEY = 'junior_chem_progress_v1';
+  var store = { learned: {}, answers: {}, wrong: {} };
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(raw){
+      var o = JSON.parse(raw);
+      store.learned = o.learned || {};
+      store.answers = o.answers || {};
+      store.wrong = o.wrong || {};
+    }
+  }catch(e){}
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
+  }
+
+  var current = {
+    point: null, index: -1, step: 0, playing: false, paused: false,
+    soundOn: true, audio: null, timers: [], speechBtn: null,
+    from: 0, downloading: false
+  };
+
+  var CACHE_NAME = 'chem-audio-v2';
+  var isFile = location.protocol === 'file:';
+  var canCache = (typeof caches !== 'undefined') && !isFile && window.isSecureContext !== false;
+  var blobUrls = {};
+  var audioPool = [];
+
+  function el(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+  function letter(i){ return 'ABCD'.charAt(i); }
+  function clearTimers(){
+    for(var i = 0; i < current.timers.length; i++) clearTimeout(current.timers[i]);
+    current.timers = [];
+  }
+  function setBar(pct){
+    var bar = el('audioBar');
+    if(!bar) return;
+    pct = Math.max(0, Math.min(100, Number(pct) || 0));
+    bar.style.transition = 'none';
+    bar.style.width = pct + '%';
+  }
+  function resetBar(){ setBar(0); }
+  function setPlayText(t){
+    var b = el('play');
+    if(b) b.textContent = t;
+  }
+  function showPause(show, label){
+    var p = el('pause');
+    if(!p) return;
+    p.hidden = !show;
+    if(!show) p.textContent = '⏸ 暂停';
+    else if(label) p.textContent = label;
+  }
+  function detachAudio(){
+    if(!current.audio) return;
+    var a = current.audio;
+    current.audio = null;
+    a.onended = null;
+    a.ontimeupdate = null;
+    a.onplaying = null;
+    a.onerror = null;
+    a.onloadedmetadata = null;
+    try{ a.pause(); a.currentTime = 0; }catch(e){}
+  }
+  function stopAudio(){
+    clearTimers();
+    detachAudio();
+  }
+  function stopPlayback(){
+    stopAudio();
+    current.playing = false;
+    current.paused = false;
+    current.from = 0;
+    resetBar();
+    setPlayText('▶ 播放讲解');
+    var b = el('play');
+    if(b) b.disabled = false;
+    showPause(false);
+  }
+
+  /* ---------- 语音缓存 / 整学段下载 ---------- */
+  function cacheOpen(){
+    return caches.open(CACHE_NAME);
+  }
+  function rememberBlob(src, cache){
+    if(blobUrls[src]) return Promise.resolve(blobUrls[src]);
+    return cache.match(src).then(function(r){
+      if(!r) return null;
+      return r.blob().then(function(b){
+        if(blobUrls[src]) return blobUrls[src];
+        blobUrls[src] = URL.createObjectURL(b);
+        return blobUrls[src];
+      });
+    }).catch(function(){ return null; });
+  }
+  function hydrate(src){
+    if(!canCache || blobUrls[src]) return Promise.resolve();
+    return cacheOpen().then(function(c){ return rememberBlob(src, c); }).catch(function(){});
+  }
+  function hydratePoint(p){
+    if(!canCache) return;
+    cacheOpen().then(function(c){
+      p.steps.forEach(function(s){ rememberBlob(s.audio, c); });
+    }).catch(function(){});
+  }
+  function warm(src){
+    if(!canCache) return Promise.resolve();
+    return cacheOpen().then(function(c){
+      return c.match(src).then(function(hit){
+        if(hit) return rememberBlob(src, c);
+        return fetch(src, { cache: 'no-store' }).then(function(r){
+          if(!r.ok) throw new Error('HTTP ' + r.status);
+          return c.put(src, r.clone()).then(function(){ return rememberBlob(src, c); });
+        });
+      });
+    }).catch(function(){});
+  }
+  function playableSrc(src){ return blobUrls[src] || src; }
+  function allAudio(){
+    var list = [];
+    DATA.forEach(function(p){ p.steps.forEach(function(s){ list.push(s); }); });
+    return list;
+  }
+  function downloadAllAudio(){
+    if(!canCache){
+      window.alert(isFile
+        ? '当前是本地文件打开，语音已经在本机，无需下载。'
+        : '当前地址不是 HTTPS 或 localhost，浏览器不允许整学段缓存；直接播放仍会按需加载。');
+      return;
+    }
+    if(current.downloading) return;
+    var list = allAudio();
+    var totalDur = 0;
+    list.forEach(function(s){ totalDur += (s.dur || 0); });
+    var perSec = /\.mp3$/i.test(list[0].audio) ? 6000 : 32000;
+    var estMb = Math.max(1, Math.round(totalDur * perSec / 1048576));
+    if(estMb >= 20 && !window.confirm('将下载本学段全部 ' + list.length + ' 段语音，约 ' + estMb + ' MB，继续吗？')) return;
+
+    var btn = el('downloadAll');
+    var done = 0, fail = 0, bytes = 0, index = 0;
+    current.downloading = true;
+    if(btn){ btn.disabled = true; btn.textContent = '准备下载…'; }
+
+    function update(){
+      if(btn) btn.textContent = '下载中 ' + done + '/' + list.length +
+        (bytes ? ' · ' + (bytes / 1048576).toFixed(1) + ' MB' : '');
+    }
+    function worker(){
+      if(index >= list.length) return Promise.resolve();
+      var src = list[index++].audio;
+      return cacheOpen().then(function(c){
+        return c.match(src).then(function(hit){
+          if(hit){ done++; update(); return; }
+          return fetch(src, { cache: 'no-store' }).then(function(r){
+            if(!r.ok) throw new Error('HTTP ' + r.status);
+            bytes += Number(r.headers.get('content-length') || 0);
+            return c.put(src, r.clone()).then(function(){ done++; update(); });
+          });
+        }).catch(function(){ fail++; update(); });
+      }).then(function(){ return worker(); });
+    }
+
+    var jobs = [];
+    for(var k = 0; k < 3; k++) jobs.push(worker());
+    Promise.all(jobs).then(function(){
+      current.downloading = false;
+      if(btn){
+        btn.disabled = false;
+        btn.textContent = fail ? ('下载完成，失败 ' + fail + ' 段') : ('语音已缓存 ' + done + ' 段 ✓');
+      }
+      list.forEach(function(s){ hydrate(s.audio); });
+    }).catch(function(){
+      current.downloading = false;
+      if(btn){ btn.disabled = false; btn.textContent = '下载失败，请重试'; }
+    });
+  }
+  function updateDownloadState(){
+    var btn = el('downloadAll');
+    if(!btn || current.downloading) return;
+    if(!canCache){
+      btn.textContent = isFile ? '本地文件 · 无需下载' : '需 HTTPS 才能整学段缓存';
+      btn.disabled = true;
+      return;
+    }
+    var list = allAudio();
+    cacheOpen().then(function(c){
+      return Promise.all(list.map(function(s){ return c.match(s.audio); }));
+    }).then(function(hits){
+      if(current.downloading) return;
+      var hit = 0;
+      hits.forEach(function(h){ if(h) hit++; });
+      btn.disabled = false;
+      btn.textContent = hit === list.length
+        ? ('语音已缓存 ' + hit + ' 段 ✓')
+        : (hit ? ('继续下载语音 ' + hit + '/' + list.length) : '下载本学段语音');
+    }).catch(function(){});
+  }
+
+  /* ---------- 首页 ---------- */
+  function unitList(){
+    var order = [], map = {};
+    DATA.forEach(function(p){
+      if(!map[p.unit]){ map[p.unit] = []; order.push(p.unit); }
+      map[p.unit].push(p);
+    });
+    return order.map(function(u){ return { unit: u, points: map[u] }; });
+  }
+
+  function answeredCount(){
+    var n = 0;
+    for(var k in store.answers){ if(Object.prototype.hasOwnProperty.call(store.answers, k)) n++; }
+    return n;
+  }
+  function wrongCount(){
+    var n = 0;
+    for(var k in store.wrong){ if(Object.prototype.hasOwnProperty.call(store.wrong, k)) n++; }
+    return n;
+  }
+  function learnedCount(){
+    var n = 0;
+    for(var k in store.learned){ if(store.learned[k]) n++; }
+    return n;
+  }
+
+  function updateStats(){
+    var a = el('statLearned'), b = el('statAnswered'), c = el('statWrong');
+    if(a) a.textContent = learnedCount();
+    if(b) b.textContent = answeredCount();
+    if(c) c.textContent = wrongCount();
+  }
+
+  function pointAnswered(p){
+    var n = 0;
+    p.questions.forEach(function(q){
+      if(Object.prototype.hasOwnProperty.call(store.answers, q.id)) n++;
+    });
+    return n;
+  }
+
+  function renderHome(){
+    var wrap = el('units');
+    if(!wrap) return;
+    var totalSteps = 0, totalQs = 0;
+    DATA.forEach(function(p){ totalSteps += p.steps.length; totalQs += p.questions.length; });
+    if(el('homeTitle')) el('homeTitle').textContent = DATA.length + ' 个知识点，每个 3 步看懂';
+    var examLabel = (DATA[0] && DATA[0].grade === 'senior') ? '高考真题改编' : '中考真题改编';
+    if(el('homeSub')) el('homeSub').textContent = totalSteps + ' 段动画 · ' + totalQs + ' 道' + examLabel + ' · 每题逐项解析';
+    wrap.innerHTML = '';
+    var idx = 0;
+    unitList().forEach(function(group){
+      var unit = document.createElement('div');
+      unit.className = 'unit';
+      var head = document.createElement('button');
+      head.type = 'button';
+      head.className = 'unit-head';
+      head.setAttribute('aria-expanded', 'true');
+      head.innerHTML =
+        '<span class="unit-title">' + esc(group.unit) + '</span>' +
+        '<span class="unit-meta">' + group.points.length + ' 个知识点</span>' +
+        '<span class="chev">⌄</span>';
+      head.addEventListener('click', function(){
+        var closed = unit.classList.toggle('closed');
+        head.setAttribute('aria-expanded', closed ? 'false' : 'true');
+      });
+
+      var body = document.createElement('div');
+      body.className = 'unit-body';
+      group.points.forEach(function(p){
+        idx++;
+        var n = pointAnswered(p);
+        var learned = !!store.learned[p.id];
+        var row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'point-row' + (learned ? ' done' : '');
+        row.setAttribute('data-point', p.id);
+        var badge, badgeCls = 'badge';
+        if(learned){ badge = '已学'; badgeCls += ' done'; }
+        else if(n > 0){ badge = '已答 ' + n + '/5'; }
+        else { badge = '动画'; }
+        row.innerHTML =
+          '<span class="pnum">' + (idx < 10 ? '0' + idx : idx) + '</span>' +
+          '<span class="pinfo"><b>' + esc(p.name) + '</b><em>' + esc(p.subtitle) + '</em></span>' +
+          '<span class="' + badgeCls + '">' + badge + '</span>';
+        row.addEventListener('click', function(){ openPoint(p.id, 0); });
+        body.appendChild(row);
+      });
+
+      unit.appendChild(head);
+      unit.appendChild(body);
+      wrap.appendChild(unit);
+    });
+    updateStats();
+    updateDownloadState();
+  }
+
+  /* ---------- 课程页 ---------- */
+  function renderChips(p){
+    var box = el('stepChips');
+    box.innerHTML = '';
+    p.steps.forEach(function(s, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'step';
+      b.textContent = (i + 1) + ' · ' + s.label;
+      b.addEventListener('click', function(){
+        stopPlayback();
+        startPlayback(i);
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function updateChips(i){
+    var chips = el('stepChips').querySelectorAll('.step');
+    for(var k = 0; k < chips.length; k++){
+      chips[k].classList.toggle('on', k === i);
+    }
+  }
+
+  function updateLearnedTag(){
+    var tag = el('learnedTag');
+    if(!tag || !current.point) return;
+    if(store.learned[current.point.id]){
+      tag.textContent = '已学';
+      tag.classList.add('learned');
+    }else{
+      tag.textContent = '3 步动画';
+      tag.classList.remove('learned');
+    }
+  }
+
+  function markLearned(){
+    if(!current.point) return;
+    if(!store.learned[current.point.id]){
+      store.learned[current.point.id] = 1;
+      save();
+      updateStats();
+      updateLearnedTag();
+    }
+  }
+
+  function setStep(i){
+    var p = current.point;
+    if(!p) return;
+    i = Math.max(0, Math.min(2, i));
+    current.step = i;
+
+    var scenes = document.querySelectorAll('.scene');
+    for(var k = 0; k < scenes.length; k++) scenes[k].classList.remove('on');
+    var sc = document.getElementById('scene-' + p.id);
+    if(sc){
+      sc.classList.add('on');
+      sc.className = 'scene on s' + (i + 1);
+    }
+    updateChips(i);
+
+    var s = p.steps[i];
+    el('caption').innerHTML = '<b>第 ' + (i + 1) + ' 步：</b>' + s.caption;
+
+    var eq = el('equation');
+    if(s.eq){
+      eq.innerHTML = esc(s.eq) + (s.eqSub ? '<span>' + esc(s.eqSub) + '</span>' : '');
+      eq.classList.add('show');
+    }else{
+      eq.classList.remove('show');
+      eq.innerHTML = '';
+    }
+
+    var ro = el('readouts');
+    ro.innerHTML = '';
+    p.readoutLabels.forEach(function(label, k){
+      var d = document.createElement('div');
+      d.className = 'readout';
+      d.innerHTML = '<span>' + esc(label) + '</span><b>' + esc(s.reads[k] || '—') + '</b>';
+      ro.appendChild(d);
+    });
+
+    if(i === 2) markLearned();
+  }
+
+  function startPlayback(from){
+    if(!current.point) return;
+    stopAudio();
+    current.playing = true;
+    current.paused = false;
+    current.from = (typeof from === 'number' && from >= 0 && from < 3) ? from : 0;
+    var btn = el('play');
+    if(btn) btn.disabled = true;
+    setPlayText('加载语音…');
+    showPause(false);
+    playStep(current.from);
+  }
+
+  function preloadStep(i){
+    if(!current.point || i >= 3) return;
+    warm(current.point.steps[i].audio);
+  }
+
+  function failStep(i){
+    detachAudio();
+    current.playing = false;
+    current.paused = false;
+    current.from = i;
+    resetBar();
+    var b = el('play');
+    if(b){ b.disabled = false; b.textContent = '↻ 重试'; }
+    showPause(false);
+  }
+
+  function playStep(i){
+    if(!current.playing || !current.point) return;
+    if(i >= 3){
+      current.playing = false;
+      current.paused = false;
+      current.from = 0;
+      setPlayText('↻ 重播');
+      var b = el('play');
+      if(b) b.disabled = false;
+      showPause(false);
+      setBar(100);
+      markLearned();
+      return;
+    }
+
+    detachAudio();
+    current.step = i;
+    current.from = i;
+    current.paused = false;
+    setStep(i);
+    resetBar();
+    setPlayText('加载语音…');
+
+    var s = current.point.steps[i];
+
+    var a;
+    try{
+      a = new Audio(playableSrc(s.audio));
+    }catch(e){
+      failStep(i);
+      return;
+    }
+    current.audio = a;
+    a.preload = 'auto';
+    a.muted = !current.soundOn;
+    audioPool.push(a);
+    if(audioPool.length > 120) audioPool.shift();
+
+    a.onloadedmetadata = function(){
+      if(current.audio !== a) return;
+      setBar(0);
+    };
+    a.ontimeupdate = function(){
+      if(current.audio !== a) return;
+      var d = a.duration;
+      if(!isFinite(d) || d <= 0) d = s.dur || 0;
+      setBar(d > 0 ? (a.currentTime / d) * 100 : 0);
+    };
+    a.onplaying = function(){
+      if(current.audio !== a) return;
+      setPlayText('播放中…');
+      showPause(true, '⏸ 暂停');
+      preloadStep(i + 1);
+    };
+    a.onended = function(){
+      if(current.audio !== a) return;
+      a.onended = null;
+      current.audio = null;
+      playStep(i + 1);
+    };
+    a.onerror = function(){
+      if(current.audio !== a) return;
+      failStep(i);
+    };
+
+    var pr;
+    try{
+      pr = a.play();
+    }catch(e){
+      failStep(i);
+      return;
+    }
+    if(pr && pr.catch){
+      pr.catch(function(err){
+        if(current.audio !== a) return;
+        if(err && err.name === 'NotAllowedError'){
+          current.paused = true;
+          setPlayText('点击继续');
+          showPause(true, '▶ 继续');
+        }else{
+          failStep(i);
+        }
+      });
+    }
+  }
+
+  function togglePause(){
+    if(!current.audio || !current.playing) return;
+    var a = current.audio;
+    var p = el('pause');
+    if(current.paused){
+      current.paused = false;
+      if(p) p.textContent = '⏸ 暂停';
+      setPlayText('播放中…');
+      var pr = a.play();
+      if(pr && pr.catch){
+        pr.catch(function(){ current.paused = true; if(p) p.textContent = '▶ 继续'; });
+      }
+    }else{
+      current.paused = true;
+      try{ a.pause(); }catch(e){}
+      if(p) p.textContent = '▶ 继续';
+      setPlayText('已暂停');
+    }
+  }
+
+  /* ---------- 题库 ---------- */
+  function buildFeedback(q, chosen){
+    var ok = chosen === q.answerIndex;
+    var notes = q.optionNotes.map(function(n, i){
+      return '<p class="' + (i === q.answerIndex ? 'ok' : '') + '">' + esc(n) + '</p>';
+    }).join('');
+    return '<div class="verdict ' + (ok ? 'ok' : 'no') + '">' +
+      (ok ? '✓ 回答正确' : '✗ 正确答案是 ' + letter(q.answerIndex)) +
+      '</div><div class="notes">' + notes + '</div>' +
+      '<div class="explain"><b>解析</b> ' + esc(q.explanation) + '</div>' +
+      '<div class="q-actions"><button class="speak" type="button">🔊 听讲解</button></div>';
+  }
+
+  function revealQuestion(card, q, chosen, qi){
+    var opts = card.querySelectorAll('.opt');
+    for(var i = 0; i < opts.length; i++){
+      opts[i].disabled = true;
+      if(i === q.answerIndex) opts[i].classList.add('correct');
+      if(i === chosen && chosen !== q.answerIndex) opts[i].classList.add('wrong');
+    }
+    var fb = card.querySelector('.q-feedback');
+    fb.innerHTML = buildFeedback(q, chosen);
+    fb.classList.remove('hidden');
+    var btn = fb.querySelector('.speak');
+    btn.addEventListener('click', function(){
+      speakQuestion(q, qi, btn);
+    });
+  }
+
+  function renderQuestions(){
+    var p = current.point;
+    var wrap = el('questions');
+    wrap.innerHTML = '';
+    p.questions.forEach(function(q, qi){
+      var card = document.createElement('div');
+      card.className = 'q card';
+      card.setAttribute('data-q', q.id);
+      var opts = q.options.map(function(o, i){
+        return '<button class="opt" type="button" data-i="' + i + '">' +
+          '<span class="letter">' + letter(i) + '</span><span>' + esc(o) + '</span></button>';
+      }).join('');
+      card.innerHTML =
+        '<div class="q-top"><span class="q-idx">Q' + (qi + 1) + '</span>' +
+        '<span class="angle">' + esc(q.angle) + '</span>' +
+        '<span class="source">' + esc(q.source) + '</span></div>' +
+        '<p class="stem">' + esc(q.stem) + '</p>' +
+        '<div class="opts">' + opts + '</div>' +
+        '<div class="q-feedback hidden"></div>';
+
+      var btns = card.querySelectorAll('.opt');
+      for(var i = 0; i < btns.length; i++){
+        (function(idx){
+          btns[idx].addEventListener('click', function(){
+            if(Object.prototype.hasOwnProperty.call(store.answers, q.id)) return;
+            store.answers[q.id] = idx;
+            if(idx === q.answerIndex){ delete store.wrong[q.id]; }
+            else { store.wrong[q.id] = 1; }
+            save();
+            revealQuestion(card, q, idx, qi);
+            updateStats();
+            updateQProgress();
+          });
+        })(i);
+      }
+
+      if(Object.prototype.hasOwnProperty.call(store.answers, q.id)){
+        revealQuestion(card, q, store.answers[q.id], qi);
+      }
+      wrap.appendChild(card);
+    });
+    updateQProgress();
+  }
+
+  function updateQProgress(){
+    var p = current.point;
+    if(!p) return;
+    var n = pointAnswered(p);
+    var right = 0;
+    p.questions.forEach(function(q){
+      var a = store.answers[q.id];
+      if(a === q.answerIndex) right++;
+    });
+    el('qProgress').textContent = '已答 ' + n + '/5 · 答对 ' + right;
+  }
+
+  /* ---------- 语音朗读 ---------- */
+  function pickVoice(){
+    if(!('speechSynthesis' in window)) return null;
+    var vs = window.speechSynthesis.getVoices() || [];
+    for(var i = 0; i < vs.length; i++){
+      if(/zh[-_]CN/i.test(vs[i].lang) || /Huihui|Chinese|中文|普通话/i.test(vs[i].name)) return vs[i];
+    }
+    return null;
+  }
+
+  function stopSpeech(){
+    if('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if(current.speechBtn){
+      current.speechBtn.textContent = '🔊 听讲解';
+      current.speechBtn = null;
+    }
+  }
+
+  function speakQuestion(q, qi, btn){
+    if(!('speechSynthesis' in window)){ btn.textContent = '此设备不支持语音'; return; }
+    if(current.speechBtn === btn){
+      stopSpeech();
+      return;
+    }
+    stopSpeech();
+    var text = '第' + (qi + 1) + '题，正确答案是' + letter(q.answerIndex) + '。' + q.explanation;
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN';
+    u.rate = 0.95;
+    u.pitch = 1;
+    var v = pickVoice();
+    if(v) u.voice = v;
+    var self = btn;
+    u.onend = function(){ if(current.speechBtn === self){ self.textContent = '🔊 听讲解'; current.speechBtn = null; } };
+    u.onerror = function(){ if(current.speechBtn === self){ self.textContent = '🔊 听讲解'; current.speechBtn = null; } };
+    current.speechBtn = btn;
+    btn.textContent = '■ 停止';
+    window.speechSynthesis.speak(u);
+  }
+
+  /* ---------- 打开知识点 ---------- */
+  function updateHash(){
+    if(!current.point) return;
+    try{ history.replaceState(null, '', '#' + current.point.id + '/' + current.step); }catch(e){}
+  }
+
+  function openPoint(id, stepIdx, viaRow){
+    var p = POINT_MAP[id];
+    if(!p) return;
+    stopPlayback();
+    stopSpeech();
+    current.point = p;
+    current.index = DATA.indexOf(p);
+    current.step = 0;
+
+    el('home').classList.add('hidden');
+    el('lesson').classList.remove('hidden');
+    el('lessonKicker').textContent = p.unit;
+    el('lessonTitle').textContent = p.title;
+    el('lessonSub').textContent = p.subtitle;
+    el('crumb').textContent = p.unit + ' · ' + p.name;
+
+    renderChips(p);
+    renderQuestions();
+    setStep(typeof stepIdx === 'number' ? stepIdx : 0);
+    updateLearnedTag();
+    current.from = 0;
+    hydratePoint(p);
+
+    var prev = el('prevPoint'), next = el('nextPoint');
+    prev.disabled = current.index <= 0;
+    next.disabled = current.index >= DATA.length - 1;
+    prev.style.opacity = prev.disabled ? '.45' : '1';
+    next.style.opacity = next.disabled ? '.45' : '1';
+
+    var b = el('play');
+    b.disabled = false;
+    b.textContent = '▶ 播放讲解';
+
+    updateHash();
+    try{ window.scrollTo(0, 0); }catch(e){}
+    if(viaRow){ /* 由用户点击进入，保持静音待播 */ }
+  }
+
+  function goHome(){
+    stopPlayback();
+    stopSpeech();
+    current.point = null;
+    el('lesson').classList.add('hidden');
+    el('home').classList.remove('hidden');
+    renderHome();
+    try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){}
+    try{ window.scrollTo(0, 0); }catch(e){}
+  }
+
+  /* ---------- 事件绑定 ---------- */
+  el('back').addEventListener('click', goHome);
+  el('play').addEventListener('click', function(){
+    if(!current.point) return;
+    if(current.playing) return;
+    startPlayback(current.from || 0);
+  });
+  el('pause').addEventListener('click', togglePause);
+  el('downloadAll').addEventListener('click', downloadAllAudio);
+  el('sound').addEventListener('click', function(){
+    current.soundOn = !current.soundOn;
+    el('sound').textContent = current.soundOn ? '🔊 讲解' : '🔇 静音';
+    if(current.audio) current.audio.muted = !current.soundOn;
+  });
+  el('prevPoint').addEventListener('click', function(){
+    if(current.index > 0) openPoint(DATA[current.index - 1].id, 0);
+  });
+  el('nextPoint').addEventListener('click', function(){
+    if(current.index < DATA.length - 1) openPoint(DATA[current.index + 1].id, 0);
+  });
+  el('reset').addEventListener('click', function(){
+    if(!window.confirm('确定清空已学知识点、答题记录和错题吗？')) return;
+    store = { learned: {}, answers: {}, wrong: {} };
+    save();
+    renderHome();
+    if(current.point) goHome();
+  });
+
+  if('speechSynthesis' in window){
+    window.speechSynthesis.onvoiceschanged = function(){ /* 触发一次语音列表加载 */ };
+  }
+
+  /* ---------- 初始化 ---------- */
+  renderHome();
+
+  var m = (location.hash || '').match(/^#((?:j[123]|s[1-8]|g[23])-(?:[1-9]|1[0-4]))(?:\/([0-2]))?$/);
+  if(m && POINT_MAP[m[1]]){
+    openPoint(m[1], m[2] ? Number(m[2]) : 0);
+  }
+
+  document.documentElement.setAttribute('data-ready', '1');
+  document.documentElement.setAttribute('data-points', String(DATA.length));
+
+  if(location.search.indexOf('debug=1') >= 0){
+    setTimeout(function(){
+      var w = function(id){ var e = el(id); return e ? e.offsetWidth : 0; };
+      var vals = [w('stageBox'), w('caption'), w('readouts'), w('questions'), w('lesson'), document.body.scrollWidth];
+      document.documentElement.setAttribute('data-debug', vals.join('/'));
+    }, 600);
+  }
+
+  window.__JC = {
+    data: DATA,
+    open: openPoint,
+    home: goHome,
+    get errors(){ return errs.slice(); },
+    get current(){
+      return {
+        playing: current.playing,
+        paused: current.paused,
+        step: current.step,
+        soundOn: current.soundOn,
+        audioTime: current.audio ? current.audio.currentTime : 0,
+        audioDur: current.audio ? current.audio.duration : 0,
+        audioSrc: current.audio ? current.audio.src : '',
+        bar: el('audioBar') ? el('audioBar').style.width : ''
+      };
+    },
+    activeAudios: function(){
+      return audioPool.filter(function(a){ return !a.paused && !a.ended; }).length;
+    },
+    seek: function(sec){
+      if(!current.audio) return;
+      var d = current.audio.duration;
+      if(!isFinite(d) || d <= 0) return;
+      current.audio.currentTime = Math.max(0, Math.min(d - 0.25, sec));
+    },
+    downloadAll: downloadAllAudio,
+    canCache: canCache,
+    store: store
+  };
+})();
+
+</script>
+</body>
+</html>

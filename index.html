@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>化学动画课 · 全学段入口</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --ink:#22314a; --muted:#7c8aa3; --line:#e8e2d6; --paper:#f5f1e8;
+    --teal:#0e8a7b; --teal-dark:#0a6b60; --card:#ffffff;
+    --shadow:0 18px 50px rgba(60,50,30,.08);
+  }
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 420px at 50% -160px,#fffaf0 0%,rgba(255,250,240,0) 65%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{max-width:900px;margin:0 auto;padding:24px 14px 40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+  .hero{padding:22px;background:linear-gradient(155deg,#fff 0%,#f7fbfa 60%,#f2f7fb 100%);border-radius:26px}
+  .hero-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .kicker{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.7px;color:var(--teal);
+    background:#e8f7f3;border-radius:999px;padding:5px 10px}
+  .pill{font-size:10px;font-weight:800;color:var(--teal);background:#e8f7f3;border-radius:999px;padding:7px 11px;white-space:nowrap}
+  h1{font-size:26px;font-weight:900;letter-spacing:-.5px;margin:12px 0 7px;line-height:1.3}
+  .sub{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px}
+  .stat{background:#f8fafc;border:1px solid #e8eef5;border-radius:14px;padding:11px 8px;text-align:center}
+  .stat b{display:block;font-size:21px;font-weight:900;color:var(--teal-dark)}
+  .stat span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+  .features{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .feature{font-size:10.5px;font-weight:700;color:#5b6b82;background:#f8fafc;border:1px solid #e8eef5;border-radius:999px;padding:6px 10px}
+  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:24px 4px 10px}
+  .section-title h2{font-size:16px;font-weight:900;margin:0}
+  .section-title span{font-size:10.5px;color:var(--muted)}
+  .grades{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grade{position:relative;display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:20px;background:#fff;
+    border:1px solid var(--line);box-shadow:0 10px 30px rgba(60,50,30,.05);text-decoration:none;color:inherit;transition:.18s}
+  .grade.ready:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(60,50,30,.1);border-color:#cfe4df}
+  .grade.soon{cursor:default;background:#fbfcfe;border-style:dashed;box-shadow:none}
+  .grade-top{display:flex;align-items:center;gap:12px}
+  .icon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;font-size:15px;font-weight:900;color:#fff}
+  .g-name{font-size:17px;font-weight:900}
+  .g-sub{font-size:10.5px;color:var(--muted);margin-top:3px}
+  .g-meta{display:flex;gap:14px;flex-wrap:wrap}
+  .g-meta b{display:block;font-size:16px;font-weight:900}
+  .g-meta span{display:block;font-size:9.5px;color:var(--muted)}
+  .cta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .cta .enter{font-size:11.5px;font-weight:900;color:var(--teal-dark)}
+  .cta .arrow{width:26px;height:26px;border-radius:50%;background:#e7f7f2;color:var(--teal-dark);display:grid;place-items:center;font-size:14px}
+  .soon-tag{font-size:10px;font-weight:800;color:#94a3b8;background:#f1f5f9;border-radius:999px;padding:5px 9px}
+  .foot{display:flex;flex-direction:column;gap:8px;margin-top:20px;padding:0 4px;font-size:10.5px;color:var(--muted);line-height:1.7}
+  .foot a{color:var(--teal-dark);font-weight:800;text-decoration:none}
+  .foot code{background:#fff;border:1px solid #e8eef5;border-radius:6px;padding:1px 5px;font-size:10px;color:#475569}
+  @media(max-width:560px){
+    .app{padding:14px 10px 28px}
+    .hero{padding:16px;border-radius:22px}
+    h1{font-size:21px}
+    .grades{grid-template-columns:1fr}
+    .grade{padding:15px}
+    .stats{gap:7px}
+    .stat b{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="card hero">
+    <div class="hero-top">
+      <span class="kicker">化学动画课 · 全学段</span>
+      <span class="pill">3 步动画 · 语音同步</span>
+    </div>
+    <h1>一个入口，从初中看到高三</h1>
+    <p class="sub">初中全册、高一必修、高二选择性必修与高三专题复习已全部接入，共 78 个知识点。</p>
+    <div class="stats">
+      <div class="stat"><b>78</b><span>已完成知识点</span></div>
+      <div class="stat"><b>234</b><span>步动画</span></div>
+      <div class="stat"><b>390</b><span>道改编题</span></div>
+    </div>
+    <div class="features">
+      <span class="feature">每点 3 步 2D SVG</span>
+      <span class="feature">语音与步骤同步</span>
+      <span class="feature">4 选项 · 逐项解析</span>
+      <span class="feature">进度保存在本机</span>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <h2>选择学段</h2>
+    <span>点击卡片进入课程</span>
+  </div>
+  <div class="grades" id="grades"></div>
+
+  <div class="foot">
+    <div>音频按学段、按步加载：进入某个学段后，只在播放时下载当前这一步的音频，不会一次加载全部音频。</div>
+    <div>分享给他人：把整个 <code>chemistry</code> 文件夹一起发送，对方解压后双击 <code>index.html</code> 即可，音频会随文件夹一起播放。</div>
+    <div>局域网访问：在项目目录运行 <code>python serve.py</code>，同一 Wi-Fi 下的手机/电脑打开终端显示的地址。</div>
+    <div><a href="README.md">查看使用与部署说明</a></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var GRADES = [
+    {
+      id:'junior', name:'初中化学', sub:'人教版九年级 · 12 个单元',
+      points:33, steps:99, questions:165, href:'junior.html', ready:true,
+      accent:'#0e8a7b', icon:'初'
+    },
+    {
+      id:'senior1', name:'高一化学', sub:'必修一 / 必修二 · 8 章',
+      points:23, steps:69, questions:115, href:'senior.html', ready:true,
+      accent:'#1d4ed8', icon:'高1'
+    },
+    {
+      id:'senior2', name:'高二化学', sub:'选择性必修1 / 2 · 2 个模块',
+      points:8, steps:24, questions:40, href:'senior2.html', ready:true,
+      accent:'#b45309', icon:'高2'
+    },
+    {
+      id:'senior3', name:'高三化学', sub:'选择性必修3 + 专题复习 · 2 个模块',
+      points:14, steps:42, questions:70, href:'senior3.html', ready:true,
+      accent:'#be185d', icon:'高3'
+    }
+  ];
+
+  function card(g){
+    var tag = g.ready
+      ? '<div class="cta"><span class="enter">进入课程</span><span class="arrow">→</span></div>'
+      : '<div class="cta"><span class="soon-tag">建设中</span><span class="arrow" style="background:#f1f5f9;color:#94a3b8">·</span></div>';
+    var meta = g.ready
+      ? '<div class="g-meta"><div><b>' + g.points + '</b><span>知识点</span></div>' +
+        '<div><b>' + g.steps + '</b><span>步动画</span></div>' +
+        '<div><b>' + g.questions + '</b><span>道题</span></div></div>'
+      : '<div class="g-meta"><div><b>—</b><span>知识点</span></div><div><b>—</b><span>步动画</span></div><div><b>—</b><span>道题</span></div></div>';
+    var inner =
+      '<div class="grade-top"><div class="icon" style="background:' + g.accent + '">' + g.icon + '</div>' +
+      '<div><div class="g-name">' + g.name + '</div><div class="g-sub">' + g.sub + '</div></div></div>' +
+      meta + tag;
+    return g.ready
+      ? '<a class="grade ready" href="' + g.href + '">' + inner + '</a>'
+      : '<div class="grade soon">' + inner + '</div>';
+  }
+
+  document.getElementById('grades').innerHTML = GRADES.map(card).join('');
+})();
+</script>
+</body>
+</html>
